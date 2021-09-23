@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import PyProjects from './components/PyProjects'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import NavBar from './components/NavBar';
 
 function App() {
+  /**
+  @description: Contains the application logic of the app. Using react-router-dom, a 3rd party library, user can switch between pages. Plz read more abt react-router-dom
+  **/
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Ipython</h1>
+      <PyProjects/>
+      <Router>
+        <NavBar/>
+        <Switch>
+          <Route path='/'/>
+        </Switch>
+      </Router>
     </div>
   );
 }
