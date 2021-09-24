@@ -9,19 +9,19 @@ const NavBar = () => {
     **/
     return (
         <div>
-            <div className="navBar">
-                <ul className="nav-ul">
-                {NavBarOptions.map((item, idx) => {
-                    return (
-                        <li key={idx} className={item.cName}>
-                            <Link to={item.path}>
-                                {item.icon} <span className="nav-titles">{item.title}</span>
-                            </Link>
-                        </li>
-                    )
-                })}
-                </ul>
-            </div>
+        <div className="navBar">
+            <ul className="nav-ul">
+            {NavBarOptions.map((item, idx) => {
+                return (
+                    <li key={idx} className={item.cName}>
+                        <Link to={item.path}>
+                            {item.icon} <span className="nav-titles">{item.title}</span>
+                        </Link>
+                    </li>
+                )
+            })}
+            </ul>
+        </div>
         </div>
     )
 }
