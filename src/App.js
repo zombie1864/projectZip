@@ -1,6 +1,8 @@
-import PyProjects from './components/PyProjects'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import NavBar from './components/NavBar';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Task from './pages/Task';
 
 function App() {
   /**
@@ -8,12 +10,12 @@ function App() {
   **/
   return (
     <div className="App">
-      <h1>Ipython</h1>
-      <PyProjects/>
       <Router>
         <NavBar/>
         <Switch>
-          <Route path='/'/>
+          <Route path='/' exact component={Home}/>
+          <Route path='/projects' component={Projects}/>
+          <Route path='/task' component={Task}/>
         </Switch>
       </Router>
     </div>
