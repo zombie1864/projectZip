@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import NavBarOptions from './NavBarOptions'
-import '../css/navBar.css'
+import '../../css/navBar.css'
 
 const NavBar = () => {
     /**

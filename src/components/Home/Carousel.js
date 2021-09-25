@@ -1,15 +1,15 @@
-import {Carousel} from '3d-react-carousal';
-import {imgSlides} from '../utils/slides'
+import {Carousel as Third_party_carousal} from '3d-react-carousal';
+import {imgSlides} from '../../utils/slides'
 
-const PyProjects = () => {
+const Carousel = () => {
     /**
     @description: This comp contains the carousal that will be rendered showing images/code snippets of python projects. To accomplish this npm i 3d-react-carousal was used. 
     **/
    return (
         <div>
-            <Carousel slides={imgSlides}/>
+            <Third_party_carousal slides={imgSlides}/>
         </div>
     )
 }
 
-export default PyProjects
+export default Carousel

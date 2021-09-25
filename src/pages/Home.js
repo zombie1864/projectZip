@@ -1,11 +1,11 @@
 import React from 'react'
-import PyProjects from '../components/PyProjects'
+import Carousel from '../components/Home/Carousel'
 
 const Home = () => {
     return (
         <div>
             <h1 className="home">Ipython</h1>
-            <PyProjects/>
+            <Carousel/>
         </div>
     )
 }
