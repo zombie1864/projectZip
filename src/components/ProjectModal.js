@@ -19,16 +19,16 @@ const overLayCss = {
     zIndex: 1 
 }
 
-const Modal = ({openModal, children, onClose}) => { // yes has to be called children
+const ProjectModal = ({openModal, modelTxt, onClose, projId}) => { // yes has to be called children
     if (!openModal) return null 
     return (
         <div style={overLayCss}>
         <div style={modalCss}>
-            {children}
+            {modelTxt}
             <button onClick={onClose}>Close Modal</button>
         </div>
         </div>
     )
 }
 
-export default Modal
+export default ProjectModal
