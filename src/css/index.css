@@ -7,15 +7,36 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+table{
+  border-collapse: collapse;  
+  table-layout: auto;
+  width: 100%;
+}
+
+
+table td {
+  padding: 0 0;
+}
+
+
 .home {
   display: flex;
+  width: 500px;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
 }
 
 /*  THIS SECTION IS FILLER */
-.projects, .task {
+.projects {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.task {
   display: flex;
   height: 90vh;
   align-items: center;

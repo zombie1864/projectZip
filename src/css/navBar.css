@@ -4,9 +4,9 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    position: fixed;
-    top: 0;
-    z-index: 1;
+    /* position: fixed; */
+    /* top: 0; */
+    /* z-index: 1; */
 }
 
 .nav-ul {

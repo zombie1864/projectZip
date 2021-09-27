@@ -1,4 +1,8 @@
-import MyComp from './components/MyComp';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import NavBar from './components/NavBar/NavBar';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Task from './pages/Task';
 
 function App() {
   /**
@@ -6,11 +10,24 @@ function App() {
   **/
   return (
     <div className="App">
-      <MyComp title={1}/>
-      <MyComp/>
+      <Router>
+        <table>
+          <tr>
+            <td>
+              <NavBar/>
+            </td>
+            <td>
+              <Switch>
+                <Route path='/' exact component={Home}/>
+                <Route path='/projects' component={Projects}/>
+                <Route path='/task' component={Task}/>
+              </Switch>
+            </td>
+          </tr>
+        </table>
+      </Router>
     </div>
   );
 }
 
 export default App;
-
