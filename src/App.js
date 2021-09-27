@@ -1,8 +1,4 @@
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import NavBar from './components/NavBar/NavBar';
-import Home from './pages/Home';
-import Projects from './pages/Projects';
-import Task from './pages/Task';
+import MyComp from './components/MyComp';
 
 function App() {
   /**
@@ -10,16 +6,11 @@ function App() {
   **/
   return (
     <div className="App">
-      <Router>
-        <NavBar/>
-        <Switch>
-          <Route path='/' exact component={Home}/>
-          <Route path='/projects' component={Projects}/>
-          <Route path='/task' component={Task}/>
-        </Switch>
-      </Router>
+      <MyComp title={1}/>
+      <MyComp/>
     </div>
   );
 }
 
 export default App;
+

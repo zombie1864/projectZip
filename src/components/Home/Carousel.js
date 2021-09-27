@@ -1,4 +1,4 @@
-import {Carousel as Third_party_carousal} from '3d-react-carousal';
+import {Carousel as ThirdPartyCarousal} from '3d-react-carousal';
 import {imgSlides} from '../../utils/slides'
 
 const Carousel = () => {
@@ -7,7 +7,7 @@ const Carousel = () => {
     **/
    return (
         <div>
-            <Third_party_carousal slides={imgSlides}/>
+            <ThirdPartyCarousal slides={imgSlides}/>
         </div>
     )
 }
