@@ -6,7 +6,8 @@ const modalCss = {
     left: '50%',
     transform: 'translate(-50%,-50%)',
     backgroundColor: '#FFF',
-    zIndex: 1 
+    zIndex: 1, 
+    fontSize: '12px'
 }
 
 const overLayCss = {
@@ -19,13 +20,17 @@ const overLayCss = {
     zIndex: 1 
 }
 
-const ProjectModal = ({openModal, modelTxt, onClose, projId}) => { // yes has to be called children
+const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
     if (!openModal) return null 
     return (
         <div style={overLayCss}>
         <div style={modalCss}>
-            {modelTxt}
-            <button onClick={onClose}>Close Modal</button>
+            {projTitle}
+            {projPurpose}
+            {projTech}
+            {projAoA}
+            {ProjSrcCode}
+            <button onClick={closeModal}>Close Modal</button>
         </div>
         </div>
     )
