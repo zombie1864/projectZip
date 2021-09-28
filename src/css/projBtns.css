@@ -1,0 +1,34 @@
+.projBtns {
+    color: white;
+    border-radius: 20px;
+    width: 85px;
+    height: 90px;
+    background-image: linear-gradient(
+        180deg,
+        #151b26 0%, 
+        #07addb 50%, 
+        #151b26 100%
+    );
+    border-style: solid;
+    border-width: thin;
+    margin: 10px 20px;
+}
+
+
+.projBtnIcon {
+    font-size: 20px;
+}
+
+
+.projBtnTitle {
+    font-size: 13px;
+    margin: 10px 20px;
+}
+
+
+.projBtns:hover {
+    transform: translate(0, -6px);
+    box-shadow: 10px -10px 25px 0 rgba(64, 122, 248, 0.8), -10px 10px 25px 0 rgba(39, 200, 255, 0.8);
+    transition: transform 0.5s;
+    cursor: pointer
+}

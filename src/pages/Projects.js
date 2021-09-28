@@ -6,8 +6,11 @@ const Projects = () => {
     @description: This container func contains all the comp associated with what is being rendered on the page.
     **/
     return (
-        <div className="projects">
-            <ProjBtns/>
+        <div>
+            <h3>Projects</h3>
+            <div>
+                <ProjBtns/>
+            </div>
         </div>
     )
 }
