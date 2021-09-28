@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import ProjectModal from './ProjectModal'
+import '../../css/projBtns.css'
 import { pyProjects } from '../../utils/pyProjMetaData'
 
 const ProjBtns = () => {
@@ -27,19 +28,20 @@ const ProjBtns = () => {
         <div>
             {pyProjects.map( project => {
                 return (
-                    <div key={project.id}>
-                        <button 
-                        data-projid={project.id} 
-                        data-projtitle={project.title}
-                        data-projpurpose={project.purpose}
-                        data-projtech={project.technologyUsed}
-                        data-projaoa={project.AoA}
-                        data-projsrccode={project.srcCode}
-                        onClick={toggleModal} 
-                        style={{backgroundColor:'orange'}} >
-                            {project.icon}
-                            {project.title}
-                        </button>
+                    <div className='projBtnContainer'>
+                    <button 
+                    key={project.id}
+                    className='projBtns'
+                    data-projid={project.id} 
+                    data-projtitle={project.title}
+                    data-projpurpose={project.purpose}
+                    data-projtech={project.technologyUsed}
+                    data-projaoa={project.AoA}
+                    data-projsrccode={project.srcCode}
+                    onClick={toggleModal}>
+                        <span className='projBtnIcon'>{project.icon}</span>
+                    </button>
+                    <p className='projBtnTitle'>{project.title}</p>
                     </div>
                 )
             })}
