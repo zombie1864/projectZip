@@ -1,4 +1,5 @@
 import React from 'react'
+import ProjBtns from '../components/projects/ProjBtns'
 
 const Projects = () => {
     /**
@@ -6,9 +7,10 @@ const Projects = () => {
     **/
     return (
         <div className="projects">
-            <h1>Projects</h1>
+            <ProjBtns/>
         </div>
     )
 }
 
 export default Projects
+
