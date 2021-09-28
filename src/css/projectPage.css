@@ -1,0 +1,11 @@
+.projectPage {
+    position: absolute;
+    left: 200px;
+    top: 50px;
+}
+
+.pageTitleProject {
+    position: relative;
+    top: -30px;
+    left: 20px;
+}

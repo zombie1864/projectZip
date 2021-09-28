@@ -28,9 +28,7 @@ const ProjBtns = () => {
         <div>
             {pyProjects.map( project => {
                 return (
-                    <div style={{
-                        display: 'inline-block',
-                        }}>
+                    <div className='projBtnContainer'>
                     <button 
                     key={project.id}
                     className='projBtns'

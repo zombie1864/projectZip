@@ -17,7 +17,8 @@ function App() {
               <NavBar/>
             </td>
             <td>
-              <Switch>
+              {/* switched between pages - App() is the spa */}
+              <Switch> 
                 <Route path='/' exact component={Home}/>
                 <Route path='/projects' component={Projects}/>
                 <Route path='/task' component={Task}/>
