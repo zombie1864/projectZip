@@ -1,4 +1,4 @@
-.modalOverlay {
+.modalBackdrop {
     position: fixed;
     top: 0; 
     left: 0;
@@ -15,5 +15,5 @@
     transform: translate(-50%,-50%);
     background-color: #FFF;
     z-index: 1; 
-    font-size: 12px
+    font-size: 12px;
 }
