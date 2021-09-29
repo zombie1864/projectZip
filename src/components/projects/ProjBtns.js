@@ -46,7 +46,7 @@ const ProjBtns = () => {
                         data-projaoa={project.AoA}
                         data-projsrccode={project.srcCode}
                         onClick={toggleModal}>
-                            <span className='projBtnIcon'>{project.icon}</span>
+                            <motion.span className='projBtnIcon'>{project.icon}</motion.span>
                         </motion.button>
                         <p className='projBtnTitle'>{project.title}</p>
                     </div>
