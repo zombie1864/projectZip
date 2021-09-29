@@ -4,16 +4,21 @@
     left: 0;
     right: 0; 
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1;
+    background: linear-gradient(#000000, #232d9c);
 }
 
 .modal {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 15%;
+    left: 25%;
+    right: 25%;
     transform: translate(-50%,-50%);
-    background-color: #FFF;
+    background-color: rgb(255, 255, 255);
+    color: #000000;
     z-index: 1; 
     font-size: 12px;
+    border-radius: 5px;
+    width: 50vw;
+    height: 50vh;
+    padding: 20px;
 }
