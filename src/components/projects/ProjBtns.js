@@ -38,6 +38,7 @@ const ProjBtns = () => {
                         className='projBtns'
                         key={project.id}
                         variants={item}
+                        whileHover={{y:5.0}}
                         data-projid={project.id} 
                         data-projtitle={project.title}
                         data-projpurpose={project.purpose}
@@ -81,8 +82,7 @@ const container = {
   const item = {
     hidden: { y: 20, opacity: 0 },
     visible: {
-      y: 0,
-      opacity: 1
+        opacity: 1
     }
   };
 

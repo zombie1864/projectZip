@@ -1,5 +1,7 @@
 .projBtnContainer {
     display: inline-block;
+    position: relative;
+    top: -25px;
 }
 
 .projBtns {
@@ -15,7 +17,7 @@
     );
     border-style: solid;
     border-width: thin;
-    margin: 10px 20px;
+    margin: 0px 20px 20px 20px;
 }
 
 
@@ -31,7 +33,6 @@
 
 
 .projBtns:hover {
-    transform: translate(0, -6px);
     box-shadow: 10px -10px 25px 0 rgba(64, 122, 248, 0.8), -10px 10px 25px 0 rgba(39, 200, 255, 0.8);
     transition: transform 0.5s;
     cursor: pointer
