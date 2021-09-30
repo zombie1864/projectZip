@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import ProjectModal from './ProjectModal'
 import '../../css/projBtns.css'
 import { pyProjects } from '../../utils/pyProjMetaData'
+import {motion} from 'framer-motion'
 
 const ProjBtns = () => {
     /**
@@ -26,25 +27,32 @@ const ProjBtns = () => {
     }
     return (
         <div>
+            <motion.div 
+            variants={container}
+            initial='hidden'
+            animate='visible'>
             {pyProjects.map( project => {
                 return (
                     <div className='projBtnContainer'>
-                    <button 
-                    key={project.id}
-                    className='projBtns'
-                    data-projid={project.id} 
-                    data-projtitle={project.title}
-                    data-projpurpose={project.purpose}
-                    data-projtech={project.technologyUsed}
-                    data-projaoa={project.AoA}
-                    data-projsrccode={project.srcCode}
-                    onClick={toggleModal}>
-                        <span className='projBtnIcon'>{project.icon}</span>
-                    </button>
-                    <p className='projBtnTitle'>{project.title}</p>
+                        <motion.button 
+                        className='projBtns'
+                        key={project.id}
+                        variants={item}
+                        whileHover={{y:5.0}}
+                        data-projid={project.id} 
+                        data-projtitle={project.title}
+                        data-projpurpose={project.purpose}
+                        data-projtech={project.technologyUsed}
+                        data-projaoa={project.AoA}
+                        data-projsrccode={project.srcCode}
+                        onClick={toggleModal}>
+                            <motion.span className='projBtnIcon'>{project.icon}</motion.span>
+                        </motion.button>
+                        <p className='projBtnTitle'>{project.title}</p>
                     </div>
-                )
-            })}
+                    )
+                })}
+                </motion.div>
             <ProjectModal 
             openModal={modalState} 
             projId={projId}
@@ -58,5 +66,24 @@ const ProjBtns = () => {
         </div>
     )
 }
+
+const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.3
+      }
+    }
+  };
+  
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        opacity: 1
+    }
+  };
 
 export default ProjBtns

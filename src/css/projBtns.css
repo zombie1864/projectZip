@@ -1,5 +1,7 @@
 .projBtnContainer {
     display: inline-block;
+    position: relative;
+    top: -25px;
 }
 
 .projBtns {
@@ -9,13 +11,13 @@
     height: 90px;
     background-image: linear-gradient(
         180deg,
-        #151b26 0%, 
-        #07addb 50%, 
-        #151b26 100%
+        #151b26, 
+        #07addb, 
+        #151b26 
     );
     border-style: solid;
     border-width: thin;
-    margin: 10px 20px;
+    margin: 0px 20px 20px 20px;
 }
 
 
@@ -30,9 +32,35 @@
 }
 
 
+.projBtnTitle::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0.125rem;
+    background: #07addb;
+}
+
+
+.projBtnTitle::after {
+    transform: scale(0, 1);
+    transition:  transform 0.25s ease;
+}
+
+
 .projBtns:hover {
-    transform: translate(0, -6px);
     box-shadow: 10px -10px 25px 0 rgba(64, 122, 248, 0.8), -10px 10px 25px 0 rgba(39, 200, 255, 0.8);
-    transition: transform 0.5s;
+    transition: transform 0.1s;
     cursor: pointer
+}
+
+
+.projBtns:hover + .projBtnTitle::after {
+    transform: scale(1, 1)
+}
+
+
+.projBtns:hover ~ .projBtnTitle {
+    color: rgb(16, 12, 240);
 }
