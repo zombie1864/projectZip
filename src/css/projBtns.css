@@ -11,9 +11,9 @@
     height: 90px;
     background-image: linear-gradient(
         180deg,
-        #151b26 0%, 
-        #07addb 50%, 
-        #151b26 100%
+        #151b26, 
+        #07addb, 
+        #151b26 
     );
     border-style: solid;
     border-width: thin;
