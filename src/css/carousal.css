@@ -1,4 +1,41 @@
 .carousalContainer {
     position: relative;
     top: -25px;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousalImg {
+    width: 600px;
+    border-radius: 10px;
+}
+
+.rightArrow {
+    z-index: 1000;
+    position: relative;
+    cursor: pointer;
+    font-size: 30px;
+    padding-left: 20px;
+}
+
+
+.leftArrow {
+    position: relative;
+    cursor: pointer;
+    font-size: 30px;
+    z-index: 10;
+    padding-right: 20px;
+}
+
+.slide {
+    opacity: 0.3;
+    transition-duration: 1s ease;
+}
+
+.activeSlide {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.05);
 }
