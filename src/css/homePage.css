@@ -1,0 +1,21 @@
+.homeTitle {
+    display: flex;
+    width: 650px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -50px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 2.5rem;
+}
+
+.homeMsg {
+    position: relative;
+    top: -50px;
+}
+
+.homePageContainer {
+    /* background-color: royalblue; */
+    height: 80vh;
+}
