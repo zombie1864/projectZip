@@ -16,7 +16,7 @@ function App() {
             <td>
               <NavBar/>
             </td>
-            <td>
+            <td style={{overflow: 'hidden'}}>
               {/* switched between pages - App() is the spa */}
               <Switch> 
                 <Route path='/' exact component={Home}/>
