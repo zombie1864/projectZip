@@ -1,5 +1,6 @@
 import {imgSlides} from '../../utils/slides'
 import '../../css/carousal.css'
+import { motion, AnimatePresence } from 'framer-motion'
 import React, { useState } from 'react'
 import { CgChevronDoubleLeftR, CgChevronDoubleRightR} from 'react-icons/cg'
 
@@ -32,7 +33,11 @@ const Carousel = () => {
             <CgChevronDoubleLeftR className="leftArrow" onClick={prevSlide}/>
             {imgSlides.map((imgObj, idx) => {
                 return (
-                    <div className={idx === currImgIdx ? 'activeSlide' : 'slide'} key={idx}>
+                    <motion.div 
+                    variants={container}
+                    initial='hidden'
+                    animate='visible'
+                    className={idx === currImgIdx ? 'activeSlide' : null} key={idx}>
                         {
                             idx === currImgIdx && (
                                 <div>
@@ -41,25 +46,37 @@ const Carousel = () => {
                                     alt={imgObj.alt} 
                                     className="carousalImg"/>
                                     <div>
-                                        <p>{imgObj.desc}</p>
+                                        <p className='carouselDesc'>{imgObj.desc}</p>
                                     </div>
                                 </div>
                             )
                         }
-                    </div>
+                    </motion.div>
                 )
             })}
             <CgChevronDoubleRightR className="rightArrow" onClick={nxtSlide}/>
-            <div className="carouselIdxContainer">
+            <div className="carouselNavContainer">
                 {carouselArray.map(
                     (_, idx) => 
                     <div 
-                    className={idx === currImgIdx ? 'activeCarouselIdx' : 'carouselIdx'} 
+                    className={idx === currImgIdx ? 'activeCarouselNav' : 'carouselNav'} 
                     key={idx}/>
                 )}
             </div>
         </div>
     )
 }
+
+
+const container = {
+    hidden: { opacity: 0.3, scale: 0.2 },
+    visible: {
+      opacity: 1,
+      scale: 1.05,
+      transition: {
+          duration: 0.3
+      }
+    }
+};
 
 export default Carousel

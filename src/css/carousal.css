@@ -18,12 +18,11 @@
 }
 
 .activeSlide {
-    opacity: 1;
-    transition-duration: 1s;
-    transform: scale(1.05);
-    background-color: royalblue;
+    /* opacity: 1; */
+    /* transition-duration: 0.5s; */
+    background-color: #151b26e5;
     width: 600px;
-    height: 350px;
+    height: 375px;
     border-radius: 10px;
 }
 
@@ -32,7 +31,22 @@
     width: 600px;
     height: 250px;
     border-radius: 10px 10px 0px 0px;
+    margin: 0;
 }
+
+.carouselDesc {
+    opacity: 1;
+    transition-duration: 5s;
+    color: seashell;
+    font-size: 12px;
+    padding: 10px;
+    animation: fadeIn linear 1.5s;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
 
 
 .rightArrow {
@@ -44,21 +58,16 @@
 }
 
 
-.slide {
-    opacity: 0.3;
-    transition-duration: 1s ease;
-}
 
 
-
-.carouselIdxContainer {
+.carouselNavContainer {
     position: relative;
     display: flex;
     right: 415px;
     top: 275px; 
 }
 
-.activeCarouselIdx {
+.activeCarouselNav {
     width: 25px;
     border-radius: 50%;
     height: 25px;
@@ -72,7 +81,7 @@
     transition-duration: 1s;
 }
 
-.carouselIdx {
+.carouselNav {
     opacity: 0.3;
     transition-duration: 1s ease;
     width: 25px;

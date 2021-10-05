@@ -77,13 +77,13 @@ const container = {
         staggerChildren: 0.3
       }
     }
-  };
+};
   
-  const item = {
+const item = {
     hidden: { y: 20, opacity: 0 },
     visible: {
         opacity: 1
     }
-  };
+};
 
 export default ProjBtns
