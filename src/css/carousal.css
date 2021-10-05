@@ -1,6 +1,6 @@
 .carousalContainer {
     position: relative;
-    top: -100px;
+    top: -110px;
     right: -85px;
     height: 80vh;
     display: flex;
@@ -18,9 +18,11 @@
 }
 
 .activeSlide {
-    /* opacity: 1; */
-    /* transition-duration: 0.5s; */
-    background-color: #151b26e5;
+    background-image: linear-gradient(
+        #3d4963, 
+        #06b9eb,
+        #3d4963 
+    );
     width: 600px;
     height: 375px;
     border-radius: 10px;
@@ -40,6 +42,55 @@
     justify-content: space-between;
     padding: 0px 10px;
     animation: fadeIn linear 2.0s;
+}
+
+.carouselLinkTag {
+    position: relative;
+    text-decoration: none;
+}
+
+
+.carouselLinkText {
+    color: #4FFFB0;   
+}
+
+
+.carouselLinkText:hover {
+    animation: animate 10s linear infinite;
+    background: linear-gradient(135deg, #fcff4f  0%, #00d9ff 25%, #f7be45 50%, #de0013 75%, #fcff4f 100%);
+    background-size: 400%;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+}
+
+
+@keyframes animate {
+    100% {
+        background-position: 400%;
+    }
+}
+
+
+.carouselLinkText::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 0.105rem;
+    background: #4FFFB0;
+    border-radius: 50%;
+}
+
+
+.carouselLinkText::after {
+    transform: scale(0, 1);
+    transition:  transform 0.25s ease;
+}
+
+
+.carouselLinkText:hover::after {
+    transform: scale(1,1);
 }
 
 
@@ -65,13 +116,11 @@
 }
 
 
-
-
 .carouselNavContainer {
     position: relative;
     display: flex;
     right: 415px;
-    top: 275px; 
+    top: 235px; 
 }
 
 .activeCarouselNav {

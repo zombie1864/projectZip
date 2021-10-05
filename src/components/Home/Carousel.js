@@ -48,11 +48,18 @@ const Carousel = () => {
                                 className="carousalImg"/>
                                 <div>
                                 <div className='carouselLinks'>
-                                    <Link to={{pathname: '/projects'}}>
-                                        <span style={{color: 'red'}}>View Projects</span>
+                                    <Link 
+                                    to={{pathname: '/task'}} 
+                                    className='carouselLinkTag'>
+                                        <span className='carouselLinkText'>Project Task</span>
+                                    </Link>
+                                    <Link 
+                                    to={{pathname: '/projects'}} 
+                                    className='carouselLinkTag'>
+                                        <span className='carouselLinkText'>View Projects</span>
                                     </Link>
                                     <a 
-                                    style={{color:'red'}}
+                                    className='carouselLinkTag carouselLinkText'
                                     href={imgObj.srcCode} 
                                     target="_blank" 
                                     rel="noreferrer">Source Code</a>

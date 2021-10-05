@@ -9,9 +9,9 @@ const Home = () => {
     return (
         <div className="homePageContainer">
             <h1 className="homeTitle">iPython</h1>
-            <span className="homeMsg">
-                Welcome to iPython an overview profile for command line interface projects
-            </span>
+            <div className="homeMsg">
+                iPython is an overview profile for command line interface projects. Here you can learn about projects that deal with data aquisition and data management. These projects lack visualization components but are often used as API for data pipelines and machine learning applications. 
+            </div>
             <Carousel/>
         </div>
     )
