@@ -35,12 +35,10 @@
 }
 
 .carouselDesc {
-    opacity: 1;
-    transition-duration: 5s;
     color: seashell;
     font-size: 12px;
     padding: 10px;
-    animation: fadeIn linear 1.5s;
+    animation: fadeIn linear 2.0s;
 }
 
 @keyframes fadeIn {
