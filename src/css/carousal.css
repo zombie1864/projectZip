@@ -34,6 +34,15 @@
     margin: 0;
 }
 
+
+.carouselLinks {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+    animation: fadeIn linear 2.0s;
+}
+
+
 .carouselDesc {
     color: seashell;
     font-size: 12px;

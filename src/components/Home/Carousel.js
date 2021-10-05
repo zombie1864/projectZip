@@ -1,7 +1,8 @@
-import {imgSlides} from '../../utils/slides'
 import '../../css/carousal.css'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import {imgSlides} from '../../utils/slides'
 import { CgChevronDoubleLeftR, CgChevronDoubleRightR} from 'react-icons/cg'
 
 const Carousel = () => {
@@ -41,13 +42,23 @@ const Carousel = () => {
                         {
                             idx === currImgIdx && (
                                 <div>
-                                    <img 
-                                    src={imgObj.imgSrc} 
-                                    alt={imgObj.alt} 
-                                    className="carousalImg"/>
-                                    <div>
-                                        <p className='carouselDesc'>{imgObj.desc}</p>
-                                    </div>
+                                <img 
+                                src={imgObj.imgSrc} 
+                                alt={imgObj.alt} 
+                                className="carousalImg"/>
+                                <div>
+                                <div className='carouselLinks'>
+                                    <Link to={{pathname: '/projects'}}>
+                                        <span style={{color: 'red'}}>View Projects</span>
+                                    </Link>
+                                    <a 
+                                    style={{color:'red'}}
+                                    href={imgObj.srcCode} 
+                                    target="_blank" 
+                                    rel="noreferrer">Source Code</a>
+                                </div>
+                                <p className='carouselDesc'>{imgObj.desc}</p>
+                                </div>
                                 </div>
                             )
                         }
