@@ -1,9 +1,8 @@
 .navBar {
     background: linear-gradient(#151b26, #9198e5);
-    width: 125px;
+    width: 120px;
     height: 100vh;
     display: flex;
-    justify-content: center;
 }
 
 .nav-ul {
@@ -18,13 +17,30 @@
     align-items: center;
     display: flex;
     height: 50px;
-    width: 95%;
 }
 
 .nav-li {
     list-style: none;
+    padding: 0 0 0 6px;
 }
 
+
+.nav-li:hover{
+    background-color: #3d64ad98;
+    width: 114px;
+    display: flex;
+    justify-content: center;
+}
+
+/* .navBar a:hover {color: rgb(233, 139, 17);} */
+.navBar a:hover {color: #fcff4f;}
+
+
 .nav-titles {
+    padding: 0 5px;
+}
+
+
+.nav-titles-ex {
     padding: 0 5px;
 }

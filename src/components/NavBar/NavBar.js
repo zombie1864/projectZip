@@ -12,10 +12,19 @@ const NavBar = () => {
             <ul className="nav-ul">
             {NavBarOptions.map((item, idx) => {
                 return (
-                    <li key={idx} className={item.cName}>
-                        <Link to={item.path}>
-                            {item.icon} <span className="nav-titles">{item.title}</span>
-                        </Link>
+                    <li key={idx} className="nav-li">
+                        {
+                            item.navType === 'internal' ? 
+                            <Link to={item.path}>
+                                {item.icon} <span className="nav-titles">{item.title}</span>
+                            </Link> : 
+                            <a 
+                            href={item.path} 
+                            target="_blank" 
+                            rel="noreferrer">
+                                {item.icon} <span className="nav-titles-ex">{item.title}</span>
+                            </a> 
+                        }
                     </li>
                 )
             })}
