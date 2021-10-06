@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import ProjectModal from './ProjectModal'
 import '../../css/projBtns.css'
-import { pyProjects } from '../../utils/pyProjMetaData'
+import { imgSlides } from '../../utils/slides'
 import {motion} from 'framer-motion'
+import{AiOutlineBars} from 'react-icons/ai'
 
 const ProjBtns = () => {
     /**
@@ -31,24 +32,23 @@ const ProjBtns = () => {
             variants={container}
             initial='hidden'
             animate='visible'>
-            {pyProjects.map( (project, idx) => {
+            {imgSlides.map( (project, idx) => {
                 return (
                     <div className='projBtnContainer' key={idx}>
                         <motion.button 
                         className='projBtns'
-                        key={project.id}
                         variants={item}
                         whileHover={{y:5.0}}
-                        data-projid={project.id} 
-                        data-projtitle={project.title}
+                        data-projid={project.alt} 
+                        data-projtitle={project.projTitle}
                         data-projpurpose={project.purpose}
                         data-projtech={project.technologyUsed}
                         data-projaoa={project.AoA}
                         data-projsrccode={project.srcCode}
                         onClick={toggleModal}>
-                            <motion.span className='projBtnIcon'>{project.icon}</motion.span>
+                            <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span>
                         </motion.button>
-                        <p className='projBtnTitle'>{project.title}</p>
+                        <p className='projBtnTitle'>{project.projTitle}</p>
                     </div>
                     )
                 })}

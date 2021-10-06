@@ -5,6 +5,8 @@ import {motion} from 'framer-motion'
 
 const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
     if (!openModal) return null 
+    const projTechStrToArray = projTech => projTech.split(',')
+    const projTechArr = projTechStrToArray(projTech)
     return (
         <div>
         <motion.div 
@@ -31,7 +33,7 @@ const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, Pro
                 <div className="modalLabelOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
-                        <p>{projTech}</p>
+                        {projTechArr.map((tech, idx) => <p key={idx}>{tech}</p>)}
                     </div>
                 </div>
                 <div className="modalLabelOutterBorder">
@@ -40,12 +42,12 @@ const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, Pro
                         <p>{projAoA}</p>
                     </div>
                 </div>
-            </div>
-            <div className="closeModalBtnContainer">
-                {/* For the sorce code you might need to use an ancher tah `a` tag instead */}
-                <button className="srcCodeBtn">Source Code</button> 
-                <button className="closeModalBtn" onClick={closeModal}>Close</button>
-                <button className="taskBtn">Task</button>
+                <div className="closeModalBtnContainer">
+                    {/* For the sorce code you might need to use an ancher tah `a` tag instead */}
+                    <button className="srcCodeBtn">Source Code</button> 
+                    <button className="closeModalBtn" onClick={closeModal}>Close</button>
+                    <button className="taskBtn">Task</button>
+                </div>
             </div>
         </motion.div>
         </div>
