@@ -64,6 +64,7 @@ const Carousel = () => {
                                     target="_blank" 
                                     rel="noreferrer">Source Code</a>
                                 </div>
+                                <p className='carouselProjTitle'>{imgObj.projTitle}</p>
                                 <p className='carouselDesc'>{imgObj.desc}</p>
                                 </div>
                                 </div>

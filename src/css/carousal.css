@@ -17,6 +17,13 @@
     padding-right: 20px;
 }
 
+
+.leftArrow:hover {
+    color: rgb(192, 54, 0);
+    transition-duration: 1s;
+}
+
+
 .activeSlide {
     background-image: linear-gradient(
         #3d4963, 
@@ -94,10 +101,20 @@
 }
 
 
+.carouselProjTitle {
+    color: seashell;
+    font-size: 12px;
+    padding: 0px 10px;
+    margin-bottom: 0;
+    animation: fadeIn linear 2.0s;
+}
+
+
 .carouselDesc {
     color: seashell;
     font-size: 12px;
-    padding: 10px;
+    padding: 0px 10px;
+    margin: 0;
     animation: fadeIn linear 2.0s;
 }
 
@@ -114,6 +131,12 @@
     font-size: 30px;
     padding-left: 20px;
 }
+
+.rightArrow:hover {
+    color: rgb(0, 171, 177);
+    transition-duration: 1s;
+}
+
 
 
 .carouselNavContainer {
