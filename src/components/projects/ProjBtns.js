@@ -31,9 +31,9 @@ const ProjBtns = () => {
             variants={container}
             initial='hidden'
             animate='visible'>
-            {pyProjects.map( project => {
+            {pyProjects.map( (project, idx) => {
                 return (
-                    <div className='projBtnContainer'>
+                    <div className='projBtnContainer' key={idx}>
                         <motion.button 
                         className='projBtns'
                         key={project.id}
