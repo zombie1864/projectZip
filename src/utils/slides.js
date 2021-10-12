@@ -17,7 +17,7 @@ export let imgSlides = [
     {
         imgSrc: Example2, 
         projTitle: 'Data I/O Aggregation',
-        desc: "A command line interface that aggregates data from local JSON file and JSON file from REST API. This utilizes pythons ability to handle I/O bound problems to properly generate outputs based on user inputs.",
+        desc: "A command line interface that aggregates data from local JSON file and JSON file from REST API servers. This utilizes pythons ability to handle I/O bound problems to properly generate outputs based on user inputs.",
         alt: 2,
         srcCode: 'https://github.com/zombie1864',
         purpose: 'Python provides numerous methodologies to handle file management for production level demands. This projects aims to simulate internal users demand for formated data with user input to output data that suites their needs. In many situations users require to pull data, in a specific format, that requires interacting with a REST API. To enhance user experiance and reusability this project provies API that interacts with either local data or data from REST API servers.',
