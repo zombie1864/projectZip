@@ -14,16 +14,18 @@
     left: 25%;
     right: 25%;
     transform: translate(-50%,-50%);
-    background-color: rgb(255, 255, 255);
-    color: #000000;
+    background-color: white;
+    color: black;
     font-size: 12px;
     border-radius: 10px;
     width: 55vw;
     max-width: 550px;
-    height: 65vh;
-    max-height: 650px;
+    height: 73vh;
+    max-height: 750px;
 }
-
+.modalContent{ 
+    overflow: scroll;
+}
 
 .modalTitleLabelContainer {
     background-color: #151b26;
@@ -36,12 +38,33 @@
 }
 
 
-.modalLabelContainer {
+.modalContentContainer {
     padding: 20px 20px;
+    height: 315px;
+    overflow-y: auto;
+}
+
+.modalContentContainer::-webkit-scrollbar {
+    width: 13px;
+}
+  
+.modalContentContainer::-webkit-scrollbar-track {
+    /* color of the tracking area */
+    /* rgb(13, 0, 199) */
+    background: linear-gradient(rgb(12, 239, 247), #151b26, rgb(0, 199, 182));   
+}
+
+.modalContentContainer::-webkit-scrollbar-thumb {
+    /* color of the scroll thumb */
+    background: linear-gradient(rgb(0, 120, 124), rgb(155, 248, 252), rgb(0, 120, 124));   
+    /* roundness of the scroll thumb */
+    border-radius: 20px;       
+    /* creates padding around scroll thumb */
+    border: 3px solid orange;  
 }
 
 
-.modalLabelOutterBorder {
+.modalSubContainerOutterBorder {
     background: linear-gradient(to right, rgb(0, 17, 255), rgb(0, 192, 199), #151b26);
     padding: 3px;
     border-radius: 15px;
@@ -62,7 +85,8 @@
     padding: 0px 8px 0px 8px;
 }
 
-.closeModalBtnContainer {
+.ModalBtnContainer {
+    padding: 10px 0px;
     text-align: center;
     display: flex;
     justify-content: space-around;
@@ -83,13 +107,17 @@
     cursor: pointer;
     background-color: rgb(53, 233, 17);
     transition: 0.6s;
-    color: rgb(253, 0, 0);
     box-shadow: 0 0 5px rgb(65, 255, 7), 0 0 15px rgb(65, 255, 7), 0 0 65px rgb(65, 255, 7)
 }
 
 
 .srcCodeBtnAnchorTag {
     text-decoration: none;
+}
+
+
+.srcCodeBtn:hover {
+    color: rgb(253, 0, 0);
 }
 
 
@@ -107,12 +135,15 @@
     box-shadow: 0 0 5px rgb(255, 98, 7), 0 0 15px rgb(255, 98, 7), 0 0 65px rgb(255, 98, 7)
 }
 
+
 .taskBtn {
     border-width: thin;
     border-radius: 5px;
+    height: 35px;
 }
 
-.taskBtn:hover {
+
+.taskBtn:hover{
     cursor: pointer;
     background-color: rgb(4, 0, 255);
     transition: 0.6s;
@@ -120,6 +151,12 @@
     box-shadow: 0 0 5px rgb(0, 192, 199), 0 0 15px rgb(0, 192, 199), 0 0 65px rgb(0, 192, 199)
 }
 
+
 .taskBtnLinkTag {
     text-decoration: none;
+}
+
+
+.taskBtnLinkTag:hover {
+    color: rgb(233, 139, 17);
 }
