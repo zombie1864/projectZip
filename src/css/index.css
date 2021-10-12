@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url('../assets/img/coolBackgroundImg.jpeg');
 }
 
 table{
@@ -19,7 +20,6 @@ table td {
 }
 
 
-
 .task {
   display: flex;
   height: 90vh;
@@ -27,4 +27,3 @@ table td {
   justify-content: center;
   font-size: 3rem;
 }
-/*  THIS SECTION IS FILLER */
