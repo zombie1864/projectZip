@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../css/projModal.css'
 import {motion} from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 
 const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
@@ -43,10 +44,19 @@ const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, Pro
                     </div>
                 </div>
                 <div className="closeModalBtnContainer">
-                    {/* For the sorce code you might need to use an ancher tah `a` tag instead */}
-                    <button className="srcCodeBtn">Source Code</button> 
+                    <button className="srcCodeBtn">
+                        <a 
+                        href={ProjSrcCode} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="srcCodeBtnAnchorTag">Source Code</a> 
+                    </button>
                     <button className="closeModalBtn" onClick={closeModal}>Close</button>
-                    <button className="taskBtn">Task</button>
+                    <button className="taskBtn">
+                        <Link 
+                        to={{pathname: '/task'}}
+                        className="taskBtnLinkTag">Task</Link>
+                    </button>
                 </div>
             </div>
         </motion.div>
