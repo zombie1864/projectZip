@@ -24,40 +24,40 @@ const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, Pro
             <div className="modalTitleLabelContainer">
                 <span>{projTitle}</span>
             </div>
-            <div className="modalLabelContainer">
-                <div className="modalLabelOutterBorder">
+            <div className="modalContentContainer">
+                <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Desc:</span>
                     <div className="modalLabelInnerBorder">
                         <p>{projPurpose}</p>
                     </div>
                 </div>
-                <div className="modalLabelOutterBorder">
+                <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
                         {projTechArr.map((tech, idx) => <p key={idx}>{tech}</p>)}
                     </div>
                 </div>
-                <div className="modalLabelOutterBorder">
+                <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
                         <p>{projAoA}</p>
                     </div>
                 </div>
-                <div className="closeModalBtnContainer">
-                    <button className="srcCodeBtn">
-                        <a 
-                        href={ProjSrcCode} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="srcCodeBtnAnchorTag">Source Code</a> 
-                    </button>
-                    <button className="closeModalBtn" onClick={closeModal}>Close</button>
-                    <button className="taskBtn">
-                        <Link 
-                        to={{pathname: '/task'}}
-                        className="taskBtnLinkTag">Task</Link>
-                    </button>
-                </div>
+            </div>
+            <div className="ModalBtnContainer">
+                <a 
+                href={ProjSrcCode} 
+                target="_blank" 
+                rel="noreferrer"
+                className="srcCodeBtnAnchorTag">
+                    <button className="srcCodeBtn">Source Code</button>
+                </a> 
+                <button className="closeModalBtn" onClick={closeModal}>Close</button>
+                <Link 
+                to={{pathname: '/task'}}
+                className="taskBtnLinkTag">
+                    <button className="taskBtn">Task</button>
+                </Link>
             </div>
         </motion.div>
         </div>
