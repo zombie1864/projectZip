@@ -69,7 +69,7 @@ const Carousel = () => {
                                 </div>
                                 </div>
                             )
-                        }
+                        }{/* trueStatement && result, this is a technique that for ternary without an else clause */}
                     </motion.div>
                 )
             })}
