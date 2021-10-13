@@ -2,6 +2,7 @@
     display: inline-block;
     position: relative;
     top: -25px;
+    width: 200px;
     text-align: center;
 }
 

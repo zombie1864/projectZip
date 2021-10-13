@@ -5,6 +5,7 @@ import '../css/projectPage.css'
 const Projects = () => {
     /**
     @description: This container func contains all the comp associated with what is being rendered on the page.
+    Project btns. 
     **/
     return (
         <div className="projectPage">
