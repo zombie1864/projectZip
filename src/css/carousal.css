@@ -1,19 +1,20 @@
 .carousalContainer {
-    position: relative;
-    top: -110px;
-    right: -85px;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* position: relative; */
+    /* top: -110px; */
+    /* height: 80vh; */
+    display: inline-block;
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 10px 0px 10px 0px;
 }
 
 
 .leftArrow {
     position: relative;
+    top: 200px;
+    right: 350px;
     cursor: pointer;
     font-size: 30px;
-    z-index: 10;
     padding-right: 20px;
 }
 
@@ -107,6 +108,7 @@
     padding: 0px 10px;
     margin-bottom: 0;
     animation: fadeIn linear 2.0s;
+    text-align: left;
 }
 
 
@@ -116,6 +118,7 @@
     padding: 0px 10px;
     margin: 0;
     animation: fadeIn linear 2.0s;
+    text-align: justify;
 }
 
 @keyframes fadeIn {
@@ -125,8 +128,9 @@
 
 
 .rightArrow {
-    z-index: 1000;
     position: relative;
+    bottom: 208px;
+    left: 350px;
     cursor: pointer;
     font-size: 30px;
     padding-left: 20px;
@@ -140,10 +144,10 @@
 
 
 .carouselNavContainer {
-    position: relative;
     display: flex;
-    right: 415px;
-    top: 235px; 
+    position: relative;
+    left: 235px;
+    width: 200px;
 }
 
 .activeCarouselNav {

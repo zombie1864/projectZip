@@ -1,26 +1,30 @@
+.homePageContainer {
+    height: 85vh;
+    text-align: center;
+    width: 1000px;
+}
+
+
 .homeTitle {
-    display: flex;
-    width: 650px;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: -50px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 2.0rem;
+    /* display: flex; */
+    /* width: 650px; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* position: relative; */
+    /* top: -50px; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* font-size: 2.0rem; */
+    margin: 0;
     color: seashell;
 }
 
 .homeMsg {
-    position: relative;
-    top: -70px;
-    left: 175px;
+    /* position: relative; */
+    /* top: -70px; */
+    /* left: 175px; */
     font-size: 12.5px;
-    width: 555px;
+    /* width: 555px; */
     white-space: normal;
     color: seashell;
-}
-
-.homePageContainer {
-    height: 85vh;
 }

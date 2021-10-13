@@ -41,7 +41,7 @@ const Carousel = () => {
                     className={idx === currImgIdx ? 'activeSlide' : null} key={idx}>
                         {
                             idx === currImgIdx && (
-                                <div>
+                                <div className="activeSlideContent">
                                 <img 
                                 src={imgObj.imgSrc} 
                                 alt={imgObj.alt} 
