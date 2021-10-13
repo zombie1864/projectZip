@@ -30,7 +30,7 @@ export let imgSlides = [
         desc: "A collection of public data structures and algorithm questions. This project focuses on solving common interview question but also focuses on testing business logic of code using pytest. Testable code ensures solution considers edge cases and unexpected inputs.",
         alt: 3,
         srcCode: 'https://github.com/zombie1864/python_DSnA',
-        purpose: 'perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+        purpose: 'To train in algorithmic patterns, testing implementation, and a deep understanding of code design with an emphizes on data manipulation. ',
         technologyUsed: ['python', 'pytest'],
         AoA: 'Academic',
     },
