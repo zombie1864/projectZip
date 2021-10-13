@@ -2,7 +2,7 @@ import React from 'react'
 import Carousel from '../components/Home/Carousel'
 import '../css/homePage.css'
 
-const Home = () => {
+const HomePage = () => {
     /**
     @description: This container func contains all the comp associated with what is being rendered on the page.
     **/
@@ -17,4 +17,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePage

@@ -2,7 +2,7 @@ import React from 'react'
 import ProjBtns from '../components/Projects/ProjBtns'
 import '../css/projectPage.css'
 
-const Projects = () => {
+const ProjectsPage = () => {
     /**
     @description: This container func contains all the comp associated with what is being rendered on the page.
     Project btns. 
@@ -17,5 +17,5 @@ const Projects = () => {
     )
 }
 
-export default Projects
+export default ProjectsPage
 

@@ -1,14 +1,14 @@
 import React from 'react'
 
-const Task = () => {
+const TaskPage = () => {
     /**
     @description: This container func contains all the comp associated with what is being rendered on the page.
     **/
     return (
         <div className="task">
-            <h1>Task</h1>
+            <h4>This page is under developement</h4>
         </div>
     )
 }
 
-export default Task
+export default TaskPage
