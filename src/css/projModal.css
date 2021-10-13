@@ -84,14 +84,15 @@
   
 .modalContentContainer::-webkit-scrollbar-track {
     /* color of the tracking area */
-    background: linear-gradient(rgb(12, 239, 247), #151b26, rgb(0, 199, 182));   
+    background: linear-gradient(rgb(12, 239, 247), #151b26, rgb(0, 199, 182)); 
+    border-radius: 20px; 
 }
 
 .modalContentContainer::-webkit-scrollbar-thumb {
     /* color of the scroll thumb */
     background: linear-gradient(rgb(0, 120, 124), rgb(155, 248, 252), rgb(0, 120, 124));   
     /* roundness of the scroll thumb */
-    border-radius: 20px;       
+    border-radius: 20px; 
     /* creates padding around scroll thumb */
     border: 3px solid orange;  
 }
