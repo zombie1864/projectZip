@@ -40,7 +40,7 @@
 
 .modalContentContainer {
     padding: 20px 20px;
-    height: 315px;
+    height: 369px;
     overflow-y: auto;
 }
 
@@ -50,7 +50,6 @@
   
 .modalContentContainer::-webkit-scrollbar-track {
     /* color of the tracking area */
-    /* rgb(13, 0, 199) */
     background: linear-gradient(rgb(12, 239, 247), #151b26, rgb(0, 199, 182));   
 }
 
@@ -90,10 +89,14 @@
     text-align: center;
     display: flex;
     justify-content: space-around;
+    background: linear-gradient(90deg, #235d9c, rgb(0, 192, 199), #235d9c);
+    border-radius: 0px 0px 10px 10px;
 }
 
 
 .srcCodeBtn {
+    background-color: #151b26;
+    color: rgb(233, 139, 17);
     width: 50px;
     font-size: 12px;
     text-align: center;
@@ -106,6 +109,7 @@
 .srcCodeBtn:hover {
     cursor: pointer;
     background-color: rgb(53, 233, 17);
+    color: rgb(253, 0, 0);
     transition: 0.6s;
     box-shadow: 0 0 5px rgb(65, 255, 7), 0 0 15px rgb(65, 255, 7), 0 0 65px rgb(65, 255, 7)
 }
@@ -116,14 +120,12 @@
 }
 
 
-.srcCodeBtn:hover {
-    color: rgb(253, 0, 0);
-}
-
-
 .closeModalBtn {
+    background-color: #151b26;
+    color: rgb(233, 139, 17);
     border-width: thin;
     border-radius: 5px;
+    height: 35px;
 }
 
 
@@ -137,6 +139,8 @@
 
 
 .taskBtn {
+    background-color: #151b26;
+    color: rgb(233, 139, 17);
     border-width: thin;
     border-radius: 5px;
     height: 35px;
