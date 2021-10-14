@@ -13,19 +13,10 @@ function App() {
       <Router>
         <table>
           <tr>
-            <td style={{
-              width: '125px',
-              maxWidth: '125px'
-            }}>
+            <td className="first-col">
               <NavBar/>
             </td>
-            <td style={{
-                overflow: 'hidden', 
-                padding: '0px 5vw 0px 5vw',
-                // the above padding is a possible solution - the idea is that as screen gets wider the padding will auto adjust. The td adjust not the carousel comp 
-                // alignContent: 'center',
-                // justifyContent: 'center',
-               }}>
+            <td className="sec-col">
               {/* switched between pages - App() is the spa */}
               <Switch> 
                 <Route path='/' exact component={HomePage}/>

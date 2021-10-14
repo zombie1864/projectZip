@@ -1,8 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: url('../assets/img/coolBackgroundImg.jpeg');
@@ -18,6 +16,18 @@ table{
 
 table td {
   padding: 0 0;
+}
+
+.first-col{
+  width: 125px;
+  max-width: 125px;
+}
+
+
+.sec-col {
+  padding: 0px 5vw 0px 5vw;
+  width: 100vw;
+  /* the above padding is a possible solution - the idea is that as screen gets wider the padding will auto adjust. The td adjust not the carousel comp  */
 }
 
 
