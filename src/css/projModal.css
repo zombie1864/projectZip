@@ -14,14 +14,14 @@
     left: 25%;
     right: 25%;
     transform: translate(-50%,-50%);
+    margin: 0 auto;
     background-color: #1a2350;
     color: black;
     font-size: 12px;
     border-radius: 10px;
     width: 55vw;
     max-width: 550px;
-    height: 73vh;
-    max-height: 750px;
+    height: 502px;
     padding: 3px;
     overflow: hidden;
 }
