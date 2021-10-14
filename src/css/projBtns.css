@@ -20,17 +20,18 @@
     border-style: solid;
     border-width: thin;
     margin: 0px 20px 20px 20px;
+    padding: 5px 0 0 0;
 }
 
 
 .projBtnIcon {
-    font-size: 20px;
+    font-size: 2.2em;
 }
 
 
 .projBtnTitle {
-    font-size: 13px;
-    margin: 10px 20px;
+    font-size: 1em;
+    margin: 10px 10px;
     color: seashell;
 }
 
@@ -41,7 +42,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 0.125rem;
+    height: 0.15rem;
     background: #4FFFB0;
     border-radius: 50%;
 }

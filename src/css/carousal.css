@@ -1,20 +1,15 @@
 .carousalContainer {
-    /* position: relative; */
-    /* top: -110px; */
-    /* height: 80vh; */
     display: inline-block;
-    /* justify-content: center; */
-    /* align-items: center; */
     padding: 10px 0px 10px 0px;
 }
 
 
 .leftArrow {
     position: relative;
-    top: 200px;
-    right: 350px;
+    top: 238px;
+    right: 375px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 3em;
     padding-right: 20px;
 }
 
@@ -31,15 +26,15 @@
         #06b9eb,
         #3d4963 
     );
-    width: 600px;
-    height: 375px;
+    width: 650px;
+    height: 455px;
     border-radius: 10px;
 }
 
 
 .carousalImg {
-    width: 600px;
-    height: 250px;
+    width: 650px;
+    height: 255px;
     border-radius: 10px 10px 0px 0px;
     margin: 0;
 }
@@ -48,7 +43,8 @@
 .carouselLinks {
     display: flex;
     justify-content: space-between;
-    padding: 0px 10px;
+    padding: 0px 20px;
+    margin-top: 10px;
     animation: fadeIn linear 2.0s;
 }
 
@@ -59,7 +55,8 @@
 
 
 .carouselLinkText {
-    color: #4FFFB0;   
+    color: #4FFFB0; 
+    font-size: 1.2em;  
 }
 
 
@@ -85,7 +82,7 @@
     left: 0;
     bottom: -1px;
     width: 100%;
-    height: 0.105rem;
+    height: 0.15rem;
     background: #4FFFB0;
     border-radius: 50%;
 }
@@ -104,9 +101,10 @@
 
 .carouselProjTitle {
     color: seashell;
-    font-size: 12px;
-    padding: 0px 10px;
-    margin-bottom: 0;
+    font-size: 1em;
+    padding: 0px 20px 0px 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     animation: fadeIn linear 2.0s;
     text-align: left;
 }
@@ -114,11 +112,12 @@
 
 .carouselDesc {
     color: seashell;
-    font-size: 12px;
-    padding: 0px 10px;
+    font-size: 1em;
+    padding: 0px 20px;
     margin: 0;
     animation: fadeIn linear 2.0s;
     text-align: justify;
+    line-height: 1.4;
 }
 
 @keyframes fadeIn {
@@ -129,10 +128,10 @@
 
 .rightArrow {
     position: relative;
-    bottom: 208px;
-    left: 350px;
+    bottom: 269px;
+    left: 375px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 3em;
     padding-left: 20px;
 }
 
@@ -146,7 +145,7 @@
 .carouselNavContainer {
     display: flex;
     position: relative;
-    left: 235px;
+    left: 260px;
     width: 200px;
 }
 
