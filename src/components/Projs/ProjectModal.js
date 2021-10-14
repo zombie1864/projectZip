@@ -6,8 +6,7 @@ import { Link } from 'react-router-dom'
 
 const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
     if (!openModal) return null 
-    const projTechStrToArray = projTech => projTech.split(',')
-    const projTechArr = projTechStrToArray(projTech)
+    const projTechArr = projTech.split(',')
     return (
         <div>
         <motion.div 
@@ -34,13 +33,15 @@ const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, Pro
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
-                        {projTechArr.map((tech, idx) => <p key={idx}>{tech}</p>)}
+                        {projTechArr.map((tech, idx) => {
+                            return idx === projTechArr.length - 1 ? <span key={idx}>{tech}</span> : <span key={idx}>{tech}, </span>
+                        })}
                     </div>
                 </div>
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
-                        <p>{projAoA}</p>
+                        <span>{projAoA}</span>
                     </div>
                 </div>
             </div>
