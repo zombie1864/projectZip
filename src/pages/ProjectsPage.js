@@ -1,5 +1,5 @@
 import React from 'react'
-import ProjBtns from '../components/projects/ProjBtns'
+import ProjBtns from '../components/Projs/ProjBtns'
 import '../css/projectPage.css'
 
 const ProjectsPage = () => {
