@@ -46,7 +46,6 @@ const Carousel = () => {
                                 src={imgObj.imgSrc} 
                                 alt={imgObj.alt} 
                                 className="carousalImg"/>
-                                <div>
                                 <div className='carouselLinks'>
                                     <Link 
                                     to={{pathname: '/task'}} 
@@ -64,9 +63,10 @@ const Carousel = () => {
                                     target="_blank" 
                                     rel="noreferrer">Source Code</a>
                                 </div>
-                                <p className='carouselProjTitle'>{imgObj.projTitle}</p>
+                                <p className='carouselProjTitle'>
+                                    Project Title: {imgObj.projTitle}
+                                </p>
                                 <p className='carouselDesc'>{imgObj.desc}</p>
-                                </div>
                                 </div>
                             )
                         }{/* trueStatement && result, this is a technique that for ternary without an else clause */}

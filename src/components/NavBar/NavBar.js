@@ -8,7 +8,7 @@ const NavBar = () => {
     @description: navBar comp which uses react-router-dom and react-icons
     **/
     return (
-        <div className="navBar">
+        <div className="navBarContainer">
             <ul className="nav-ul">
             {NavBarOptions.map((item, idx) => {
                 return (

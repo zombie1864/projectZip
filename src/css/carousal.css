@@ -1,10 +1,5 @@
 .carousalContainer {
-    /* position: relative; */
-    /* top: -110px; */
-    /* height: 80vh; */
     display: inline-block;
-    /* justify-content: center; */
-    /* align-items: center; */
     padding: 10px 0px 10px 0px;
 }
 
@@ -14,7 +9,7 @@
     top: 200px;
     right: 350px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 2.5em;
     padding-right: 20px;
 }
 
@@ -31,14 +26,14 @@
         #06b9eb,
         #3d4963 
     );
-    width: 600px;
-    height: 375px;
+    width: 615px;
+    height: 425px;
     border-radius: 10px;
 }
 
 
 .carousalImg {
-    width: 600px;
+    width: 615px;
     height: 250px;
     border-radius: 10px 10px 0px 0px;
     margin: 0;
@@ -48,7 +43,7 @@
 .carouselLinks {
     display: flex;
     justify-content: space-between;
-    padding: 0px 10px;
+    padding: 0px 20px;
     animation: fadeIn linear 2.0s;
 }
 
@@ -59,7 +54,8 @@
 
 
 .carouselLinkText {
-    color: #4FFFB0;   
+    color: #4FFFB0; 
+    font-size: 1.2em;  
 }
 
 
@@ -104,9 +100,10 @@
 
 .carouselProjTitle {
     color: seashell;
-    font-size: 12px;
-    padding: 0px 10px;
-    margin-bottom: 0;
+    font-size: 1em;
+    padding: 0px 20px 0px 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     animation: fadeIn linear 2.0s;
     text-align: left;
 }
@@ -114,8 +111,8 @@
 
 .carouselDesc {
     color: seashell;
-    font-size: 12px;
-    padding: 0px 10px;
+    font-size: 1em;
+    padding: 0px 20px;
     margin: 0;
     animation: fadeIn linear 2.0s;
     text-align: justify;
@@ -129,10 +126,10 @@
 
 .rightArrow {
     position: relative;
-    bottom: 208px;
+    bottom: 269px;
     left: 350px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 2.5em;
     padding-left: 20px;
 }
 
