@@ -6,7 +6,7 @@
 
 .leftArrow {
     position: relative;
-    top: 238px;
+    top: 248px;
     right: 375px;
     cursor: pointer;
     font-size: 3em;
@@ -27,7 +27,7 @@
         #3d4963 
     );
     width: 650px;
-    height: 455px;
+    height: 465px;
     border-radius: 10px;
 }
 
