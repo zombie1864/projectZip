@@ -12,7 +12,9 @@ const HomePage = () => {
             <div className="homeMsg">
                 iPython is an overview profile for command line interface projects. Here you can learn about projects that deal with data aquisition and data management. These projects lack visualization components but are often used as API for data pipelines and data science applications. 
             </div>
-            <Carousel/>
+            <center>
+                <Carousel/>
+            </center>
         </div>
     )
 }
