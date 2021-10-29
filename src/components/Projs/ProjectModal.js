@@ -4,7 +4,7 @@ import {motion} from 'framer-motion'
 import { Link } from 'react-router-dom'
 
 
-const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
+const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
     if (!openModal) return null 
     const projTechArr = projTech.split(',')
     return (
@@ -21,7 +21,7 @@ const ProjectModal = ({openModal, projTitle, projPurpose, projTech, projAoA, Pro
         animate={modalAnimation}
         transition={{duration: 0.3}}>
             <div className="modalTitleLabelContainer">
-                <span>{projTitle}</span>
+                <span>{projName}</span>
             </div>
             <div className="modalContentContainer">
                 <div className="modalSubContainerOutterBorder">
