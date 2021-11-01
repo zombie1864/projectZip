@@ -13,12 +13,11 @@ const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, Proj
         className="modalBackdrop"
         initial={{opacity: 0}} 
         animate={{opacity: 0.90}} 
-        transition={{duration: 0.5}}>
-        </motion.div>
+        transition={{duration: 0.5}}/>
         <motion.div 
         className="modal"
         initial={{scale: 0}} 
-        animate={modalAnimation}
+        animate={{scale: 1}}
         transition={{duration: 0.3}}>
             <div className="modalTitleLabelContainer">
                 <span>{projName}</span>
@@ -66,8 +65,3 @@ const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, Proj
 }
 
 export default ProjectModal
-
-
-const modalAnimation = {
-    scale: 1,
-}

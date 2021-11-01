@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import ProjectModal from './ProjectModal'
-// import { imgSlides } from '../../utils/slides'
+import AddProjForm from './AddProjForm'
 import '../../css/projBtns.css'
 import {motion} from 'framer-motion'
 import{AiOutlineBars} from 'react-icons/ai'
+import {MdPlaylistAdd} from 'react-icons/md'
 
 const ProjBtns = () => {
     /**
     @description: Renders btns that user can click on to open modal for project detail information.
     **/
    const [projectsState, setProjectsState] = useState([]), 
+       [addProjModalState, setAddProjModalState] = useState(false),
        [modalState, setModalState] = useState(false),
        [projId, setProjId] = useState(),
        [projName, setProjName] = useState(),
@@ -47,29 +49,9 @@ const ProjBtns = () => {
         setProjSrcCode(event.currentTarget.dataset.projsrccode)
     }
 
-    const addData = async () => {
-        console.log('Clicked button');
-        const res = await fetch(
-            'http://localhost:5000/projects', 
-            {
-                method: 'POST', 
-                headers: { 'Content-type': 'application/json' }, 
-                body: JSON.stringify(
-                    {
-                        proj_name: 'FRONTEND DATA',
-                        proj_desc: 'FRONTEND DATA',
-                        proj_purpose: 'FRONTEND DATA',
-                        proj_techs: 'FRONTEND DATA',
-                        proj_aoa: 'FRONTEND DATA',
-                        proj_src_code: 'srcCode'
-                    }
-                )
-            }
-        )
-        const resp = await res.json()
-        console.log(resp)
-    }
+    const toggleAddModalForm = () => setAddProjModalState(true)
 
+    const propagateChildData = childData => setProjectsState(childData)
 
     return (
         <div>
@@ -99,16 +81,24 @@ const ProjBtns = () => {
                                 variants={item} 
                                 className='projBtnTitle'>
                                     {project.proj_name}
-                                </motion.p>
+                                </motion.p> 
                             </div>
                         )
                     })}
-                <button
-                type='submit'
-                variants={item} 
-                onClick={addData}> 
-                    Click Me
-                </button>
+                <div className='projBtnContainer'>
+                    <motion.button
+                    variants={item} 
+                    whileHover={{y:5.0}}
+                    onClick={toggleAddModalForm}
+                    className='projBtns'> 
+                        <motion.span className='projBtnIcon'>{<MdPlaylistAdd/>}</motion.span>
+                    </motion.button>
+                    <motion.p  
+                    variants={item} 
+                    className='projBtnTitle'>
+                        Add New Project
+                    </motion.p> 
+                </div>
                 </motion.div>
             }
             <ProjectModal 
@@ -119,13 +109,11 @@ const ProjBtns = () => {
             projTech={projTech}
             projAoA={projAoA}
             ProjSrcCode={projSrcCode}
-            closeModal={() => setModalState(false)}>
-            </ProjectModal>
-            {/* <button
-            type='submit'
-            onClick={addData}> 
-                Click Me
-            </button> */}
+            closeModal={() => setModalState(false)}/>
+            <AddProjForm
+            openModal={addProjModalState}
+            cbFuncDataProp={propagateChildData} // NOTE this is an adv tech make sure to doc well 
+            closeModal={() => setAddProjModalState(false)}/>
         </div>
     )
 }
@@ -137,7 +125,7 @@ const container = {
       scale: 1,
       transition: {
         delayChildren: 0.2,
-        staggerChildren: 0.3
+        staggerChildren: 0.25
       }
     }
 };
