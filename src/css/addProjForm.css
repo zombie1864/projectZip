@@ -5,7 +5,7 @@
     right: 25%;
     transform: translate(-50%,-50%);
     margin: 0 auto;
-    background-color: #1a2350;
+    background-color: #151b26;
     color: black;
     font-size: 12px;
     border-radius: 10px;
@@ -13,17 +13,32 @@
     max-width: 850px;
     height: 502px;
     padding: 3px;
+    text-align: center;
 }
 
 .projFormModal {
+    /* background-color: turquoise; */
 
 }
 
 
-.techContainer, .nameContainer, .aoaContainer, .srcCodeContainer {
-    height: 130px;
+.formTableRow {
+    height: 125px;
+    /* background-color: wheat; */
 }
 
+.nameContainer {
+    /* background-color: green; */
+}
+
+.techContainer {
+    /* background-color: green; */
+}
+
+
+.descContainer, .purposeContainer {
+    /* background-color: violet; */
+}
 
 .formLabels {
     color: rgb(0, 192, 199);
@@ -34,25 +49,21 @@
     margin: 0px 50px;
 }
 
-input {
+input, textarea {
     display:block;
     height:50px;
     width:90%;
-    margin: 20px 10px;
     background-color: #151b26;
     color: wheat;
     border: none;
     margin: 10px;
+    border-bottom: 1.5px solid rgba(63, 63, 63, 0.5);
+    /* border-radius: 0 0 5% 5%; */
 }    
 
-textarea {
-    display:block;
-    height:50px;
-    width:90%;
-    margin: 20px 10px;
-    padding: 20px 10px;
-    background-color: #151b26;
-    color: wheat;
+textarea::placeholder {
+    padding: 10px;
+    line-height: 30px;
 }
 
 input:hover::placeholder, textarea:hover::placeholder{
@@ -67,14 +78,8 @@ input:hover,input:focus,input:active:focus, textarea:hover,textarea:focus,textar
     transition:1s;
 }
 
-input:hover::placeholder{
-    color:#ff5722;
-    position:relative;
-    -webkit-transform:translateY(-10px);
-    transform:translateY(-10px);
-}
 
-textarea:hover::placeholder{
+input:hover::placeholder, textarea:hover::placeholder {
     color:#ff5722;
     position:relative;
     -webkit-transform:translateY(-10px);

@@ -59,7 +59,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         <div className="projFormModal">
             <form  className='addProjForm' onSubmit={submitForm}>
                 <table>
-                    <tr>
+                    <tr className='formTableRow'>
                     <th className='nameContainer'>
                         <label className='formLabels'>Name</label>
                         <input 
@@ -68,7 +68,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         onChange={event => setProj_name(event.target.value)}
                         placeholder="Add Project Name"/>
                     </th>
-                    <th>
+                    <th className='descContainer'>
                         <label className='formLabels'>Describtion</label>
                         <textarea 
                         value={proj_desc}
@@ -76,7 +76,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         placeholder="Add Project Describtion"/>
                         </th>
                     </tr>
-                    <tr>
+                    <tr className='formTableRow'>
                     <td className='techContainer'>
                         <label className='formLabels'>Technologies</label>
                         <input 
@@ -85,7 +85,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         onChange={event => setProj_techs(event.target.value)}
                         placeholder="Add Project Technologies"/>
                     </td>
-                    <td>
+                    <td className='purposeContainer'>
                         <label className='formLabels'>Purpose</label>
                         <textarea 
                         value={proj_purpose}
@@ -93,7 +93,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         placeholder="Add Project Purpose"/>
                     </td>
                     </tr>
-                    <tr>
+                    <tr className='formTableRow'>
                     <td className='srcCodeContainer'>
                         <label className='formLabels'>Source Code</label>
                         <input 
@@ -103,7 +103,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         placeholder="Add Project Source Code"/>
                     </td>
                     </tr>
-                    <tr>
+                    <tr className='formTableRow'>
                     <td className='aoaContainer'>
                         <label className='formLabels'>Area of Application</label>
                         <input 
