@@ -10,7 +10,8 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         [proj_purpose, setProj_purpose] = useState(''),
         [proj_techs, setProj_techs] = useState(''),
         [proj_aoa, setProj_aoa] = useState(''),
-        [proj_src_code, setProj_src_code] = useState('')
+        [proj_src_code, setProj_src_code] = useState(''), 
+        [sliderState, setSliderState] = useState(false)
 
 
     const addData = async (dataToSubmit) => {
@@ -25,6 +26,8 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         const resp = await req.json()
         cbFuncDataProp(resp) // NOTE fix the name of the func 
     }
+
+    const toggleSlider = () => setSliderState(!sliderState)
 
     const submitForm = event => {
         event.preventDefault()
@@ -52,6 +55,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
 
     return (
         <div>
+            {console.log('render')}
         <motion.div className="modalBackdrop"
             initial={{opacity: 0}} 
             animate={{opacity: 0.90}} 
@@ -96,11 +100,34 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                     <tr className='formTableRow'>
                     <td className='srcCodeContainer'>
                         <label className='formLabels'>Source Code</label>
-                        <input 
-                        type="text" 
-                        value={proj_src_code}
-                        onChange={event => setProj_src_code(event.target.value)}
-                        placeholder="Add Project Source Code"/>
+                        { 
+                            sliderState ? 
+                            <input 
+                            placeholder="Source Code Unavailable"
+                            readOnly/>
+                            : 
+                            <input 
+                            type="text" 
+                            value={proj_src_code}
+                            onChange={event => setProj_src_code(event.target.value)}
+                            placeholder="Add Project Source Code"/>
+                        }
+                        <div
+                        style={{
+                            lineHeight: '35px',
+                            margin: '0 auto', 
+                            display: 'flex',
+                            justifyContent: 'space-evenly'
+                        }}
+                        >
+                        <span 
+                        style={sliderState ? {color: 'rgba(233, 139, 17)'} : {}} className='srcCodeAvail'
+                        >Source code unavailable?</span>
+                        <label className="switch">
+                            <input type="checkbox" onClick={toggleSlider}/>
+                            <span className="slider"/>
+                        </label>
+                        </div>
                     </td>
                     </tr>
                     <tr className='formTableRow'>
