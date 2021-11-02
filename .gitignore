@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 dev_notes.ipynb 
+plan_n_dev.ipynb
+backend.db
