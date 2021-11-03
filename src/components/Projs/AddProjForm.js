@@ -142,7 +142,11 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         onChange={event => setProj_purpose(event.target.value)}
                         placeholder="Add Project Purpose"/>
                 </div>
-                <input type="submit" value="save project"/>
+                <div className='saveBtnContainer'>
+                    <span>
+                        <input className='formSaveBtn' type="submit" value="save project"/>
+                    </span>
+                </div>
             </form>
             <div className="ModalBtnContainer">
                 <button className="closeModalBtn" onClick={closeModal}>Close</button>
