@@ -5,20 +5,55 @@
     right: 25%;
     transform: translate(-50%,-50%);
     margin: 0 auto;
-    background-color: #151b26;
     color: black;
     font-size: 12px;
     border-radius: 10px;
     width: 55vw;
     max-width: 850px;
-    height: 502px;
     padding: 3px;
     text-align: center;
+    overflow: hidden;
+}
+
+.projFormModal::before {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    left: 350px;
+    top: -350px;
+    width: 200px;
+    height: 250%;
+    background: linear-gradient(#00ccff, greenyellow);
+    animation: animateModalEff 5s linear infinite;
+}
+
+.projFormModal::after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: #151b26;
+    border-radius: 8px;
 }
 
 
+@keyframes animateModalEff {
+    0% 
+    {
+        transform: rotate(0deg);
+    }
+    100% 
+    {
+        transform: rotate(360deg);
+    }
+}
+
 .formTableRow {
     height: 125px;
+}
+
+table, .textAreaContainer {
+    display: inline-block;
 }
 
 
@@ -32,9 +67,13 @@
 }
 
 
-.srcCodeAvail {
-    color: rgba(233, 139, 17, 0.5);
+
+.sliderContainer {
+    line-height: 35px;
+    display: flex;
+    justify-content: space-evenly;
 }
+
 
 .switch {
     position: relative;
@@ -98,7 +137,7 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-input, textarea {
+.formInput, textarea {
     display:block;
     height:50px;
     width:90%;
@@ -109,27 +148,55 @@ input, textarea {
     border-bottom: 1.5px solid rgba(63, 63, 63, 0.5);
 }    
 
+.descTextArea {
+    resize: none;
+    height: 190px;
+    margin: 0 0 25px 0;
+}
+.purposeTextArea {
+    resize: none;
+    height: 202px;
+    margin: 0 0 27px 0;
+}
+
 textarea::placeholder {
     padding: 10px;
     line-height: 30px;
 }
 
-input:hover::placeholder, textarea:hover::placeholder{
+.formInput:hover::placeholder, textarea:hover::placeholder{
     -webkit-transition:.5s;
     transition:.5s;
 }
 
-input:hover,input:focus,input:active:focus, textarea:hover,textarea:focus,textarea:active:focus{
+.formInput:hover,.formInput:focus,.formInput:active:focus, textarea:hover,textarea:focus,textarea:active:focus{
     color:rgba(39, 200, 255, 0.8);
     border-bottom: 1.5px solid rgba(39, 200, 255, 0.8);
     -webkit-transition:1s;
-    transition:1s;
+    transition: 1s;
 }
 
 
-input:hover::placeholder, textarea:hover::placeholder {
+.formInput:hover::placeholder, textarea:hover::placeholder {
     color:#ff5722;
     position:relative;
     -webkit-transform:translateY(-10px);
     transform:translateY(-10px);
+}
+
+
+.srcCodeUnavil {
+    display:block;
+    height:50px;
+    width:90%;
+    background-color: #151b26;
+    border: none;
+    margin: 10px;
+    border-bottom: 1.5px solid rgba(63, 63, 63, 0.5);
+}
+
+.srcCodeUnavil::placeholder {
+    color: greenyellow;
+    -webkit-transition:1s;
+    transition:1s;
 }
