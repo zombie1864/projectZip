@@ -27,8 +27,11 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         cbFuncDataProp(resp) // NOTE fix the name of the func 
     }
 
-    const toggleSlider = () => setSliderState(!sliderState)
-
+    const toggleSlider = () => { 
+        setSliderState(!sliderState)
+        setProj_src_code('')
+    }
+    
     const submitForm = event => {
         event.preventDefault()
         // ADD VALIDATIONS HERE 
@@ -68,33 +71,21 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Name</label>
                         <input 
                         type="text" 
+                        className='formInput'
                         value={proj_name}
                         onChange={event => setProj_name(event.target.value)}
                         placeholder="Add Project Name"/>
                     </th>
-                    <th className='descContainer'>
-                        <label className='formLabels'>Describtion</label>
-                        <textarea 
-                        value={proj_desc}
-                        onChange={event => setProj_desc(event.target.value)}
-                        placeholder="Add Project Describtion"/>
-                        </th>
                     </tr>
                     <tr className='formTableRow'>
                     <td className='techContainer'>
                         <label className='formLabels'>Technologies</label>
                         <input 
                         type="text" 
+                        className='formInput'
                         value={proj_techs}
                         onChange={event => setProj_techs(event.target.value)}
                         placeholder="Add Project Technologies"/>
-                    </td>
-                    <td className='purposeContainer'>
-                        <label className='formLabels'>Purpose</label>
-                        <textarea 
-                        value={proj_purpose}
-                        onChange={event => setProj_purpose(event.target.value)}
-                        placeholder="Add Project Purpose"/>
                     </td>
                     </tr>
                     <tr className='formTableRow'>
@@ -103,30 +94,25 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         { 
                             sliderState ? 
                             <input 
+                            className='srcCodeUnavil'
                             placeholder="Source Code Unavailable"
+                            value='' // clears input 
                             readOnly/>
                             : 
                             <input 
                             type="text" 
+                            className='formInput'
                             value={proj_src_code}
                             onChange={event => setProj_src_code(event.target.value)}
                             placeholder="Add Project Source Code"/>
                         }
-                        <div
-                        style={{
-                            lineHeight: '35px',
-                            margin: '0 auto', 
-                            display: 'flex',
-                            justifyContent: 'space-evenly'
-                        }}
-                        >
-                        <span 
-                        style={sliderState ? {color: 'rgba(233, 139, 17)'} : {}} className='srcCodeAvail'
-                        >Source code unavailable?</span>
-                        <label className="switch">
-                            <input type="checkbox" onClick={toggleSlider}/>
-                            <span className="slider"/>
-                        </label>
+                        <div className='sliderContainer'>
+                            <span 
+                            style={sliderState ? {color: 'rgba(233, 139, 17)'} : {color: 'rgba(233, 139, 17, 0.5)'}}>Source code unavailable?</span>
+                            <label className="switch">
+                                <input type="checkbox" onClick={toggleSlider}/>
+                                <span className="slider"/>
+                            </label>
                         </div>
                     </td>
                     </tr>
@@ -135,13 +121,32 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Area of Application</label>
                         <input 
                         type="text" 
+                        className='formInput'
                         value={proj_aoa}
                         onChange={event => setProj_aoa(event.target.value)}
                         placeholder="Add Project Area of Application"/>
                     </td>
                     </tr>
                 </table>
-                <input type="submit" value="save project"/>
+                <div className='textAreaContainer'>
+                    <label className='formLabels'>Describtion</label>
+                        <textarea 
+                        value={proj_desc}
+                        className='descTextArea'
+                        onChange={event => setProj_desc(event.target.value)}
+                        placeholder="Add Project Describtion"/>
+                    <label className='formLabels'>Purpose</label>
+                        <textarea 
+                        value={proj_purpose}
+                        className='purposeTextArea'
+                        onChange={event => setProj_purpose(event.target.value)}
+                        placeholder="Add Project Purpose"/>
+                </div>
+                <div className='saveBtnContainer'>
+                    <span>
+                        <input className='formSaveBtn' type="submit" value="save project"/>
+                    </span>
+                </div>
             </form>
             <div className="ModalBtnContainer">
                 <button className="closeModalBtn" onClick={closeModal}>Close</button>
