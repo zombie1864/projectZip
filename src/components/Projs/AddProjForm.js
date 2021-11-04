@@ -13,9 +13,10 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         [proj_aoa, setProj_aoa] = useState(''),
         [proj_src_code, setProj_src_code] = useState(''), 
         [sliderState, setSliderState] = useState(false),
-        [nameClassName, setNameClassName] = useState('formInput')
+        [inputClassName, setInputClassName] = useState('formInput'), 
+        [txtAreaDescClassName, setTxtAreaDescClassName] = useState('descTextArea'), 
+        [txtAreaPurposeClassName, setTxtAreaPurposeClassName] = useState('purposeTextArea')
 
-    let invalidInputs = []
 
     const addData = async (dataToSubmit) => {
         const req = await fetch(
@@ -30,10 +31,12 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         cbFuncDataProp(resp) 
     }
 
+
     const toggleSlider = () => { 
         setSliderState(!sliderState)
         setProj_src_code('')
     }
+
     
     const submitForm = event => {
         event.preventDefault()
@@ -46,12 +49,25 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
             proj_src_code: proj_src_code
         }
         let formMetaData = validateForm(dataToSubmit, sliderState),
-            validForm = formMetaData.isFormValid
-        invalidInputs = formMetaData['invalidInputs']
+            validForm = formMetaData.isFormValid,
+            invalidInputs = formMetaData['invalidInputs']
+        
+        console.log(invalidInputs);
 
-        if (invalidInputs.includes('proj_name') ) {
-            setNameClassName('formInput invalidInput')
-        } 
+        if (
+            invalidInputs.includes('proj_name') ||
+            invalidInputs.includes('proj_techs') ||
+            invalidInputs.includes('proj_aoa') ||
+            invalidInputs.includes('proj_src_code') 
+        ) {
+            setInputClassName('formInput invalidInput')
+        }  
+        if ( invalidInputs.includes('proj_desc') ) {
+            setTxtAreaDescClassName('descTextArea invalidInput')
+        }  
+        if (invalidInputs.includes('proj_purpose') ) {
+            setTxtAreaPurposeClassName('purposeTextArea invalidInput')
+        }
 
         if (!validForm) {
             console.log('NO');
@@ -69,15 +85,39 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
 
     if (!openModal) return null 
 
-    const onChangeName = event => {
-        setNameClassName(event.target.dataset.defaultclassname)
-        setProj_name(event.target.value)
+    const handleChange = event => {
+
+        switch (event.target.dataset.fieldname) {
+            case 'name':             
+                setInputClassName(event.target.dataset.defaultclassname)
+                setProj_name(event.target.value)
+                break 
+            case 'tech':             
+                setInputClassName(event.target.dataset.defaultclassname)
+                setProj_techs(event.target.value)
+                break 
+            case 'srcCode':             
+                setInputClassName(event.target.dataset.defaultclassname)
+                setProj_src_code(event.target.value)
+                break 
+            case 'aoa':             
+                setInputClassName(event.target.dataset.defaultclassname)
+                setProj_aoa(event.target.value)
+                break 
+            case 'desc':             
+                setTxtAreaDescClassName(event.target.dataset.defaultclassname)
+                setProj_desc(event.target.value)
+                break 
+            case 'purpose':             
+                setTxtAreaPurposeClassName(event.target.dataset.defaultclassname)
+                setProj_purpose(event.target.value)
+                break 
+        }
     }
 
 
     return (
         <div>
-            {console.log(!invalidInputs.includes('proj_name'))}
         <motion.div className="modalBackdrop"
             initial={{opacity: 0}} 
             animate={{opacity: 0.90}} 
@@ -90,10 +130,11 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Name</label>
                         <input 
                         type="text" 
-                        className={nameClassName}
+                        className={inputClassName}
                         value={proj_name}
                         data-defaultclassname='formInput' // custom attr 
-                        onChange={onChangeName}
+                        data-fieldname='name'
+                        onChange={handleChange}
                         placeholder="Add Project Name"/>
                     </th>
                     </tr>
@@ -102,9 +143,11 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Technologies</label>
                         <input 
                         type="text" 
-                        className={!invalidInputs.includes('proj_techs') ? 'formInput' : 'invalidInput'}
+                        className={inputClassName}
                         value={proj_techs}
-                        onChange={event => setProj_techs(event.target.value)}
+                        data-defaultclassname='formInput'
+                        data-fieldname='tech'
+                        onChange={handleChange}
                         placeholder="Add Project Technologies"/>
                     </td>
                     </tr>
@@ -121,9 +164,11 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                             : 
                             <input 
                             type="text" 
-                            className={!invalidInputs.includes('proj_src_code') ? 'formInput' : 'invalidInput'}
+                            className={inputClassName}
                             value={proj_src_code}
-                            onChange={event => setProj_src_code(event.target.value)}
+                            data-defaultclassname='proj_src_code'
+                            data-fieldname='srcCode'
+                            onChange={handleChange}
                             placeholder="Add Project Source Code"/>
                         }
                         <div className='sliderContainer'>
@@ -141,9 +186,11 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Area of Application</label>
                         <input 
                         type="text" 
-                        className={!invalidInputs.includes('proj_aoa') ? 'formInput' : 'invalidInput'}
+                        className={inputClassName}
                         value={proj_aoa}
-                        onChange={event => setProj_aoa(event.target.value)}
+                        data-defaultclassname='proj_aoa'
+                        data-fieldname='aoa'
+                        onChange={handleChange}
                         placeholder="Add Project Area of Application"/>
                     </td>
                     </tr>
@@ -152,14 +199,18 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                     <label className='formLabels'>Describtion</label>
                         <textarea 
                         value={proj_desc}
-                        className={!invalidInputs.includes('proj_desc') ? 'descTextArea' : 'invalidInput'}
-                        onChange={event => setProj_desc(event.target.value)}
+                        data-defaultclassname='descTextArea'
+                        className={txtAreaDescClassName}
+                        data-fieldname='desc'
+                        onChange={handleChange}
                         placeholder="Add Project Describtion"/>
                     <label className='formLabels'>Purpose</label>
                         <textarea 
                         value={proj_purpose}
-                        className={!invalidInputs.includes('proj_purpose') ? 'purposeTextArea' : 'invalidInput'}
-                        onChange={event => setProj_purpose(event.target.value)}
+                        data-defaultclassname='purposeTextArea'
+                        data-fieldname='purpose'
+                        className={txtAreaPurposeClassName}
+                        onChange={handleChange}
                         placeholder="Add Project Purpose"/>
                 </div>
                 <div className='saveBtnContainer'>
