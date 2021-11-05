@@ -13,7 +13,10 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         [proj_aoa, setProj_aoa] = useState(''),
         [proj_src_code, setProj_src_code] = useState(''), 
         [sliderState, setSliderState] = useState(false),
-        [inputClassName, setInputClassName] = useState('formInput'), 
+        [inputNameClassName, setInputNameClassName] = useState('formInput'),  
+        [inputTechsClassName, setInputTechsClassName] = useState('formInput'), 
+        [inputAoaClassName, setInputAoaClassName] = useState('formInput'), 
+        [inputSrcCodeClassName, setInputSrcCodeClassName] = useState('formInput'), 
         [txtAreaDescClassName, setTxtAreaDescClassName] = useState('descTextArea'), 
         [txtAreaPurposeClassName, setTxtAreaPurposeClassName] = useState('purposeTextArea')
 
@@ -54,14 +57,18 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         
         console.log(invalidInputs);
 
-        if (
-            invalidInputs.includes('proj_name') ||
-            invalidInputs.includes('proj_techs') ||
-            invalidInputs.includes('proj_aoa') ||
-            invalidInputs.includes('proj_src_code') 
-        ) {
-            setInputClassName('formInput invalidInput')
+        if (invalidInputs.includes('proj_name')) {
+            setInputNameClassName('formInput invalidInput')
+        } 
+        if ( invalidInputs.includes('proj_techs')) { 
+            setInputTechsClassName('formInput invalidInput')
         }  
+        if (invalidInputs.includes('proj_aoa')) {
+            setInputAoaClassName('formInput invalidInput')
+        }
+        if (invalidInputs.includes('proj_src_code')) {
+            setInputSrcCodeClassName('formInput invalidInput')
+        }
         if ( invalidInputs.includes('proj_desc') ) {
             setTxtAreaDescClassName('descTextArea invalidInput')
         }  
@@ -88,27 +95,27 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
     const handleChange = event => {
 
         switch (event.target.dataset.fieldname) {
-            case 'name':             
-                setInputClassName(event.target.dataset.defaultclassname)
+            case 'name':
+                setInputNameClassName(event.target.dataset.defaultclassname)
                 setProj_name(event.target.value)
                 break 
-            case 'tech':             
-                setInputClassName(event.target.dataset.defaultclassname)
+            case 'tech':
+                setInputTechsClassName(event.target.dataset.defaultclassname)
                 setProj_techs(event.target.value)
                 break 
-            case 'srcCode':             
-                setInputClassName(event.target.dataset.defaultclassname)
+            case 'srcCode':  
+                setInputSrcCodeClassName(event.target.dataset.defaultclassname) 
                 setProj_src_code(event.target.value)
                 break 
-            case 'aoa':             
-                setInputClassName(event.target.dataset.defaultclassname)
+            case 'aoa':
+                setInputAoaClassName(event.target.dataset.defaultclassname)
                 setProj_aoa(event.target.value)
                 break 
-            case 'desc':             
+            case 'desc':
                 setTxtAreaDescClassName(event.target.dataset.defaultclassname)
                 setProj_desc(event.target.value)
                 break 
-            case 'purpose':             
+            case 'purpose':
                 setTxtAreaPurposeClassName(event.target.dataset.defaultclassname)
                 setProj_purpose(event.target.value)
                 break 
@@ -130,7 +137,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Name</label>
                         <input 
                         type="text" 
-                        className={inputClassName}
+                        className={inputNameClassName}
                         value={proj_name}
                         data-defaultclassname='formInput' // custom attr 
                         data-fieldname='name'
@@ -143,7 +150,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Technologies</label>
                         <input 
                         type="text" 
-                        className={inputClassName}
+                        className={inputTechsClassName}
                         value={proj_techs}
                         data-defaultclassname='formInput'
                         data-fieldname='tech'
@@ -164,9 +171,9 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                             : 
                             <input 
                             type="text" 
-                            className={inputClassName}
+                            className={inputSrcCodeClassName}
                             value={proj_src_code}
-                            data-defaultclassname='proj_src_code'
+                            data-defaultclassname='formInput'
                             data-fieldname='srcCode'
                             onChange={handleChange}
                             placeholder="Add Project Source Code"/>
@@ -186,9 +193,9 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                         <label className='formLabels'>Area of Application</label>
                         <input 
                         type="text" 
-                        className={inputClassName}
+                        className={inputAoaClassName}
                         value={proj_aoa}
-                        data-defaultclassname='proj_aoa'
+                        data-defaultclassname='formInput'
                         data-fieldname='aoa'
                         onChange={handleChange}
                         placeholder="Add Project Area of Application"/>
