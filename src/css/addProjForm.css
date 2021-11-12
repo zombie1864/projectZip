@@ -148,6 +148,12 @@ input:checked + .slider:before {
     border-bottom: 1.5px solid rgba(63, 63, 63, 0.5);
 }    
 
+.invalidInput {
+    background-size: 8px 8px;
+    background-image: linear-gradient(135deg, rgba(232, 71, 76, 0.5), rgba(232, 71, 76, 0.5) 25%, transparent 25%, transparent 50%, rgba(232, 71, 76, 0.5) 50%, rgba(232, 71, 76, 0.5) 75%, transparent 75%, transparent);
+    background-repeat: repeat;
+}
+
 .descTextArea {
     resize: none;
     height: 183px;
