@@ -1,11 +1,16 @@
-import React from 'react'
-import {motion} from 'framer-motion'
 import '../../css/projModal.css'
 import '../../css/addProjForm.css'
 import { useState } from 'react'
 import { validateForm } from '../../validators/formValidator'
+import AddProjFormTemplate from '../../templates/projectsTemplate/AddProjFormTemplate'
 
-const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
+const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsState}) => {
+    /**
+    @description: renders "Add New Project" btn to user. onClick will open modal form. 
+    @param {openAddNewProjModal - props.state} Boolean: 
+    @param {closeAddNewProjModal - props.handlers} event_handler: 
+    @param {updateProjectsState - props.handlers} event_handler: 
+    **/
     const [proj_name, setProj_name] = useState(''),
         [proj_desc, setProj_desc] = useState(''),
         [proj_purpose, setProj_purpose] = useState(''),
@@ -30,8 +35,8 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                 body: JSON.stringify(dataToSubmit)
             }
         )
-        const resp = await req.json()
-        cbFuncDataProp(resp) 
+        const resp = await req.json() // sends back updated bd
+        updateProjectsState(resp) 
     }
 
 
@@ -42,6 +47,7 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
 
     
     const submitForm = event => {
+        // console.log(openAddNewProjModal);
         event.preventDefault()
         const dataToSubmit = {
             proj_name: proj_name,
@@ -75,7 +81,6 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         if (invalidInputs.includes('proj_purpose') ) {
             setTxtAreaPurposeClassName('purposeTextArea invalidInput')
         }
-
         if (!validForm) {
             console.log('NO');
         } else {
@@ -90,10 +95,8 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
         }
     }
 
-    if (!openModal) return null 
 
     const handleChange = event => {
-
         switch (event.target.dataset.fieldname) {
             case 'name':
                 setInputNameClassName(event.target.dataset.defaultclassname)
@@ -119,119 +122,33 @@ const AddProjForm = ({openModal, closeModal, cbFuncDataProp}) => {
                 setTxtAreaPurposeClassName(event.target.dataset.defaultclassname)
                 setProj_purpose(event.target.value)
                 break 
+            default:
+                return 
         }
     }
 
 
-    return (
-        <div>
-        <motion.div className="modalBackdrop"
-            initial={{opacity: 0}} 
-            animate={{opacity: 0.90}} 
-            transition={{duration: 0.5}}/>
-        <div className="projFormModal">
-            <form  className='addProjForm' onSubmit={submitForm}>
-                <table>
-                    <tr className='formTableRow'>
-                    <th className='nameContainer'>
-                        <label className='formLabels'>Name</label>
-                        <input 
-                        type="text" 
-                        className={inputNameClassName}
-                        value={proj_name}
-                        data-defaultclassname='formInput' // custom attr 
-                        data-fieldname='name'
-                        onChange={handleChange}
-                        placeholder="Add Project Name"/>
-                    </th>
-                    </tr>
-                    <tr className='formTableRow'>
-                    <td className='techContainer'>
-                        <label className='formLabels'>Technologies</label>
-                        <input 
-                        type="text" 
-                        className={inputTechsClassName}
-                        value={proj_techs}
-                        data-defaultclassname='formInput'
-                        data-fieldname='tech'
-                        onChange={handleChange}
-                        placeholder="Add Project Technologies"/>
-                    </td>
-                    </tr>
-                    <tr className='formTableRow'>
-                    <td className='srcCodeContainer'>
-                        <label className='formLabels'>Source Code</label>
-                        { 
-                            sliderState ? 
-                            <input 
-                            className='srcCodeUnavil'
-                            placeholder="Source Code Unavailable"
-                            value='' // clears input 
-                            readOnly/>
-                            : 
-                            <input 
-                            type="text" 
-                            className={inputSrcCodeClassName}
-                            value={proj_src_code}
-                            data-defaultclassname='formInput'
-                            data-fieldname='srcCode'
-                            onChange={handleChange}
-                            placeholder="Add Project Source Code"/>
-                        }
-                        <div className='sliderContainer'>
-                            <span 
-                            style={sliderState ? {color: 'rgba(233, 139, 17)'} : {color: 'rgba(233, 139, 17, 0.5)'}}>Source code unavailable?</span>
-                            <label className="switch">
-                                <input type="checkbox" onClick={toggleSlider}/>
-                                <span className="slider"/>
-                            </label>
-                        </div>
-                    </td>
-                    </tr>
-                    <tr className='formTableRow'>
-                    <td className='aoaContainer'>
-                        <label className='formLabels'>Area of Application</label>
-                        <input 
-                        type="text" 
-                        className={inputAoaClassName}
-                        value={proj_aoa}
-                        data-defaultclassname='formInput'
-                        data-fieldname='aoa'
-                        onChange={handleChange}
-                        placeholder="Add Project Area of Application"/>
-                    </td>
-                    </tr>
-                </table>
-                <div className='textAreaContainer'>
-                    <label className='formLabels'>Describtion</label>
-                        <textarea 
-                        value={proj_desc}
-                        data-defaultclassname='descTextArea'
-                        className={txtAreaDescClassName}
-                        data-fieldname='desc'
-                        onChange={handleChange}
-                        placeholder="Add Project Describtion"/>
-                    <label className='formLabels'>Purpose</label>
-                        <textarea 
-                        value={proj_purpose}
-                        data-defaultclassname='purposeTextArea'
-                        data-fieldname='purpose'
-                        className={txtAreaPurposeClassName}
-                        onChange={handleChange}
-                        placeholder="Add Project Purpose"/>
-                </div>
-                <div className='saveBtnContainer'>
-                    <span>
-                        <input className='formSaveBtn' type="submit" value="save project"/>
-                    </span>
-                </div>
-            </form>
-            <div className="ModalBtnContainer">
-                <button className="closeModalBtn" onClick={closeModal}>Close</button>
-            </div>
-        </div>
-        </div>
+    return AddProjFormTemplate(
+        openAddNewProjModal,
+        closeAddNewProjModal,
+        proj_name,
+        proj_desc,
+        proj_purpose,
+        proj_techs,
+        proj_aoa,
+        proj_src_code,
+        sliderState,
+        inputNameClassName,
+        inputTechsClassName,
+        inputAoaClassName,
+        inputSrcCodeClassName,
+        txtAreaDescClassName,
+        txtAreaPurposeClassName,
+        toggleSlider,
+        submitForm,
+        handleChange
     )
 }
+  
 
 export default AddProjForm

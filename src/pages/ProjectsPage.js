@@ -1,17 +1,49 @@
 import React from 'react'
+import AddProjForm from '../components/Projs/AddProjForm'
 import ProjBtns from '../components/Projs/ProjBtns'
 import '../css/projectPage.css'
+import { useState, useEffect } from 'react'
 
 const ProjectsPage = () => {
     /**
-    @description: This container func contains all the comp associated with what is being rendered on the page.
-    Project btns. 
+    @description: This container func contains all the comp associated with what is being rendered on the page as well as the application logic of the projectsPage view layer. The application logic will perform and contain all the logic that is going to be shared across each component on the view layer. On componentDidMount, api call is made - fetch backend data. 
     **/
+   const [projectsState, setProjectsState] = useState([]),
+   [modalState, setModalState] = useState(false),
+   [addProjModalState, setAddProjModalState] = useState(false)
+   
+   useEffect( () => { // ~ componentDidMount, makes http req 
+       const getProjsDataFromServer = async () => {
+           const projectsDataFromServer = await fetchProjectsData()
+           setProjectsState(projectsDataFromServer)
+       }
+       getProjsDataFromServer()
+   }, [])
+   
+    const fetchProjectsData  = async () => {
+        const res = await fetch('http://localhost:5000/projects')
+        const projectsData = await res.json()
+        return projectsData
+    }
+
+    const updateProjectsState = updatedBackendData => setProjectsState(updatedBackendData)
+
+    const toggleModal = () => setModalState(!modalState)
+    
+    const toggleAddProjModal = () => setAddProjModalState(!addProjModalState)
+
     return (
         <div className="projectPage">
             <h3 className="pageTitleProject">Projects</h3>
             <div>
-                <ProjBtns/>
+                <ProjBtns 
+                openProjModal={modalState}
+                projectsState={projectsState}
+                toggleModal={toggleModal}/>
+                <AddProjForm 
+                openAddNewProjModal={addProjModalState}
+                closeAddNewProjModal={toggleAddProjModal}
+                updateProjectsState={updateProjectsState}/>
             </div>
         </div>
     )

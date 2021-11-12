@@ -4,10 +4,19 @@ import {motion} from 'framer-motion'
 import { Link } from 'react-router-dom'
 
 
-const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, ProjSrcCode, closeModal}) => { 
-    if (!openModal) return null 
-    const projTechArr = projTech.split(',')
+const ProjectModalTemplate = (
+    openProjModal, 
+    projName, 
+    projPurpose, 
+    projTech, 
+    projAoA, 
+    projSrcCode, 
+    closeProjModal
+    ) => { 
     return (
+        <div>
+        {
+        !openProjModal ? null : 
         <div>
         <motion.div 
         className="modalBackdrop"
@@ -32,9 +41,11 @@ const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, Proj
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
-                        {projTechArr.map((tech, idx) => {
-                            return idx === projTechArr.length - 1 ? <span key={idx}>{tech}</span> : <span key={idx}>{tech}, </span>
-                        })}
+                        {
+                            projTech.split(',').map((tech, idx) => {
+                                return idx === projTech.split(',').length - 1 ? <span key={idx}>{tech}</span> : <span key={idx}>{tech}, </span>
+                            })
+                        }
                     </div>
                 </div>
                 <div className="modalSubContainerOutterBorder">
@@ -46,13 +57,15 @@ const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, Proj
             </div>
             <div className="ModalBtnContainer">
                 <a 
-                href={ProjSrcCode} 
+                href={projSrcCode} 
                 target="_blank" 
                 rel="noreferrer"
                 className="srcCodeBtnAnchorTag">
                     <button className="srcCodeBtn">Source Code</button>
                 </a> 
-                <button className="closeModalBtn" onClick={closeModal}>Close</button>
+                <button 
+                className="closeModalBtn" 
+                onClick={closeProjModal}>Close</button>
                 <Link 
                 to={{pathname: '/task'}}
                 className="taskBtnLinkTag">
@@ -61,7 +74,9 @@ const ProjectModal = ({openModal, projName, projPurpose, projTech, projAoA, Proj
             </div>
         </motion.div>
         </div>
+        }
+        </div>
     )
 }
 
-export default ProjectModal
+export default ProjectModalTemplate
