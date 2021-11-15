@@ -17,6 +17,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         [proj_techs, setProj_techs] = useState(''),
         [proj_aoa, setProj_aoa] = useState(''),
         [proj_src_code, setProj_src_code] = useState(''), 
+        [projResource, setProjResource] = useState([]),
         [sliderState, setSliderState] = useState(false),
         [inputNameClassName, setInputNameClassName] = useState('formInput'),  
         [inputTechsClassName, setInputTechsClassName] = useState('formInput'), 

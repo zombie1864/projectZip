@@ -1,7 +1,6 @@
 from flask.globals import request
 from server import app, jsonify, request, db
-from server.models import Project
-import json 
+from server.models import Project, Technology
 
 
 @app.after_request
@@ -13,7 +12,7 @@ def add_headers(response):
 
 
 @app.route('/projects', methods=['GET', 'POST'])
-def hello_world():
+def projects():
     ''' Create func '''
     incoming_data = request.json
     if incoming_data: 
@@ -28,6 +27,13 @@ def hello_world():
         db.session.add(converted_data)
         db.session.commit()
     projects = Project.query.all()
+    print('\n----------[ START ]----------\n')
+    # print(Technology.query.all())
+    # tech_data = [tech.as_str() for tech in Technology.query.all()]
+    # tech_data = Technology.query.get(123)
+    tech_data = [tech.as_str() for tech in Project.query.get(456).proj_techs.all()]
+    print(tech_data)
+    print('\n----------[ END ]----------\n') 
     data = [project.as_dict() for project in projects]
     return jsonify(data)
 

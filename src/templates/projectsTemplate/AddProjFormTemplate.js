@@ -141,6 +141,9 @@ const AddProjFormTemplate = (
                                 onChange={handleChange}
                                 placeholder="Add Project Purpose"/>
                         </div>
+                        <div>
+                            <button>Add Project Resource</button>
+                        </div>
                         <div className='saveBtnContainer'>
                             <span>
                                 <input className='formSaveBtn' type="submit" value="save project"/>
