@@ -17,6 +17,9 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         [proj_techs, setProj_techs] = useState(''),
         [proj_aoa, setProj_aoa] = useState(''),
         [proj_src_code, setProj_src_code] = useState(''), 
+        [proj_resource, setProj_resource] = useState(''), 
+        [proj_resources, setProj_resources] = useState([]),
+        [toggleAddProjResource, setToggleAddProjResource] = useState(false),
         [sliderState, setSliderState] = useState(false),
         [inputNameClassName, setInputNameClassName] = useState('formInput'),  
         [inputTechsClassName, setInputTechsClassName] = useState('formInput'), 
@@ -47,7 +50,6 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
 
     
     const submitForm = event => {
-        // console.log(openAddNewProjModal);
         event.preventDefault()
         const dataToSubmit = {
             proj_name: proj_name,
@@ -55,10 +57,11 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
             proj_purpose: proj_purpose,
             proj_techs: proj_techs,
             proj_aoa: proj_aoa,
-            proj_src_code: proj_src_code
+            proj_src_code: proj_src_code,
+            proj_resources: proj_resources
         }
         let formMetaData = validateForm(dataToSubmit, sliderState),
-            validForm = formMetaData.isFormValid,
+        validForm = formMetaData.isFormValid,
             invalidInputs = formMetaData['invalidInputs']
         
         console.log(invalidInputs);
@@ -92,6 +95,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
             setProj_techs('')
             setProj_aoa('')
             setProj_src_code('')
+            setToggleAddProjResource(!toggleAddProjResource)
         }
     }
 
@@ -122,9 +126,18 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
                 setTxtAreaPurposeClassName(event.target.dataset.defaultclassname)
                 setProj_purpose(event.target.value)
                 break 
+            case 'resource':
+                setProj_resource(event.target.value)
             default:
                 return 
         }
+    }
+
+    const addProjResource = () => setToggleAddProjResource(!toggleAddProjResource)
+    const saveResource = () => {
+        if (proj_resource === '') return 
+        setProj_resources([...proj_resources,proj_resource])
+        setProj_resource('')
     }
 
 
@@ -137,6 +150,8 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         proj_techs,
         proj_aoa,
         proj_src_code,
+        proj_resource,
+        proj_resources,
         sliderState,
         inputNameClassName,
         inputTechsClassName,
@@ -144,9 +159,12 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         inputSrcCodeClassName,
         txtAreaDescClassName,
         txtAreaPurposeClassName,
+        toggleAddProjResource,
         toggleSlider,
         submitForm,
-        handleChange
+        handleChange,
+        addProjResource,
+        saveResource
     )
 }
   

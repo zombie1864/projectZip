@@ -16,6 +16,8 @@ const AddProjFormTemplate = (
     proj_techs,
     proj_aoa,
     proj_src_code,
+    proj_resource,
+    proj_resources,
     sliderState,
     inputNameClassName,
     inputTechsClassName,
@@ -23,9 +25,12 @@ const AddProjFormTemplate = (
     inputSrcCodeClassName,
     txtAreaDescClassName,
     txtAreaPurposeClassName,
+    toggleAddProjResource,
     toggleSlider,
     submitForm,
-    handleChange
+    handleChange,
+    addProjResource,
+    saveResource
 ) => {
     return (
         <div>
@@ -140,6 +145,32 @@ const AddProjFormTemplate = (
                                 className={txtAreaPurposeClassName}
                                 onChange={handleChange}
                                 placeholder="Add Project Purpose"/>
+                        </div>
+                        <div>
+                            <span style={{color:'white'}}>Available Project Resources?</span>
+                            <button 
+                            type='button' // all btns are, by default, type='submit'
+                            onClick={addProjResource}>Add Project Resource</button>
+                            {
+                            toggleAddProjResource && 
+                            <div>
+                                <input 
+                                type="text"
+                                value={proj_resource}
+                                data-fieldname='resource'
+                                onChange={handleChange}/>
+                                <button
+                                type='button'
+                                onClick={saveResource}>Add Resource</button>
+                                <ul style={{color: 'white'}}>
+                                    {proj_resources.map((resource, idx) => {
+                                        return (
+                                            <li key={idx}>{resource}</li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                            }
                         </div>
                         <div className='saveBtnContainer'>
                             <span>
