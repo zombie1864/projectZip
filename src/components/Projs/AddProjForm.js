@@ -128,6 +128,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
                 break 
             case 'resource':
                 setProj_resource(event.target.value)
+                break
             default:
                 return 
         }

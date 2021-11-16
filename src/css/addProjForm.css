@@ -1,6 +1,14 @@
+.addNewProjectComponent {
+    position: fixed;
+    top: 24%;
+    left: 85%;
+    transform: translate(-50%,-50%);
+}
+
+
 .projFormModal {
     position: fixed;
-    top: 39%;
+    top: 49%;
     left: 50%;
     right: 25%;
     transform: translate(-50%,-50%);
@@ -19,10 +27,11 @@
     z-index: -1;
     content: '';
     position: absolute;
-    left: 350px;
-    top: -350px;
+    top: -65%;
+    right: 40%;
+    transform: translate(-50%,-50%);
     width: 200px;
-    height: 250%;
+    height: 200%;
     background: linear-gradient(#00ccff, greenyellow);
     animation: animateModalEff 5s linear infinite;
 }
@@ -38,14 +47,8 @@
 
 
 @keyframes animateModalEff {
-    0% 
-    {
-        transform: rotate(0deg);
-    }
-    100% 
-    {
-        transform: rotate(360deg);
-    }
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
 }
 
 .formTableRow {
@@ -159,6 +162,8 @@ input:checked + .slider:before {
     height: 183px;
     margin: 0 0 26px 0;
 }
+
+
 .purposeTextArea {
     resize: none;
     height: 202px;
@@ -201,13 +206,76 @@ textarea::placeholder {
     border-bottom: 1.5px solid rgba(63, 63, 63, 0.5);
 }
 
+
 .srcCodeUnavil::placeholder {
     color: greenyellow;
     -webkit-transition:1s;
     transition:1s;
 }
 
+.resourceContainer {
+    display: flex;
+    /* background-color: aqua; */
+    margin: 20px 0px 20px 0px;
+    justify-content: space-evenly;
+    line-height: 45px;
+    height: 65px;
+}
 
+.availProjResourceTxt {
+    color: rgba(233, 139, 17);
+    font-size: 1.2em;
+    line-height: 39px;
+}
+
+
+.availProjResourceTxtWithInput {
+    color: rgba(233, 139, 17);
+    font-size: 1.2em;
+    line-height: 80px;
+}
+
+
+.addResourceInputFields {
+    display: flex;
+}
+
+.addResourceInputFields, .addResourceBtn {
+    margin: 0px 20px 0px 20px;
+}
+
+.addResourceBtn {
+    background-color: #151b26;
+    color: rgb(233, 139, 17);
+    border-width: thin;
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.addResourceBtn:hover {
+    background-color: rgb(53, 233, 17);
+    color: rgb(253, 0, 0);
+    transition: 0.6s;
+    box-shadow: 0 0 5px rgb(65, 255, 7), 0 0 15px rgb(65, 255, 7), 0 0 65px rgb(65, 255, 7)
+}
+
+
+.projResourceList {
+    display: flex;
+    flex-direction: column;
+    color: wheat;
+    max-height: 60px;
+    overflow-y: auto;
+    padding: 20px 0px;
+}
+
+.projResourceItem {
+    margin: 3px 0px 3px 0px;
+}
 
 
 .saveBtnContainer span{
@@ -258,6 +326,75 @@ textarea::placeholder {
     overflow: hidden;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.addResourceBtnContainer span{
+    position: relative;
+    width: 180px;
+    height: 40px;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.addResourceBtnContainer span::before,
+.addResourceBtnContainer span::after{
+    content: '';
+    position: absolute;
+}
+
+.addResourceBtnContainer span:nth-child(1)::before,
+.addResourceBtnContainer span:nth-child(1)::after{
+    background: linear-gradient(45deg, #3498db, #0e1538, greenyellow);
+}
+
+.addResourceBtnContainer span:hover::before {
+    border-radius: 10px;
+    inset: -3px;
+}
+.addResourceBtnContainer span:hover::after {
+    inset: -6px;
+    filter: blur(10px);
+}
+
+.addResourceBtnContainer span input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background-color: #151b26;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: wheat;
+    border: 1px solid #0e31db;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.cancelAddProjResourceBtn {
+    background-color: #151b26;
+    color: rgb(233, 139, 17);
+    border-width: thin;
+    border-radius: 5px;
+    width: 60px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-top: 20px;
+}
+
+
+.cancelAddProjResourceBtn:hover {
+    cursor: pointer;
+    background-color: red;
+    transition: 0.6s;
+    color: rgb(253, 236, 0);
+    box-shadow: 0 0 5px rgb(255, 98, 7), 0 0 15px rgb(255, 98, 7), 0 0 65px rgb(255, 98, 7)
 }
 
 .formSaveBtn:hover {

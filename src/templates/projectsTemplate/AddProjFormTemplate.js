@@ -32,14 +32,40 @@ const AddProjFormTemplate = (
     addProjResource,
     saveResource
 ) => {
+    /**
+    @description: 
+    @param {openAddNewProjModal - props} 
+    @param {closeAddNewProjModal - props} 
+    @param {proj_name - state} 
+    @param {proj_desc - state} 
+    @param {proj_purpose - state} 
+    @param {proj_techs - state} 
+    @param {proj_aoa - state} 
+    @param {proj_src_code - state} 
+    @param {proj_resource - state} 
+    @param {proj_resources - state} 
+    @param {sliderState - state} 
+    @param {inputNameClassName - state} 
+    @param {inputTechsClassName - state} 
+    @param {inputAoaClassName - state} 
+    @param {inputSrcCodeClassName - state} 
+    @param {txtAreaDescClassName - state} 
+    @param {txtAreaPurposeClassName - state} 
+    @param {toggleAddProjResource - state} 
+    @param {toggleSlider - event handler} 
+    @param {submitForm - event handler} 
+    @param {handleChange - event handler} 
+    @param {addProjResource - event handler} 
+    @param {saveResource - event handler} 
+    **/
     return (
-        <div>
+        <div className={openAddNewProjModal ? '' : 'addNewProjectComponent'}>
             {
                 !openAddNewProjModal ? 
                 <div className='projBtnContainer'>
                 <motion.button
                 variants={item} 
-                whileHover={{y:5.0}}
+                whileHover={{y:-15.0}}
                 onClick={closeAddNewProjModal}//NOTE this togglesModal state not just close it
                 className='projBtns'> 
                     <motion.span className='projBtnIcon'>{<MdPlaylistAdd/>}</motion.span>
@@ -146,40 +172,72 @@ const AddProjFormTemplate = (
                                 onChange={handleChange}
                                 placeholder="Add Project Purpose"/>
                         </div>
-                        <div>
-                            <span style={{color:'white'}}>Available Project Resources?</span>
-                            <button 
-                            type='button' // all btns are, by default, type='submit'
-                            onClick={addProjResource}>Add Project Resource</button>
+                        <div className='resourceContainer'>
+                            <span 
+                            className={toggleAddProjResource ? 'availProjResourceTxtWithInput' : 'availProjResourceTxt'}>
+                                Available Project Resources?
+                            </span>
+                            <div 
+                            className={!toggleAddProjResource && 'addResourceBtnContainer'}
+                            onClick={addProjResource}>
+                                {
+                                    toggleAddProjResource ? 
+                                    <button 
+                                    type='button'
+                                    className='cancelAddProjResourceBtn'>
+                                        Cancel
+                                    </button> :
+                                    <span>
+                                        <input
+                                        type='button'
+                                        value='Add Project Resource'
+                                        />
+                                    </span>
+                                }
+                            </div>
                             {
                             toggleAddProjResource && 
-                            <div>
+                            <div className='addResourceInputFields'>
                                 <input 
                                 type="text"
+                                className='formInput'
+                                placeholder='Add Resource'
                                 value={proj_resource}
                                 data-fieldname='resource'
                                 onChange={handleChange}/>
                                 <button
                                 type='button'
+                                className='addResourceBtn'
                                 onClick={saveResource}>Add Resource</button>
-                                <ul style={{color: 'white'}}>
-                                    {proj_resources.map((resource, idx) => {
-                                        return (
-                                            <li key={idx}>{resource}</li>
-                                        )
-                                    })}
-                                </ul>
                             </div>
                             }
                         </div>
+                        {
+                            toggleAddProjResource && 
+                            <ul className={proj_resources.length && 'projResourceList'} >
+                                    {
+                                        proj_resources.map((resource, idx) => {
+                                            return (
+                                                <li 
+                                                className='projResourceItem'
+                                                key={idx}>{resource}</li>
+                                            )
+                                        })
+                                    }
+                            </ul>
+                        }
                         <div className='saveBtnContainer'>
                             <span>
-                                <input className='formSaveBtn' type="submit" value="save project"/>
+                                <input 
+                                className='formSaveBtn' 
+                                type="submit" 
+                                value="save project"/>
                             </span>
                         </div>
                     </form>
                     <div className="ModalBtnContainer">
                         <button 
+                         // all btns are, by default, type='submit'
                         className="closeModalBtn" 
                         onClick={closeAddNewProjModal}>Close</button>
                     </div>
