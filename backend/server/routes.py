@@ -1,6 +1,6 @@
 from flask.globals import request
 from server import app, jsonify, request, db
-from server.models import Project, Technology
+from server.models import Project
 
 
 @app.after_request
@@ -22,18 +22,12 @@ def projects():
             proj_purpose = incoming_data['proj_purpose'],
             proj_techs = incoming_data['proj_techs'],
             proj_aoa = incoming_data['proj_aoa'], 
-            proj_src_code = incoming_data['proj_src_code']
+            proj_src_code = incoming_data['proj_src_code'],
+            proj_resources = incoming_data['proj_resources']
         )
         db.session.add(converted_data)
         db.session.commit()
     projects = Project.query.all()
-    print('\n----------[ START ]----------\n')
-    # print(Technology.query.all())
-    # tech_data = [tech.as_str() for tech in Technology.query.all()]
-    # tech_data = Technology.query.get(123)
-    tech_data = [tech.as_str() for tech in Project.query.get(456).proj_techs.all()]
-    print(tech_data)
-    print('\n----------[ END ]----------\n') 
     data = [project.as_dict() for project in projects]
     return jsonify(data)
 
