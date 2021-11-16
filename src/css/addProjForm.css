@@ -141,6 +141,7 @@ input:checked + .slider:before {
 }
 
 .formInput, textarea {
+    resize: none;
     display:block;
     height:50px;
     width:90%;

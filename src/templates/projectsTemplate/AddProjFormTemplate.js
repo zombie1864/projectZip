@@ -30,7 +30,8 @@ const AddProjFormTemplate = (
     submitForm,
     handleChange,
     addProjResource,
-    saveResource
+    saveResource,
+    cancelAddProjResource
 ) => {
     /**
     @description: 
@@ -87,7 +88,7 @@ const AddProjFormTemplate = (
                             <tr className='formTableRow'>
                             <th className='nameContainer'>
                                 <label className='formLabels'>Name</label>
-                                <input 
+                                <textarea 
                                 type="text" 
                                 className={inputNameClassName}
                                 value={proj_name}
@@ -100,7 +101,7 @@ const AddProjFormTemplate = (
                             <tr className='formTableRow'>
                             <td className='techContainer'>
                                 <label className='formLabels'>Technologies</label>
-                                <input 
+                                <textarea 
                                 type="text" 
                                 className={inputTechsClassName}
                                 value={proj_techs}
@@ -115,13 +116,13 @@ const AddProjFormTemplate = (
                                 <label className='formLabels'>Source Code</label>
                                 { 
                                     sliderState ? 
-                                    <input 
+                                    <textarea 
                                     className='srcCodeUnavil'
                                     placeholder="Source Code Unavailable"
                                     value='' // clears input 
                                     readOnly/>
                                     : 
-                                    <input 
+                                    <textarea 
                                     type="text" 
                                     className={inputSrcCodeClassName}
                                     value={proj_src_code}
@@ -143,7 +144,7 @@ const AddProjFormTemplate = (
                             <tr className='formTableRow'>
                             <td className='aoaContainer'>
                                 <label className='formLabels'>Area of Application</label>
-                                <input 
+                                <textarea 
                                 type="text" 
                                 className={inputAoaClassName}
                                 value={proj_aoa}
@@ -178,18 +179,19 @@ const AddProjFormTemplate = (
                                 Available Project Resources?
                             </span>
                             <div 
-                            className={!toggleAddProjResource && 'addResourceBtnContainer'}
-                            onClick={addProjResource}>
+                            className={!toggleAddProjResource && 'addResourceBtnContainer'}>
                                 {
                                     toggleAddProjResource ? 
                                     <button 
                                     type='button'
+                                    onClick={cancelAddProjResource}
                                     className='cancelAddProjResourceBtn'>
                                         Cancel
                                     </button> :
                                     <span>
                                         <input
                                         type='button'
+                                        onClick={addProjResource}
                                         value='Add Project Resource'
                                         />
                                     </span>
@@ -198,7 +200,7 @@ const AddProjFormTemplate = (
                             {
                             toggleAddProjResource && 
                             <div className='addResourceInputFields'>
-                                <input 
+                                <textarea 
                                 type="text"
                                 className='formInput'
                                 placeholder='Add Resource'

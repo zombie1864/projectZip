@@ -95,7 +95,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
             setProj_techs('')
             setProj_aoa('')
             setProj_src_code('')
-            setToggleAddProjResource(!toggleAddProjResource)
+            setToggleAddProjResource(false)
         }
     }
 
@@ -134,7 +134,11 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         }
     }
 
-    const addProjResource = () => setToggleAddProjResource(!toggleAddProjResource)
+    const addProjResource = () => setToggleAddProjResource(true)
+    const cancelAddProjResource = () => {
+        setToggleAddProjResource(false) 
+        setProj_resources([])
+    }
     const saveResource = () => {
         if (proj_resource === '') return 
         setProj_resources([...proj_resources,proj_resource])
@@ -165,7 +169,8 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         submitForm,
         handleChange,
         addProjResource,
-        saveResource
+        saveResource,
+        cancelAddProjResource
     )
 }
   
