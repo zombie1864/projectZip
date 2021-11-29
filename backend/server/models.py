@@ -13,9 +13,8 @@ class Project(db.Model):
     proj_resources = db.relationship('Resources', backref='project', lazy='dynamic')
 
 
-    def __init__(self, id, proj_name, proj_desc, proj_purpose, proj_techs, proj_aoa, proj_src_code, proj_resources):
+    def __init__(self, proj_name, proj_desc, proj_purpose, proj_techs, proj_aoa, proj_src_code, proj_resources):
         '''  '''
-        self.id = id 
         self.proj_name = proj_name
         self.proj_desc = proj_desc
         self.proj_purpose = proj_purpose
