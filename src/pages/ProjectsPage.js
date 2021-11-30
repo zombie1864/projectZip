@@ -34,7 +34,9 @@ const ProjectsPage = () => {
 
     return (
         <div className="projectPage">
-            <h3 className="pageTitleProject">Projects</h3>
+            <h3 className="pageTitleProject">
+                Projects<span> - View or add new projects</span>
+            </h3>
             <div>
                 <ProjBtns 
                 openProjModal={modalState}
