@@ -83,7 +83,7 @@ const ProjectModalTemplate = (
                 className="closeModalBtn" 
                 onClick={closeProjModal}>Close</button>
                 <Link 
-                to={{pathname: '/task'}}
+                to={{pathname: '/tasks'}}
                 className="taskBtnLinkTag">
                     <button className="taskBtn">Task</button>
                 </Link>

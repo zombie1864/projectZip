@@ -17,7 +17,7 @@ const NavBarOptions = [
     },
     {
         title: 'Task',
-        path: '/task',
+        path: '/tasks',
         icon: <AiOutlineEdit/>,
         navType: 'internal'
     },
