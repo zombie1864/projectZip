@@ -1,5 +1,5 @@
 from server import db 
-from server.models import Project
+from server.models import Project, Task
 
 proj_1 = Project(
     proj_name = "NOAA data acquisition", 
@@ -40,3 +40,28 @@ try:
 except Exception:
     db.session.rollback()
 
+
+proj_3_task_1 = Task(
+    task = 'review DSnA set 1', 
+    due_date = '02/18/22',
+    prio_lvl = 'Top priority', 
+    tags = 'tag1-tag2-tag3-tag4', 
+    project_id = proj_3.id
+)
+
+
+proj_3_task_2 = Task(
+    task = 'complete DSnA set 3', 
+    due_date = '02/18/22',
+    prio_lvl = 'Top priority', 
+    tags = '', 
+    project_id = proj_3.id
+)
+
+try: 
+    db.session.add(proj_3_task_1)
+    db.session.add(proj_3_task_2)
+    db.session.commit()
+
+except Exception:
+    db.session.rollback()

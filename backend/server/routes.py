@@ -1,6 +1,6 @@
 from flask.globals import request
 from server import app, jsonify, request, db
-from server.models import Project
+from server.models import Project, Task
 
 
 @app.after_request
@@ -13,7 +13,7 @@ def add_headers(response):
 
 @app.route('/projects', methods=['GET', 'POST'])
 def projects():
-    ''' Create func '''
+    ''' route func '''
     incoming_data = request.json
     if incoming_data: 
         converted_data = Project(
@@ -30,6 +30,25 @@ def projects():
     projects = Project.query.all()
     data = [project.as_dict() for project in projects]
     return jsonify(data)
+
+
+@app.route('/tasks', methods=['GET', 'POST'])
+def tasks():
+    ''' route func '''
+    incoming_data = request.json 
+    if incoming_data:
+        converted_data = Task(
+            task = incoming_data['task'], 
+            due_date = incoming_data['due_date'], 
+            prio_lvl = incoming_data['prio_lvl'], 
+            tags = incoming_data['tags'], 
+            project_id = incoming_data['proj_id'] 
+        )
+        db.session.add(converted_data)
+        db.session.commit()
+    projects = Project.query.all()
+    list_of_tasks = [project.get_tasks() for project in projects]
+    return jsonify(list_of_tasks)
 
 '''  
     NOTE 
