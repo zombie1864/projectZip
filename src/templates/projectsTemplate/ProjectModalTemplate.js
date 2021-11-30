@@ -10,6 +10,7 @@ const ProjectModalTemplate = (
     projPurpose, 
     projTech, 
     projAoA, 
+    projResources,
     projSrcCode, 
     closeProjModal
     ) => { 
@@ -54,6 +55,21 @@ const ProjectModalTemplate = (
                         <span>{projAoA}</span>
                     </div>
                 </div>
+                {
+                (projResources.split(',').length > 0 && projResources.split(',')[0] !== '') && 
+                <div className="modalSubContainerOutterBorder">
+                    <span className="modalLabels">Project Resources:</span> 
+                    <div className="modalLabelInnerBorder">
+                        <ul>
+                            {projResources.split(',').map((resource, idx) => {
+                                return (
+                                <li key={idx}>{resource}</li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                </div>
+                }
             </div>
             <div className="ModalBtnContainer">
                 <a 

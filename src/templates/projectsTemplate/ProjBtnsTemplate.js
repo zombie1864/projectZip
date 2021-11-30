@@ -30,6 +30,7 @@ const ProjBtnsTemplate = (
     projTech,
     projAoA,
     projSrcCode,
+    projResources,
     provideModalData,
     closeProjModal
 ) => {
@@ -52,6 +53,7 @@ const ProjBtnsTemplate = (
                 initial='hidden'
                 animate='visible'>
                     {projectsState.map( (project, idx) => {
+                        // console.log(project.proj_resources);
                         return (
                             <div className='projBtnContainer' key={idx}>
                                 <motion.button 
@@ -64,6 +66,7 @@ const ProjBtnsTemplate = (
                                 data-projtech={project.proj_techs}
                                 data-projaoa={project.proj_aoa}
                                 data-projsrccode={project.proj_src_code}
+                                data-projresources={project.proj_resources}
                                 onClick={provideModalData}>
                                     <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span>
                                 </motion.button>
@@ -84,6 +87,7 @@ const ProjBtnsTemplate = (
                 projPurpose,
                 projTech,
                 projAoA,
+                projResources,
                 projSrcCode,
                 closeProjModal
                 ) 

@@ -13,7 +13,8 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
        [projPurpose, setProjPurpose] = useState(),
        [projTech, setProjTech] = useState(),
        [projAoA, setProjAoA] = useState(),
-       [projSrcCode, setProjSrcCode] = useState()
+       [projSrcCode, setProjSrcCode] = useState(),
+       [projResources, setProjResources] = useState([])
     
 
     const provideModalData = (event) => {
@@ -24,6 +25,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         setProjTech(event.currentTarget.dataset.projtech)
         setProjAoA(event.currentTarget.dataset.projaoa)
         setProjSrcCode(event.currentTarget.dataset.projsrccode)
+        setProjResources(event.currentTarget.dataset.projresources)
     }
 
     const closeProjModal = () => toggleModal()
@@ -38,6 +40,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         projTech,
         projAoA,
         projSrcCode,
+        projResources,
         provideModalData, // comp.handlers
         closeProjModal,
     )
