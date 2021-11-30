@@ -3,6 +3,7 @@ import AddProjForm from '../components/Projs/AddProjForm'
 import ProjBtns from '../components/Projs/ProjBtns'
 import '../css/projectPage.css'
 import { useState, useEffect } from 'react'
+import { fetchData } from '../utils/http'
 
 const ProjectsPage = () => {
     /**
@@ -14,17 +15,13 @@ const ProjectsPage = () => {
    
    useEffect( () => { // ~ componentDidMount, makes http req 
        const getProjsDataFromServer = async () => {
-           const projectsDataFromServer = await fetchProjectsData()
+           const projectsDataFromServer = await fetchData('http://localhost:5000/projects')
            setProjectsState(projectsDataFromServer)
        }
        getProjsDataFromServer()
    }, [])
    
-    const fetchProjectsData  = async () => {
-        const res = await fetch('http://localhost:5000/projects')
-        const projectsData = await res.json()
-        return projectsData
-    }
+
 
     const updateProjectsState = updatedBackendData => setProjectsState(updatedBackendData)
 

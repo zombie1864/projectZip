@@ -87,8 +87,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         if (!validForm) {
             console.log('NO');
         } else {
-            console.log('YES');
-            // addData(dataToSubmit)
+            addData(dataToSubmit)
             setProj_name('')
             setProj_desc('')
             setProj_purpose('')
