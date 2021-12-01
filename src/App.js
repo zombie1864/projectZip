@@ -12,19 +12,21 @@ function App() {
     <div className="App">
       <Router>
         <table>
-          <tr>
-            <td className="first-col">
-              <NavBar/>
-            </td>
-            <td className="sec-col">
-              {/* switched between pages - App() is the spa */}
-              <Switch> 
-                <Route path='/' exact component={HomePage}/>
-                <Route path='/projects' component={ProjectsPage}/>
-                <Route path='/tasks' component={TaskPage}/>
-              </Switch>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="first-col">
+                <NavBar/>
+              </td>
+              <td className="sec-col">
+                {/* switched between pages - App() is the spa */}
+                <Switch> 
+                  <Route path='/' exact component={HomePage}/>
+                  <Route path='/projects' component={ProjectsPage}/>
+                  <Route path='/tasks' component={TaskPage}/>
+                </Switch>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </Router>
     </div>

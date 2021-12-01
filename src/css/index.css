@@ -29,12 +29,3 @@ table td {
   width: 100vw;
   /* the above padding is a possible solution - the idea is that as screen gets wider the padding will auto adjust. The td adjust not the carousel comp  */
 }
-
-
-.task {
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
