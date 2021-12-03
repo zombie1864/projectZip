@@ -24,6 +24,7 @@ const item = {
 const ProjBtnsTemplate = (
     projectsState,
     openProjModal,
+    projIdx,
     projId,
     projName,
     projPurpose,
@@ -31,8 +32,13 @@ const ProjBtnsTemplate = (
     projAoA,
     projSrcCode,
     projResources,
+    editMode,
+    renderNull,
     provideModalData,
-    closeProjModal
+    closeProjModal,
+    enterEditMode, 
+    deleteProjSection, 
+    saveChangesToProjectsState
 ) => {
     /**
     @description: 
@@ -52,14 +58,14 @@ const ProjBtnsTemplate = (
                 variants={container}
                 initial='hidden'
                 animate='visible'>
-                    {projectsState.map( (project, idx) => {
-                        // console.log(project.proj_resources);
+                    {projectsState.map( (project, projIdx) => {
                         return (
-                            <div className='projBtnContainer' key={idx}>
+                            <div className='projBtnContainer' key={projIdx}>
                                 <motion.button 
                                 className='projBtns'
                                 variants={item}
                                 whileHover={{y:5.0}}
+                                data-projidx={projIdx}
                                 data-projid={project.proj_id} 
                                 data-projname={project.proj_name}
                                 data-projpurpose={project.proj_purpose}
@@ -68,7 +74,9 @@ const ProjBtnsTemplate = (
                                 data-projsrccode={project.proj_src_code}
                                 data-projresources={project.proj_resources}
                                 onClick={provideModalData}>
-                                    <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span>
+                                    {/* WARNING when user clicks on this icon the projidx is undefined however outside the icon the projidx is defined - you need to have it such that the icon can be here without iterfering with onClick event handler  */}
+                                    {/* <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span> */} 
+                                    {/* WARNING */}
                                 </motion.button>
                                 <motion.p  
                                 variants={item} 
@@ -83,13 +91,19 @@ const ProjBtnsTemplate = (
             {
                 ProjectModalTemplate(
                 openProjModal, 
+                projIdx,
                 projName,
                 projPurpose,
                 projTech,
                 projAoA,
                 projResources,
                 projSrcCode,
-                closeProjModal
+                editMode,
+                renderNull,
+                closeProjModal,
+                enterEditMode, 
+                deleteProjSection, 
+                saveChangesToProjectsState
                 ) 
             }
         </div>

@@ -5,15 +5,39 @@ import { Link } from 'react-router-dom'
 
 
 const ProjectModalTemplate = (
-    openProjModal, 
-    projName, 
-    projPurpose, 
-    projTech, 
-    projAoA, 
-    projResources,
-    projSrcCode, 
-    closeProjModal
+    openProjModal, // props.state
+    projIdx,
+    projName,  
+    projPurpose,  
+    projTech,  
+    projAoA,  
+    projResources, 
+    projSrcCode,  
+    editMode, 
+    renderNull, 
+    closeProjModal, //props.func
+    enterEditMode, 
+    deleteProjSection, 
+    saveChangesToProjectsState
     ) => { 
+    const renderEditModeBtns = (editMode, projSection) => {
+        return (
+            <div>
+                {
+                    editMode && 
+                    <div>
+                        <button>Edit</button>
+                        <button
+                        data-proidx={projIdx}
+                        value={projSection}
+                        onClick={deleteProjSection}>Delete</button>
+                    </div>
+                }
+            </div>
+        )
+    }
+
+
     return (
         <div>
         {
@@ -31,14 +55,19 @@ const ProjectModalTemplate = (
         transition={{duration: 0.3}}>
             <div className="modalTitleLabelContainer">
                 <span>{projName}</span>
+                {renderEditModeBtns(editMode)}
             </div>
             <div className="modalContentContainer">
+                { !renderNull.includes('proj_purpose') && 
                 <div className="modalSubContainerOutterBorder">
-                    <span className="modalLabels">Desc:</span>
+                    <span className="modalLabels">Purpose:</span>
                     <div className="modalLabelInnerBorder">
                         <p>{projPurpose}</p>
+                        {renderEditModeBtns(editMode, 'proj_purpose')}
                     </div>
                 </div>
+                }
+                { !renderNull.includes('proj_techs') && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
@@ -47,14 +76,19 @@ const ProjectModalTemplate = (
                                 return idx === projTech.split(',').length - 1 ? <span key={idx}>{tech}</span> : <span key={idx}>{tech}, </span>
                             })
                         }
+                        {renderEditModeBtns(editMode, 'proj_techs')}
                     </div>
                 </div>
+                }
+                { !renderNull.includes('proj_aoa') && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
                         <span>{projAoA}</span>
+                        {renderEditModeBtns(editMode, 'proj_aoa')}
                     </div>
                 </div>
+                }
                 {
                 (projResources.split(',').length > 0 && projResources.split(',')[0] !== '') && 
                 <div className="modalSubContainerOutterBorder">
@@ -63,12 +97,23 @@ const ProjectModalTemplate = (
                         <ul>
                             {projResources.split(',').map((resource, idx) => {
                                 return (
-                                <li key={idx}>{resource}</li>
+                                <li key={idx}>
+                                    {resource} 
+                                    {renderEditModeBtns(editMode, 'projResources')}
+                                </li>
                                 )
                             })}
                         </ul>
                     </div>
                 </div>
+                }
+                {
+                    editMode ? 
+                    <button
+                    value={projIdx}
+                    onClick={saveChangesToProjectsState}>Save Changes</button> : 
+                    <button
+                    onClick={enterEditMode}>Edit Mode</button>
                 }
             </div>
             <div className="ModalBtnContainer">
@@ -81,7 +126,7 @@ const ProjectModalTemplate = (
                 </a> 
                 <button 
                 className="closeModalBtn" 
-                onClick={closeProjModal}>Close</button>
+                onClick={closeProjModal}>{editMode ? 'Cancel' : 'Close'}</button>
                 <Link 
                 to={{pathname: '/tasks'}}
                 className="taskBtnLinkTag">

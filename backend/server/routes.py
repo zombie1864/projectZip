@@ -11,11 +11,13 @@ def add_headers(response):
     return response
 
 
-@app.route('/projects', methods=['GET', 'POST'])
+@app.route('/projects', methods=['GET', 'POST', 'PUT'])
 def projects():
     ''' route func '''
     incoming_data = request.json
-    if incoming_data: 
+    if request.method == 'PUT': 
+        print('YOUR UPDATING!')
+    elif request.method == 'POST': 
         converted_data = Project(
             proj_name = incoming_data['proj_name'], 
             proj_desc = incoming_data['proj_desc'],
