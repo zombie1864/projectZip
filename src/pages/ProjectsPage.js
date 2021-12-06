@@ -22,12 +22,12 @@ const ProjectsPage = () => {
    }, [])
    
 
-
     const updateProjectsState = updatedBackendData => setProjectsState(updatedBackendData)
 
     const toggleModal = () => setModalState(!modalState)
     
     const toggleAddProjModal = () => setAddProjModalState(!addProjModalState)
+
 
     return (
         <div className="projectPage">

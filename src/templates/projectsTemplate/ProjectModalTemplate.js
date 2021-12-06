@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 
 const ProjectModalTemplate = (
     openProjModal, // props.state
-    projIdx,
     projName,  
     projPurpose,  
     projTech,  
@@ -15,10 +14,13 @@ const ProjectModalTemplate = (
     projSrcCode,  
     editMode, 
     renderNull, 
+    editingSegment,
     closeProjModal, //props.func
     enterEditMode, 
     deleteProjSection, 
-    saveChangesToProjectsState
+    saveChangesToProjectsState,
+    editProjSectionHandler,
+    handleEditChanges
     ) => { 
     const renderEditModeBtns = (editMode, projSection) => {
         return (
@@ -26,9 +28,10 @@ const ProjectModalTemplate = (
                 {
                     editMode && 
                     <div>
-                        <button>Edit</button>
                         <button
-                        data-proidx={projIdx}
+                        value={projSection}
+                        onClick={editProjSectionHandler}>Edit</button>
+                        <button
                         value={projSection}
                         onClick={deleteProjSection}>Delete</button>
                     </div>
@@ -62,7 +65,15 @@ const ProjectModalTemplate = (
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Purpose:</span>
                     <div className="modalLabelInnerBorder">
+                        {
+                        editingSegment.editProjSegment.includes('proj_purpose') ? 
+                        <textarea
+                        type='text'
+                        defaultValue={projPurpose}
+                        data-nameofprojsectionforediting='proj_purpose'
+                        onChange={handleEditChanges}/> :
                         <p>{projPurpose}</p>
+                        }
                         {renderEditModeBtns(editMode, 'proj_purpose')}
                     </div>
                 </div>
@@ -71,10 +82,14 @@ const ProjectModalTemplate = (
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
-                        {
-                            projTech.split(',').map((tech, idx) => {
-                                return idx === projTech.split(',').length - 1 ? <span key={idx}>{tech}</span> : <span key={idx}>{tech}, </span>
-                            })
+                        { 
+                        editingSegment.editProjSegment.includes('proj_techs') ? 
+                        <textarea
+                        type='text'
+                        defaultValue={projTech}
+                        data-nameofprojsectionforediting='proj_techs'
+                        onChange={handleEditChanges}/> : 
+                        <span>{projTech}</span>
                         }
                         {renderEditModeBtns(editMode, 'proj_techs')}
                     </div>
@@ -84,7 +99,15 @@ const ProjectModalTemplate = (
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
+                        {
+                        editingSegment.editProjSegment.includes('proj_aoa') ? 
+                        <textarea
+                        type='text'
+                        defaultValue={projAoA}
+                        data-nameofprojsectionforediting='proj_aoa'
+                        onChange={handleEditChanges}/> :
                         <span>{projAoA}</span>
+                        }
                         {renderEditModeBtns(editMode, 'proj_aoa')}
                     </div>
                 </div>
@@ -110,7 +133,6 @@ const ProjectModalTemplate = (
                 {
                     editMode ? 
                     <button
-                    value={projIdx}
                     onClick={saveChangesToProjectsState}>Save Changes</button> : 
                     <button
                     onClick={enterEditMode}>Edit Mode</button>

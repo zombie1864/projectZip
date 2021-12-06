@@ -15,10 +15,13 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
        [projAoA, setProjAoA] = useState(),
        [projSrcCode, setProjSrcCode] = useState(),
        [projResources, setProjResources] = useState([]), 
-       [projIdx, setProjIdx] = useState(),
        [editMode, setEditMode] = useState(false),
        [renderNull, setRenderNull] = useState([]),
-       [projectsStateEdited, setProjectsStateEdited] = useState()
+       [projectsStateEdited, setProjectsStateEdited] = useState({}),
+       [editingSegment, setEditingSegment] = useState({
+           editProjSegment: [] 
+       }),
+       [inputChanges, setInputChanges] = useState({})
     
 
     const provideModalData = (event) => {
@@ -30,8 +33,14 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         setProjAoA(event.currentTarget.dataset.projaoa)
         setProjSrcCode(event.currentTarget.dataset.projsrccode)
         setProjResources(event.currentTarget.dataset.projresources)
-        setProjIdx(parseInt(event.target.dataset.projidx))
-        setProjectsStateEdited(projectsState) // NOTE refer to footnote _1.
+        setProjectsStateEdited({
+            ...projectsStateEdited, 
+            proj_id: parseInt(event.target.dataset.projidx) + 1
+        }) 
+        setInputChanges({
+            ...inputChanges, 
+            proj_id: parseInt(event.target.dataset.projidx) + 1
+        })
     }
 
 
@@ -43,15 +52,15 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
 
     const deleteProjSection = event => {
         setRenderNull([...renderNull, event.target.value])
-        let projToEditObj = projectsStateEdited[projIdx]
-        projToEditObj[event.target.value] = ''
-        setProjectsStateEdited(projectsStateEdited)
+        setProjectsStateEdited({
+            ...projectsStateEdited, 
+            [event.target.value]: ''
+        })
     }
 
 
-    const saveChangesToProjectsState = event => { // send PUT http req to the server
-        let dataToSubmit = projectsStateEdited[event.target.value]
-        dataToSubmit['mode'] = 'delete'
+    const saveChangesToProjectsState = () => { // send PUT http req to the server
+        let dataToSubmit = projectsStateEdited
         const patchData = async (dataToSubmit) => {
             const patchReq = await fetch(
                 'http://localhost:5000/projects', 
@@ -61,18 +70,35 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
                     body: JSON.stringify(dataToSubmit)
                 }
             )
-            const resp = await patchReq.json()
-            console.log(resp);
+            const updatedDataSet = await patchReq.json()
+            return updatedDataSet
         }
         patchData(dataToSubmit)
+        window.location.reload()
+    }
+
+
+    const editProjSectionHandler = event => {
+        setEditingSegment({
+            editProjSegment: [...editingSegment.editProjSegment, event.target.value]
+        })
+
+    }
+
+
+    const handleEditChanges = event => {
+        setInputChanges({
+            ...inputChanges, 
+            [event.target.dataset.nameofprojsectionforediting] : event.target.value
+        })
+        console.log(inputChanges);
     }
 
     
     return ProjBtnsTemplate(
         projectsState, // props.state
         openProjModal,
-        projIdx, // comp.state 
-        projId, 
+        projId, // comp.state 
         projName,
         projPurpose,
         projTech,
@@ -81,17 +107,15 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         projResources,
         editMode,
         renderNull,
+        editingSegment,
         provideModalData, // comp.handlers
         closeProjModal,
         enterEditMode, 
         deleteProjSection, 
-        saveChangesToProjectsState
+        saveChangesToProjectsState,
+        editProjSectionHandler,
+        handleEditChanges
     )
 }
 
 export default ProjBtns
-
-/**
-    _1. For security reasons it is better to have a copy of projectsState to avoid giving to much data to the dataset attr in the html template 
-        ⮑ a user can inspect the information - which is bad design. Some basic information is fine but not too much 
-**/

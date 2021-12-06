@@ -15,18 +15,15 @@ def add_headers(response):
 def projects():
     ''' route func '''
     incoming_data = request.json
-    if request.method == 'PUT' and incoming_data['mode'] == 'delete': 
+    print(incoming_data)
+    if request.method == 'PUT': 
         data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
         for key, value in incoming_data.items():
-            if value == '':
                 setattr(data_to_update, key, value) 
-        '''  
-        this piece of logic is flawed - optimazation of code design is needed. For the incoming data you only need the attr of the json to contain the fields and values that have changed on the UI layer. Ex if on the UI layer, only proj_desc was changed then in the incoming data only proj_desc key:value pair should be present. Not the whole copy of the model. 
-        There is a need to make changes on the UI layer
-        '''
         try: 
             db.session.commit()
         except Exception: 
+            db.session.rollback()
             print(Exception)  
     elif request.method == 'POST': 
         converted_data = Project(

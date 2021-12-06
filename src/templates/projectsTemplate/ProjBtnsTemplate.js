@@ -24,7 +24,6 @@ const item = {
 const ProjBtnsTemplate = (
     projectsState,
     openProjModal,
-    projIdx,
     projId,
     projName,
     projPurpose,
@@ -34,11 +33,14 @@ const ProjBtnsTemplate = (
     projResources,
     editMode,
     renderNull,
+    editingSegment,
     provideModalData,
     closeProjModal,
     enterEditMode, 
     deleteProjSection, 
-    saveChangesToProjectsState
+    saveChangesToProjectsState,
+    editProjSectionHandler,
+    handleEditChanges
 ) => {
     /**
     @description: 
@@ -91,7 +93,6 @@ const ProjBtnsTemplate = (
             {
                 ProjectModalTemplate(
                 openProjModal, 
-                projIdx,
                 projName,
                 projPurpose,
                 projTech,
@@ -100,10 +101,13 @@ const ProjBtnsTemplate = (
                 projSrcCode,
                 editMode,
                 renderNull,
+                editingSegment,
                 closeProjModal,
                 enterEditMode, 
                 deleteProjSection, 
-                saveChangesToProjectsState
+                saveChangesToProjectsState,
+                editProjSectionHandler,
+                handleEditChanges
                 ) 
             }
         </div>
