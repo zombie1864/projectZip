@@ -49,10 +49,9 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
     }
 
 
-    const saveChangesToProjectsState = event => { // this piece of logic allows to send POST http req to the server
-        // at this stage only the specific edited project can be sent NOT Array[Object]
+    const saveChangesToProjectsState = event => { // send PUT http req to the server
         let dataToSubmit = projectsStateEdited[event.target.value]
-        console.log(dataToSubmit);
+        dataToSubmit['mode'] = 'delete'
         const patchData = async (dataToSubmit) => {
             const patchReq = await fetch(
                 'http://localhost:5000/projects', 

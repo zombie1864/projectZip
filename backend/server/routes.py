@@ -15,8 +15,19 @@ def add_headers(response):
 def projects():
     ''' route func '''
     incoming_data = request.json
-    if request.method == 'PUT': 
-        print('YOUR UPDATING!')
+    if request.method == 'PUT' and incoming_data['mode'] == 'delete': 
+        data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
+        for key, value in incoming_data.items():
+            if value == '':
+                setattr(data_to_update, key, value) 
+        '''  
+        this piece of logic is flawed - optimazation of code design is needed. For the incoming data you only need the attr of the json to contain the fields and values that have changed on the UI layer. Ex if on the UI layer, only proj_desc was changed then in the incoming data only proj_desc key:value pair should be present. Not the whole copy of the model. 
+        There is a need to make changes on the UI layer
+        '''
+        try: 
+            db.session.commit()
+        except Exception: 
+            print(Exception)  
     elif request.method == 'POST': 
         converted_data = Project(
             proj_name = incoming_data['proj_name'], 
@@ -59,7 +70,7 @@ def tasks():
             ⮑ i am able to process a GET req but am missing func to handle full CRUD 
                 ⮑ Create: avail
                 ⮑ Read: avail 
-                ⮑ Update: missing 
+                ⮑ Update: avail 
                 ⮑ Delete: i can delete records using 
                     db.session.delete(id)
                     db.session.commit()
