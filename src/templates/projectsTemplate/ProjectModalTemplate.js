@@ -14,7 +14,7 @@ const ProjectModalTemplate = (
     projSrcCode,  
     editMode, 
     renderNull, 
-    editingSegment,
+    projectsStateEdited,
     closeProjModal, //props.func
     enterEditMode, 
     deleteProjSection, 
@@ -66,7 +66,7 @@ const ProjectModalTemplate = (
                     <span className="modalLabels">Purpose:</span>
                     <div className="modalLabelInnerBorder">
                         {
-                        editingSegment.editProjSegment.includes('proj_purpose') ? 
+                        projectsStateEdited.editProjSegment.includes('proj_purpose') ? 
                         <textarea
                         type='text'
                         defaultValue={projPurpose}
@@ -83,7 +83,7 @@ const ProjectModalTemplate = (
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
                         { 
-                        editingSegment.editProjSegment.includes('proj_techs') ? 
+                        projectsStateEdited.editProjSegment.includes('proj_techs') ? 
                         <textarea
                         type='text'
                         defaultValue={projTech}
@@ -100,7 +100,7 @@ const ProjectModalTemplate = (
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
                         {
-                        editingSegment.editProjSegment.includes('proj_aoa') ? 
+                        projectsStateEdited.editProjSegment.includes('proj_aoa') ? 
                         <textarea
                         type='text'
                         defaultValue={projAoA}

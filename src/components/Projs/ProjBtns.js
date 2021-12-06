@@ -17,11 +17,10 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
        [projResources, setProjResources] = useState([]), 
        [editMode, setEditMode] = useState(false),
        [renderNull, setRenderNull] = useState([]),
-       [projectsStateEdited, setProjectsStateEdited] = useState({}),
-       [editingSegment, setEditingSegment] = useState({
-           editProjSegment: [] 
-       }),
-       [inputChanges, setInputChanges] = useState({})
+       [projectsStateEdited, setProjectsStateEdited] = useState({
+           editProjSegment: [], 
+           inputChanges: ''
+       })
     
 
     const provideModalData = (event) => {
@@ -37,10 +36,6 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
             ...projectsStateEdited, 
             proj_id: parseInt(event.target.dataset.projidx) + 1
         }) 
-        setInputChanges({
-            ...inputChanges, 
-            proj_id: parseInt(event.target.dataset.projidx) + 1
-        })
     }
 
 
@@ -61,6 +56,8 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
 
     const saveChangesToProjectsState = () => { // send PUT http req to the server
         let dataToSubmit = projectsStateEdited
+        delete dataToSubmit.editProjSegment
+        delete dataToSubmit.inputChanges
         const patchData = async (dataToSubmit) => {
             const patchReq = await fetch(
                 'http://localhost:5000/projects', 
@@ -75,23 +72,23 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         }
         patchData(dataToSubmit)
         window.location.reload()
+        // console.log(dataToSubmit);
     }
 
 
     const editProjSectionHandler = event => {
-        setEditingSegment({
-            editProjSegment: [...editingSegment.editProjSegment, event.target.value]
+        setProjectsStateEdited({
+            ...projectsStateEdited,
+            editProjSegment: [...projectsStateEdited.editProjSegment, event.target.value]
         })
-
     }
 
 
     const handleEditChanges = event => {
-        setInputChanges({
-            ...inputChanges, 
+        setProjectsStateEdited({
+            ...projectsStateEdited, 
             [event.target.dataset.nameofprojsectionforediting] : event.target.value
         })
-        console.log(inputChanges);
     }
 
     
@@ -107,7 +104,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         projResources,
         editMode,
         renderNull,
-        editingSegment,
+        projectsStateEdited,
         provideModalData, // comp.handlers
         closeProjModal,
         enterEditMode, 
