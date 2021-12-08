@@ -50,7 +50,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
             let resourceIdx = parseInt(event.target.value.substring(15,event.target.value.length))
             let proj_resources_dataset = projResources.split(',')
 
-            proj_resources_dataset.splice(resourceIdx,1)
+            proj_resources_dataset.splice(resourceIdx,1,'null')
             setProjectsStateEdited({
                 ...projectsStateEdited, 
                 proj_resources: proj_resources_dataset
@@ -82,9 +82,9 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
             const updatedDataSet = await patchReq.json()
             return updatedDataSet
         }
-        // patchData(dataToSubmit)
-        // window.location.reload()
-        console.log(dataToSubmit);
+        patchData(dataToSubmit)
+        window.location.reload()
+        // console.log(dataToSubmit);
     }
 
 

@@ -119,6 +119,7 @@ const ProjectModalTemplate = (
                     <div className="modalLabelInnerBorder">
                         <ul>
                             {projResources.split(',').map((resource, idx) => {
+                                if (resource === 'null') return null 
                                 return (
                                 <li key={idx}>
                                     {

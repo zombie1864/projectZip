@@ -24,6 +24,10 @@ def projects():
                 ).all()
                 for resource_idx in range(len(resources_to_update)): 
                     resource = resources_to_update[resource_idx]
+                    if value[resource_idx] == 'null': 
+                        Resource.query.filter(
+                            Resource.id == resource.id
+                        ).delete()
                     setattr(resource, 'proj_resource_str', value[resource_idx]) 
             else:
                 setattr(data_to_update, key, value) 
