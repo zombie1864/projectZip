@@ -77,7 +77,8 @@ const ProjBtnsTemplate = (
                                 data-projresources={project.proj_resources}
                                 onClick={provideModalData}>
                                     {/* WARNING when user clicks on this icon the projidx is undefined however outside the icon the projidx is defined - you need to have it such that the icon can be here without iterfering with onClick event handler  */}
-                                    {/* <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span> */} 
+                                    {/* <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span>  */}
+                                    {/* possible solution would be to use svg and use css */}
                                     {/* WARNING */}
                                 </motion.button>
                                 <motion.p  

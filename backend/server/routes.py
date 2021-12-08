@@ -1,6 +1,6 @@
 from flask.globals import request
 from server import app, jsonify, request, db
-from server.models import Project, Task
+from server.models import Project, Resource, Task
 
 
 @app.after_request
@@ -15,15 +15,22 @@ def add_headers(response):
 def projects():
     ''' route func '''
     incoming_data = request.json
-    print(incoming_data)
     if request.method == 'PUT': 
         data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
         for key, value in incoming_data.items():
+            if key == 'proj_resources':
+                resources_to_update = Resource.query.filter(
+                    Resource.project_id == incoming_data['proj_id']
+                ).all()
+                for resource_idx in range(len(resources_to_update)): 
+                    resource = resources_to_update[resource_idx]
+                    setattr(resource, 'proj_resource_str', value[resource_idx]) 
+            else:
                 setattr(data_to_update, key, value) 
         try: 
             db.session.commit()
         except Exception: 
-            db.session.rollback()
+            # db.session.rollback()
             print(Exception)  
     elif request.method == 'POST': 
         converted_data = Project(

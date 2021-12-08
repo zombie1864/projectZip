@@ -14,7 +14,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
        [projTech, setProjTech] = useState(),
        [projAoA, setProjAoA] = useState(),
        [projSrcCode, setProjSrcCode] = useState(),
-       [projResources, setProjResources] = useState([]), 
+       [projResources, setProjResources] = useState(), 
        [editMode, setEditMode] = useState(false),
        [renderNull, setRenderNull] = useState([]),
        [projectsStateEdited, setProjectsStateEdited] = useState({
@@ -45,12 +45,24 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
     const enterEditMode = () => setEditMode(true)
 
 
-    const deleteProjSection = event => {
-        setRenderNull([...renderNull, event.target.value])
-        setProjectsStateEdited({
-            ...projectsStateEdited, 
-            [event.target.value]: ''
-        })
+    const deleteProjSection = event => { 
+        if (event.target.value.includes('resources')) {
+            let resourceIdx = parseInt(event.target.value.substring(15,event.target.value.length))
+            let proj_resources_dataset = projResources.split(',')
+
+            proj_resources_dataset.splice(resourceIdx,1)
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                proj_resources: proj_resources_dataset
+            })
+            setProjResources(proj_resources_dataset.join(','))
+        } else {
+            setRenderNull([...renderNull, event.target.value])
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                [event.target.value]: ''
+            })
+        }
     }
 
 
@@ -70,9 +82,9 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
             const updatedDataSet = await patchReq.json()
             return updatedDataSet
         }
-        patchData(dataToSubmit)
-        window.location.reload()
-        // console.log(dataToSubmit);
+        // patchData(dataToSubmit)
+        // window.location.reload()
+        console.log(dataToSubmit);
     }
 
 
@@ -85,10 +97,26 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
 
 
     const handleEditChanges = event => {
-        setProjectsStateEdited({
-            ...projectsStateEdited, 
-            [event.target.dataset.nameofprojsectionforediting] : event.target.value
-        })
+        if (event.target.dataset.nameofprojsectionforediting.includes('resources')) {
+            let idx = parseInt(
+                event.target.dataset.nameofprojsectionforediting.substring(
+                    15, event.target.dataset.nameofprojsectionforediting.length
+                )
+            )
+            let projResourcesEdited = projResources.split(',')
+            projResourcesEdited[idx] = event.target.value
+            // console.log(projResourcesEdited);
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                proj_resources: projResourcesEdited
+            })
+            setProjResources(projResourcesEdited.join(','))
+        } else {
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                [event.target.dataset.nameofprojsectionforediting] : event.target.value
+            })
+        }
     }
 
     

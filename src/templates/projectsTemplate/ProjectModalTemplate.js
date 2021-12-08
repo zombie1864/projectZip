@@ -121,8 +121,16 @@ const ProjectModalTemplate = (
                             {projResources.split(',').map((resource, idx) => {
                                 return (
                                 <li key={idx}>
-                                    {resource} 
-                                    {renderEditModeBtns(editMode, 'projResources')}
+                                    {
+                                    projectsStateEdited.editProjSegment.includes(`proj_resources_${idx}`) ? 
+                                    <input
+                                    type='text'
+                                    defaultValue={resource}
+                                    data-nameofprojsectionforediting={`proj_resources_${idx}`}
+                                    onChange={handleEditChanges}/> : 
+                                    resource
+                                    } 
+                                    {renderEditModeBtns(editMode, `proj_resources_${idx}`)}
                                 </li>
                                 )
                             })}
