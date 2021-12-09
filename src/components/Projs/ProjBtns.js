@@ -39,7 +39,18 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
     }
 
 
-    const closeProjModal = () => toggleModal()
+    const closeProjModal = () => {
+        toggleModal()
+        setProjName()
+        setProjPurpose()
+        setProjTech()
+        setProjAoA()
+        setProjSrcCode()
+        setProjResources()
+        setEditMode(false)
+        setRenderNull([])
+        setProjectsStateEdited({editProjSegment:[], inputChanges:''})
+    }
 
 
     const enterEditMode = () => setEditMode(true)
