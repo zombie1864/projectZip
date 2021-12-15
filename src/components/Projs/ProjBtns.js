@@ -130,6 +130,10 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         }
     }
 
+    const handleSelectedValue = event => {
+        console.log(event.target.value);
+    }
+
     
     return ProjBtnsTemplate(
         projectsState, // props.state
@@ -150,7 +154,8 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         deleteProjSection, 
         saveChangesToProjectsState,
         editProjSectionHandler,
-        handleEditChanges
+        handleEditChanges,
+        handleSelectedValue
     )
 }
 

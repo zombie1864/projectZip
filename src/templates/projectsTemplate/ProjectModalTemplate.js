@@ -20,7 +20,8 @@ const ProjectModalTemplate = (
     deleteProjSection, 
     saveChangesToProjectsState,
     editProjSectionHandler,
-    handleEditChanges
+    handleEditChanges,
+    handleSelectedValue
     ) => { 
     const renderEditModeBtns = (editMode, projSection) => {
         return (
@@ -57,11 +58,24 @@ const ProjectModalTemplate = (
         animate={{scale: 1}}
         transition={{duration: 0.3}}>
             <div className="modalTitleLabelContainer">
-                <span>{projName}</span>
-                {renderEditModeBtns(editMode)}
+                { !renderNull.includes('proj_name') && 
+                <div>
+                    {
+                        projectsStateEdited.editProjSegment.includes('proj_name') ?
+                        <input
+                        type='text'
+                        defaultValue={projName}
+                        data-nameofprojsectionforediting='proj_name'
+                        onChange={handleEditChanges}/> :
+                        <span 
+                        data-nameofprojsectionforediting='proj_name'>{projName}</span>
+                    }
+                </div>
+                }
+                {renderEditModeBtns(editMode, 'proj_name')}
             </div>
             <div className="modalContentContainer">
-                { !renderNull.includes('proj_purpose') && 
+                { (projPurpose !== '' && !renderNull.includes('proj_purpose')) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Purpose:</span>
                     <div className="modalLabelInnerBorder">
@@ -78,7 +92,7 @@ const ProjectModalTemplate = (
                     </div>
                 </div>
                 }
-                { !renderNull.includes('proj_techs') && 
+                { (projTech !== '' && !renderNull.includes('proj_techs')) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
@@ -95,7 +109,7 @@ const ProjectModalTemplate = (
                     </div>
                 </div>
                 }
-                { !renderNull.includes('proj_aoa') && 
+                { (projAoA !== '' && !renderNull.includes('proj_aoa')) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
@@ -145,6 +159,39 @@ const ProjectModalTemplate = (
                     onClick={saveChangesToProjectsState}>Save Changes</button> : 
                     <button
                     onClick={enterEditMode}>Edit Mode</button>
+                }
+                {
+                    editMode && 
+                    <div>
+                        <select 
+                        onChange={handleSelectedValue}
+                        defaultValue={'All Project Fields Are Available'}>
+                            <option 
+                            value='All Project Fields Are Available' 
+                            disabled>{
+                                projPurpose !== '' && projTech !== '' &&
+                                projAoA !== '' && projResources.length !== 0 ? 
+                                'All Project Fields Are Available' : 
+                                '-Add Project Field-'
+                            }</option>
+                            {projPurpose === '' && 
+                                <option
+                                value={'proj_purpose'}>Add Project Purpose</option>
+                            }
+                            {projTech === '' && 
+                                <option
+                                value={'proj_techs'}>Add Project Technologies</option>
+                            }
+                            {projAoA === '' && 
+                                <option
+                                value={'proj_aoa'}>Add Project Area of Application</option>
+                            }
+                            {projResources.length === 0 && 
+                                <option
+                                value={'proj_resources'}>Add Project Resources</option>
+                            }
+                        </select>
+                    </div>
                 }
             </div>
             <div className="ModalBtnContainer">

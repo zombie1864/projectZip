@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<svg version="1.1" 
+id="Layer_1" 
+xmlns="http://www.w3.org/2000/svg" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+fill="#FFFFFF"
+viewBox="0 0 482.462 482.462" 
+style="enable-background:new 0 0 482.462 482.462;" 
+xml:space="preserve">
+<g>
+	<circle cx="50" cy="70" r="40" />
+</g>
+<g>
+	<rect x="200.938" y="56.054" width="318.523" height="19.692"/>
+</g>
+<g>
+	<circle cx="50" cy="250" r="40" />
+</g>
+<g>
+	<rect x="200.938" y="231.385" width="318.523" height="19.692"/>
+</g>
+<g>
+	<circle cx="50" cy="425" r="40" />
+</g>
+<g>
+	<rect x="200.938" y="406.715" width="318.523" height="19.692"/>
+</g>
+</svg>
