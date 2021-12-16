@@ -15,13 +15,15 @@ const ProjectModalTemplate = (
     editMode, 
     renderNull, 
     projectsStateEdited,
+    renderNewProjectField,
     closeProjModal, //props.func
     enterEditMode, 
     deleteProjSection, 
     saveChangesToProjectsState,
     editProjSectionHandler,
     handleEditChanges,
-    handleSelectedValue
+    handleSelectedValue,
+    addToProjResources
     ) => { 
     const renderEditModeBtns = (editMode, projSection) => {
         return (
@@ -75,7 +77,10 @@ const ProjectModalTemplate = (
                 {renderEditModeBtns(editMode, 'proj_name')}
             </div>
             <div className="modalContentContainer">
-                { (projPurpose !== '' && !renderNull.includes('proj_purpose')) && 
+                { (
+                    (projPurpose !== '' && !renderNull.includes('proj_purpose')) || 
+                    renderNewProjectField.includes('proj_purpose')
+                ) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Purpose:</span>
                     <div className="modalLabelInnerBorder">
@@ -83,16 +88,25 @@ const ProjectModalTemplate = (
                         projectsStateEdited.editProjSegment.includes('proj_purpose') ? 
                         <textarea
                         type='text'
-                        defaultValue={projPurpose}
+                        defaultValue={
+                            renderNewProjectField.includes('proj_purpose') ? 
+                            null : projPurpose
+                        }
                         data-nameofprojsectionforediting='proj_purpose'
                         onChange={handleEditChanges}/> :
-                        <p>{projPurpose}</p>
+                        <p>{
+                            renderNewProjectField.includes('proj_purpose') ? 
+                            'Add Project Purpose' : projPurpose
+                        }</p>
                         }
                         {renderEditModeBtns(editMode, 'proj_purpose')}
                     </div>
                 </div>
                 }
-                { (projTech !== '' && !renderNull.includes('proj_techs')) && 
+                { (
+                    (projTech !== '' && !renderNull.includes('proj_techs')) || 
+                    renderNewProjectField.includes('proj_techs')
+                ) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Technology Used:</span>
                     <div className="modalLabelInnerBorder">
@@ -100,16 +114,25 @@ const ProjectModalTemplate = (
                         projectsStateEdited.editProjSegment.includes('proj_techs') ? 
                         <textarea
                         type='text'
-                        defaultValue={projTech}
+                        defaultValue={
+                            renderNewProjectField.includes('proj_techs') ? 
+                            null : projTech
+                        }
                         data-nameofprojsectionforediting='proj_techs'
                         onChange={handleEditChanges}/> : 
-                        <span>{projTech}</span>
+                        <span>{
+                            renderNewProjectField.includes('proj_techs') ? 
+                            'Add Project Technologies' : projTech
+                        }</span>
                         }
                         {renderEditModeBtns(editMode, 'proj_techs')}
                     </div>
                 </div>
                 }
-                { (projAoA !== '' && !renderNull.includes('proj_aoa')) && 
+                { (
+                    (projAoA !== '' && !renderNull.includes('proj_aoa')) || 
+                    renderNewProjectField.includes('proj_aoa')
+                ) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Area of Application:</span> 
                     <div className="modalLabelInnerBorder">
@@ -117,20 +140,33 @@ const ProjectModalTemplate = (
                         projectsStateEdited.editProjSegment.includes('proj_aoa') ? 
                         <textarea
                         type='text'
-                        defaultValue={projAoA}
+                        defaultValue={
+                            renderNewProjectField.includes('proj_aoa') ? 
+                            null : projAoA
+                        }
                         data-nameofprojsectionforediting='proj_aoa'
                         onChange={handleEditChanges}/> :
-                        <span>{projAoA}</span>
+                        <span>{
+                            renderNewProjectField.includes('proj_aoa') ? 
+                            'Add Project Purpose' : projAoA
+                        }</span>
                         }
                         {renderEditModeBtns(editMode, 'proj_aoa')}
                     </div>
                 </div>
                 }
-                {
-                (projResources.split(',').length > 0 && projResources.split(',')[0] !== '') && 
+                {(
+                    (projResources.split(',').length > 0 && projResources.split(',')[0] !== '') ||
+                    renderNewProjectField.includes('proj_resources')
+                ) && 
                 <div className="modalSubContainerOutterBorder">
                     <span className="modalLabels">Project Resources:</span> 
                     <div className="modalLabelInnerBorder">
+                        {
+                            editMode && 
+                            <button
+                            onClick={addToProjResources}>Add Project Resource</button>
+                        }
                         <ul>
                             {projResources.split(',').map((resource, idx) => {
                                 if (resource === 'null') return null 
@@ -140,10 +176,13 @@ const ProjectModalTemplate = (
                                     projectsStateEdited.editProjSegment.includes(`proj_resources_${idx}`) ? 
                                     <input
                                     type='text'
-                                    defaultValue={resource}
+                                    defaultValue={
+                                        renderNewProjectField.includes('proj_resources') ? 
+                                        null : resource
+                                    }
                                     data-nameofprojsectionforediting={`proj_resources_${idx}`}
                                     onChange={handleEditChanges}/> : 
-                                    resource
+                                    renderNewProjectField.includes('proj_resources') ? 'New Project Resource' : resource
                                     } 
                                     {renderEditModeBtns(editMode, `proj_resources_${idx}`)}
                                 </li>

@@ -20,7 +20,8 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
        [projectsStateEdited, setProjectsStateEdited] = useState({
            editProjSegment: [], 
            inputChanges: ''
-       })
+       }), 
+       [renderNewProjectField, setRenderNewProjectField] = useState([])
     
 
     const provideModalData = (event) => {
@@ -50,6 +51,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         setEditMode(false)
         setRenderNull([])
         setProjectsStateEdited({editProjSegment:[], inputChanges:''})
+        setRenderNewProjectField([])
     }
 
 
@@ -130,8 +132,19 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         }
     }
 
+
     const handleSelectedValue = event => {
-        console.log(event.target.value);
+        if (!renderNewProjectField.includes(event.target.value)) {
+            setRenderNewProjectField([
+                ...renderNewProjectField, 
+                event.target.value
+            ])
+        }
+    }
+
+
+    const addToProjResources = () => {
+        setProjResources(projResources + ',New Project Resource')
     }
 
     
@@ -148,6 +161,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         editMode,
         renderNull,
         projectsStateEdited,
+        renderNewProjectField,
         provideModalData, // comp.handlers
         closeProjModal,
         enterEditMode, 
@@ -155,7 +169,8 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         saveChangesToProjectsState,
         editProjSectionHandler,
         handleEditChanges,
-        handleSelectedValue
+        handleSelectedValue,
+        addToProjResources
     )
 }
 

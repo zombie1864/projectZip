@@ -18,10 +18,17 @@ def projects():
     if request.method == 'PUT': 
         data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
         for key, value in incoming_data.items():
-            if key == 'proj_resources':
+            if key == 'proj_resources': 
                 resources_to_update = Resource.query.filter(
                     Resource.project_id == incoming_data['proj_id']
-                ).all()
+                ).all() 
+                if len(incoming_data['proj_resources']) != len(resources_to_update): 
+                    for idx in range(len(resources_to_update),len(incoming_data['proj_resources'])): 
+                        new_resource_str = incoming_data['proj_resources'][idx]
+                        converted_resource_data = Resource(proj_resource_str=new_resource_str)
+                        data_to_update.proj_resources.append(converted_resource_data)
+                        db.session.add(data_to_update)
+                        db.session.commit()
                 for resource_idx in range(len(resources_to_update)): 
                     resource = resources_to_update[resource_idx]
                     if value[resource_idx] == 'null': 

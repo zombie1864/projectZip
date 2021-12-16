@@ -1,5 +1,4 @@
 import {motion} from 'framer-motion'
-import{AiOutlineBars} from 'react-icons/ai'
 import ProjectModalTemplate from './ProjectModalTemplate'
 import '../../css/projBtns.css'
 
@@ -34,6 +33,7 @@ const ProjBtnsTemplate = (
     editMode,
     renderNull,
     projectsStateEdited,
+    renderNewProjectField,
     provideModalData,
     closeProjModal,
     enterEditMode, 
@@ -41,7 +41,8 @@ const ProjBtnsTemplate = (
     saveChangesToProjectsState,
     editProjSectionHandler,
     handleEditChanges,
-    handleSelectedValue
+    handleSelectedValue,
+    addToProjResources
 ) => {
     /**
     @description: 
@@ -100,13 +101,15 @@ const ProjBtnsTemplate = (
                 editMode,
                 renderNull,
                 projectsStateEdited,
+                renderNewProjectField,
                 closeProjModal,
                 enterEditMode, 
                 deleteProjSection, 
                 saveChangesToProjectsState,
                 editProjSectionHandler,
                 handleEditChanges,
-                handleSelectedValue
+                handleSelectedValue,
+                addToProjResources
                 ) 
             }
         </div>
