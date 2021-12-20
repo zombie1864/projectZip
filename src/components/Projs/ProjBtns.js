@@ -10,6 +10,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
     **/
    const [projId, setProjId] = useState(),
        [projName, setProjName] = useState(),
+       [projDesc, setProjDesc] = useState(),
        [projPurpose, setProjPurpose] = useState(),
        [projTech, setProjTech] = useState(),
        [projAoA, setProjAoA] = useState(),
@@ -28,6 +29,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         toggleModal()
         setProjId(event.currentTarget.dataset.projid)
         setProjName(event.currentTarget.dataset.projname)
+        setProjDesc(event.currentTarget.dataset.projdesc)
         setProjPurpose(event.currentTarget.dataset.projpurpose)
         setProjTech(event.currentTarget.dataset.projtech)
         setProjAoA(event.currentTarget.dataset.projaoa)
@@ -43,6 +45,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
     const closeProjModal = () => {
         toggleModal()
         setProjName()
+        setProjDesc()
         setProjPurpose()
         setProjTech()
         setProjAoA()
@@ -153,6 +156,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         openProjModal,
         projId, // comp.state 
         projName,
+        projDesc,
         projPurpose,
         projTech,
         projAoA,

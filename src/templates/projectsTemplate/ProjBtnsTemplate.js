@@ -25,6 +25,7 @@ const ProjBtnsTemplate = (
     openProjModal,
     projId,
     projName,
+    projDesc,
     projPurpose,
     projTech,
     projAoA,
@@ -72,6 +73,7 @@ const ProjBtnsTemplate = (
                                 data-projidx={projIdx}
                                 data-projid={project.proj_id} 
                                 data-projname={project.proj_name}
+                                data-projdesc={project.proj_desc}
                                 data-projpurpose={project.proj_purpose}
                                 data-projtech={project.proj_techs}
                                 data-projaoa={project.proj_aoa}
@@ -93,6 +95,7 @@ const ProjBtnsTemplate = (
                 ProjectModalTemplate(
                 openProjModal, 
                 projName,
+                projDesc,
                 projPurpose,
                 projTech,
                 projAoA,

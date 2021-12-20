@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom'
 
 const ProjectModalTemplate = (
     openProjModal, // props.state
-    projName,  
+    projName, 
+    projDesc, 
     projPurpose,  
     projTech,  
     projAoA,  
@@ -77,6 +78,32 @@ const ProjectModalTemplate = (
                 {renderEditModeBtns(editMode, 'proj_name')}
             </div>
             <div className="modalContentContainer">
+                { (
+                    (editMode && projDesc !== '' && !renderNull.includes('proj_desc')) || 
+                    renderNewProjectField.includes('proj_desc')
+                ) && 
+                <div className="modalSubContainerOutterBorder">
+                    <span className="modalLabels">Project Description:</span>
+                    <div className="modalLabelInnerBorder">
+                        {
+                        projectsStateEdited.editProjSegment.includes('proj_desc') ? 
+                        <textarea
+                        type='text'
+                        defaultValue={
+                            renderNewProjectField.includes('proj_desc') ? 
+                            null : projDesc
+                        }
+                        data-nameofprojsectionforediting='proj_desc'
+                        onChange={handleEditChanges}/> :
+                        <p>{
+                            renderNewProjectField.includes('proj_desc') ? 
+                            'Add Project Description' : projDesc
+                        }</p>
+                        }
+                        {renderEditModeBtns(editMode, 'proj_desc')}
+                    </div>
+                </div>
+                }
                 { (
                     (projPurpose !== '' && !renderNull.includes('proj_purpose')) || 
                     renderNewProjectField.includes('proj_purpose')
@@ -192,6 +219,32 @@ const ProjectModalTemplate = (
                     </div>
                 </div>
                 }
+                { (
+                    (editMode && projSrcCode !== '' && !renderNull.includes('proj_src_code')) || 
+                    renderNewProjectField.includes('proj_src_code')
+                ) && 
+                <div className="modalSubContainerOutterBorder">
+                    <span className="modalLabels">Project Source Code:</span>
+                    <div className="modalLabelInnerBorder">
+                        {
+                        projectsStateEdited.editProjSegment.includes('proj_src_code') ? 
+                        <textarea
+                        type='text'
+                        defaultValue={
+                            renderNewProjectField.includes('proj_src_code') ? 
+                            null : projSrcCode
+                        }
+                        data-nameofprojsectionforediting='proj_src_code'
+                        onChange={handleEditChanges}/> :
+                        <p>{
+                            renderNewProjectField.includes('proj_src_code') ? 
+                            'Add Project Source Code' : projSrcCode
+                        }</p>
+                        }
+                        {renderEditModeBtns(editMode, 'proj_src_code')}
+                    </div>
+                </div>
+                }
                 {
                     editMode ? 
                     <button
@@ -213,6 +266,10 @@ const ProjectModalTemplate = (
                                 'All Project Fields Are Available' : 
                                 '-Add Project Field-'
                             }</option>
+                            {projDesc === '' && 
+                                <option
+                                value={'proj_desc'}>Add Project Description</option>
+                            }
                             {projPurpose === '' && 
                                 <option
                                 value={'proj_purpose'}>Add Project Purpose</option>
@@ -229,6 +286,10 @@ const ProjectModalTemplate = (
                                 <option
                                 value={'proj_resources'}>Add Project Resources</option>
                             }
+                            {projSrcCode === '' && 
+                                <option
+                                value={'proj_src_code'}>Add Project Source Code</option>
+                            }
                         </select>
                     </div>
                 }
@@ -238,8 +299,13 @@ const ProjectModalTemplate = (
                 href={projSrcCode} 
                 target="_blank" 
                 rel="noreferrer"
+                style={ projSrcCode !== '' ? null :
+                    {pointerEvents: "none",cursor: "default"}
+                }
                 className="srcCodeBtnAnchorTag">
-                    <button className="srcCodeBtn">Source Code</button>
+                    <button className={projSrcCode !== '' ? "srcCodeBtn": "noSrcCode"}>{
+                    projSrcCode !== '' ? 'Source Code' : 'Unavailable Source Code'
+                    }</button>
                 </a> 
                 <button 
                 className="closeModalBtn" 
