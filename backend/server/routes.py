@@ -1,6 +1,6 @@
 from flask.globals import request
 from server import app, jsonify, request, db
-from server.models import Project, Task
+from server.models import Project, Resource, Task
 
 
 @app.after_request
@@ -11,11 +11,39 @@ def add_headers(response):
     return response
 
 
-@app.route('/projects', methods=['GET', 'POST'])
+@app.route('/projects', methods=['GET', 'POST', 'PUT'])
 def projects():
     ''' route func '''
     incoming_data = request.json
-    if incoming_data: 
+    if request.method == 'PUT': 
+        data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
+        for key, value in incoming_data.items():
+            if key == 'proj_resources': 
+                resources_to_update = Resource.query.filter(
+                    Resource.project_id == incoming_data['proj_id']
+                ).all() 
+                if len(incoming_data['proj_resources']) != len(resources_to_update): 
+                    for idx in range(len(resources_to_update),len(incoming_data['proj_resources'])): 
+                        new_resource_str = incoming_data['proj_resources'][idx]
+                        converted_resource_data = Resource(proj_resource_str=new_resource_str)
+                        data_to_update.proj_resources.append(converted_resource_data)
+                        db.session.add(data_to_update)
+                        db.session.commit()
+                for resource_idx in range(len(resources_to_update)): 
+                    resource = resources_to_update[resource_idx]
+                    if value[resource_idx] == 'null': 
+                        Resource.query.filter(
+                            Resource.id == resource.id
+                        ).delete()
+                    setattr(resource, 'proj_resource_str', value[resource_idx]) 
+            else:
+                setattr(data_to_update, key, value) 
+        try: 
+            db.session.commit()
+        except Exception: 
+            # db.session.rollback()
+            print(Exception)  
+    elif request.method == 'POST': 
         converted_data = Project(
             proj_name = incoming_data['proj_name'], 
             proj_desc = incoming_data['proj_desc'],
@@ -57,7 +85,7 @@ def tasks():
             ⮑ i am able to process a GET req but am missing func to handle full CRUD 
                 ⮑ Create: avail
                 ⮑ Read: avail 
-                ⮑ Update: missing 
+                ⮑ Update: avail 
                 ⮑ Delete: i can delete records using 
                     db.session.delete(id)
                     db.session.commit()

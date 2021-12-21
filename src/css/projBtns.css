@@ -11,16 +11,36 @@
     border-radius: 20px;
     width: 85px;
     height: 90px;
-    background-image: linear-gradient(
+    background: url(../assets/img/menu-svgrepo-com.svg) center no-repeat, linear-gradient(
         180deg,
         #151b26, 
         #07addb, 
         #151b26 
     );
+    background-size: 27px;
     border-style: solid;
     border-width: thin;
     margin: 0px 20px 20px 20px;
     padding: 5px 0 0 0;
+}
+
+.addProjBtn {
+    color: white;
+    border-radius: 20px;
+    width: 85px;
+    height: 90px;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07addb, 
+        #151b26 
+    );
+    background-size: 27px;
+    border-style: solid;
+    border-width: thin;
+    margin: 0px 20px 20px 20px;
+    padding: 5px 0 0 0;
+
 }
 
 
@@ -67,6 +87,26 @@
 
 
 .projBtns:hover ~ .projBtnTitle {
+    animation: animate 10s linear infinite;
+    background: linear-gradient(135deg, #fcff4f  0%, #00d9ff 25%, #f7be45 50%, #de0013 75%, #fcff4f 100%);
+    background-size: 400%;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+}
+
+.addProjBtn:hover {
+    box-shadow: 10px -10px 25px 0 rgba(64, 122, 248, 0.8), -10px 10px 25px 0 rgba(39, 200, 255, 0.8);
+    transition: transform 0.1s;
+    cursor: pointer
+}
+
+
+.addProjBtn:hover + .projBtnTitle::after {
+    transform: scale(1, 1);
+}
+
+
+.addProjBtn:hover ~ .projBtnTitle {
     animation: animate 10s linear infinite;
     background: linear-gradient(135deg, #fcff4f  0%, #00d9ff 25%, #f7be45 50%, #de0013 75%, #fcff4f 100%);
     background-size: 400%;

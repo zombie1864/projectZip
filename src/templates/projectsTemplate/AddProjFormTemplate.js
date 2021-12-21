@@ -68,7 +68,7 @@ const AddProjFormTemplate = (
                 variants={item} 
                 whileHover={{y:-15.0}}
                 onClick={closeAddNewProjModal}//NOTE this togglesModal state not just close it
-                className='projBtns'
+                className='addProjBtn'
                 style={{position: 'relative', top: '19px'}}> 
                     <motion.span className='projBtnIcon'>{<MdPlaylistAdd/>}</motion.span>
                 </motion.button>

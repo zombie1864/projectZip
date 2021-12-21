@@ -1,5 +1,4 @@
 import {motion} from 'framer-motion'
-import{AiOutlineBars} from 'react-icons/ai'
 import ProjectModalTemplate from './ProjectModalTemplate'
 import '../../css/projBtns.css'
 
@@ -26,13 +25,25 @@ const ProjBtnsTemplate = (
     openProjModal,
     projId,
     projName,
+    projDesc,
     projPurpose,
     projTech,
     projAoA,
     projSrcCode,
     projResources,
+    editMode,
+    renderNull,
+    projectsStateEdited,
+    renderNewProjectField,
     provideModalData,
-    closeProjModal
+    closeProjModal,
+    enterEditMode, 
+    deleteProjSection, 
+    saveChangesToProjectsState,
+    editProjSectionHandler,
+    handleEditChanges,
+    handleSelectedValue,
+    addToProjResources
 ) => {
     /**
     @description: 
@@ -52,23 +63,23 @@ const ProjBtnsTemplate = (
                 variants={container}
                 initial='hidden'
                 animate='visible'>
-                    {projectsState.map( (project, idx) => {
-                        // console.log(project.proj_resources);
+                    {projectsState.map( (project, projIdx) => {
                         return (
-                            <div className='projBtnContainer' key={idx}>
+                            <div className='projBtnContainer' key={projIdx}>
                                 <motion.button 
                                 className='projBtns'
                                 variants={item}
                                 whileHover={{y:5.0}}
+                                data-projidx={projIdx}
                                 data-projid={project.proj_id} 
                                 data-projname={project.proj_name}
+                                data-projdesc={project.proj_desc}
                                 data-projpurpose={project.proj_purpose}
                                 data-projtech={project.proj_techs}
                                 data-projaoa={project.proj_aoa}
                                 data-projsrccode={project.proj_src_code}
                                 data-projresources={project.proj_resources}
                                 onClick={provideModalData}>
-                                    <motion.span className='projBtnIcon'>{<AiOutlineBars/>}</motion.span>
                                 </motion.button>
                                 <motion.p  
                                 variants={item} 
@@ -84,12 +95,24 @@ const ProjBtnsTemplate = (
                 ProjectModalTemplate(
                 openProjModal, 
                 projName,
+                projDesc,
                 projPurpose,
                 projTech,
                 projAoA,
                 projResources,
                 projSrcCode,
-                closeProjModal
+                editMode,
+                renderNull,
+                projectsStateEdited,
+                renderNewProjectField,
+                closeProjModal,
+                enterEditMode, 
+                deleteProjSection, 
+                saveChangesToProjectsState,
+                editProjSectionHandler,
+                handleEditChanges,
+                handleSelectedValue,
+                addToProjResources
                 ) 
             }
         </div>

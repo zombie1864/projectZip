@@ -8,9 +8,9 @@ const HomePage = () => {
     **/
    return (
        <div className="homePageContainer">
-            <h1 className="homeTitle">iPython</h1>
+            <h1 className="homeTitle">ProjectZip</h1>
             <div className="homeMsg">
-                iPython is an overview profile for command line interface projects. Here you can learn about projects that deal with data aquisition and data management. These projects lack visualization components but are often used as API for data pipelines and data science applications. 
+                ProjectZip is an overview profile for projects. [COMPLETE ME]
             </div>
             <center>
                 <Carousel/>

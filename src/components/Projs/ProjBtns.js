@@ -10,39 +10,171 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
     **/
    const [projId, setProjId] = useState(),
        [projName, setProjName] = useState(),
+       [projDesc, setProjDesc] = useState(),
        [projPurpose, setProjPurpose] = useState(),
        [projTech, setProjTech] = useState(),
        [projAoA, setProjAoA] = useState(),
        [projSrcCode, setProjSrcCode] = useState(),
-       [projResources, setProjResources] = useState([])
+       [projResources, setProjResources] = useState(), 
+       [editMode, setEditMode] = useState(false),
+       [renderNull, setRenderNull] = useState([]),
+       [projectsStateEdited, setProjectsStateEdited] = useState({
+           editProjSegment: [], 
+           inputChanges: ''
+       }), 
+       [renderNewProjectField, setRenderNewProjectField] = useState([])
     
 
     const provideModalData = (event) => {
         toggleModal()
         setProjId(event.currentTarget.dataset.projid)
         setProjName(event.currentTarget.dataset.projname)
+        setProjDesc(event.currentTarget.dataset.projdesc)
         setProjPurpose(event.currentTarget.dataset.projpurpose)
         setProjTech(event.currentTarget.dataset.projtech)
         setProjAoA(event.currentTarget.dataset.projaoa)
         setProjSrcCode(event.currentTarget.dataset.projsrccode)
         setProjResources(event.currentTarget.dataset.projresources)
+        setProjectsStateEdited({
+            ...projectsStateEdited, 
+            proj_id: parseInt(event.target.dataset.projidx) + 1
+        }) 
     }
 
-    const closeProjModal = () => toggleModal()
+
+    const closeProjModal = () => {
+        toggleModal()
+        setProjName()
+        setProjDesc()
+        setProjPurpose()
+        setProjTech()
+        setProjAoA()
+        setProjSrcCode()
+        setProjResources()
+        setEditMode(false)
+        setRenderNull([])
+        setProjectsStateEdited({editProjSegment:[], inputChanges:''})
+        setRenderNewProjectField([])
+    }
+
+
+    const enterEditMode = () => setEditMode(true)
+
+
+    const deleteProjSection = event => { 
+        if (event.target.value.includes('resources')) {
+            let resourceIdx = parseInt(event.target.value.substring(15,event.target.value.length))
+            let proj_resources_dataset = projResources.split(',')
+
+            proj_resources_dataset.splice(resourceIdx,1,'null')
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                proj_resources: proj_resources_dataset
+            })
+            setProjResources(proj_resources_dataset.join(','))
+        } else {
+            setRenderNull([...renderNull, event.target.value])
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                [event.target.value]: ''
+            })
+        }
+    }
+
+
+    const saveChangesToProjectsState = () => { // send PUT http req to the server
+        let dataToSubmit = projectsStateEdited
+        delete dataToSubmit.editProjSegment
+        delete dataToSubmit.inputChanges
+        const patchData = async (dataToSubmit) => {
+            const patchReq = await fetch(
+                'http://localhost:5000/projects', 
+                {
+                    method: 'PUT', 
+                    headers: {'Content-type': 'application/json'}, 
+                    body: JSON.stringify(dataToSubmit)
+                }
+            )
+            const updatedDataSet = await patchReq.json()
+            return updatedDataSet
+        }
+        patchData(dataToSubmit)
+        window.location.reload()
+        // console.log(dataToSubmit);
+    }
+
+
+    const editProjSectionHandler = event => {
+        setProjectsStateEdited({
+            ...projectsStateEdited,
+            editProjSegment: [...projectsStateEdited.editProjSegment, event.target.value]
+        })
+    }
+
+
+    const handleEditChanges = event => {
+        if (event.target.dataset.nameofprojsectionforediting.includes('resources')) {
+            let idx = parseInt(
+                event.target.dataset.nameofprojsectionforediting.substring(
+                    15, event.target.dataset.nameofprojsectionforediting.length
+                )
+            )
+            let projResourcesEdited = projResources.split(',')
+            projResourcesEdited[idx] = event.target.value
+            // console.log(projResourcesEdited);
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                proj_resources: projResourcesEdited
+            })
+            setProjResources(projResourcesEdited.join(','))
+        } else {
+            setProjectsStateEdited({
+                ...projectsStateEdited, 
+                [event.target.dataset.nameofprojsectionforediting] : event.target.value
+            })
+        }
+    }
+
+
+    const handleSelectedValue = event => {
+        if (!renderNewProjectField.includes(event.target.value)) {
+            setRenderNewProjectField([
+                ...renderNewProjectField, 
+                event.target.value
+            ])
+        }
+    }
+
+
+    const addToProjResources = () => {
+        setProjResources(projResources + ',New Project Resource')
+    }
 
     
     return ProjBtnsTemplate(
         projectsState, // props.state
         openProjModal,
-        projId, // comp.state
+        projId, // comp.state 
         projName,
+        projDesc,
         projPurpose,
         projTech,
         projAoA,
         projSrcCode,
         projResources,
+        editMode,
+        renderNull,
+        projectsStateEdited,
+        renderNewProjectField,
         provideModalData, // comp.handlers
         closeProjModal,
+        enterEditMode, 
+        deleteProjSection, 
+        saveChangesToProjectsState,
+        editProjSectionHandler,
+        handleEditChanges,
+        handleSelectedValue,
+        addToProjResources
     )
 }
 
