@@ -11,7 +11,8 @@ const ProjectsPage = () => {
     **/
    const [projectsState, setProjectsState] = useState([]),
    [modalState, setModalState] = useState(false),
-   [addProjModalState, setAddProjModalState] = useState(false)
+   [addProjModalState, setAddProjModalState] = useState(false),
+   [proj_img, setProj_img] = useState()
    
    useEffect( () => { // ~ componentDidMount, makes http req 
        const getProjsDataFromServer = async () => {
@@ -29,6 +30,19 @@ const ProjectsPage = () => {
     const toggleAddProjModal = () => setAddProjModalState(!addProjModalState)
 
 
+    const sendImg = async () => {
+        const upload_img_req = await fetch(
+            'http://localhost:5000/projects', 
+            {
+                method: 'GET', 
+                headers: {'Content-Type': 'X-custom-header'}
+            }
+        )
+        const img_resp = await upload_img_req.blob()
+        console.log(URL.createObjectURL(img_resp));
+        setProj_img(URL.createObjectURL(img_resp))
+    }
+
     return (
         <div className="projectPage">
             <h3 className="pageTitleProject">
@@ -43,6 +57,12 @@ const ProjectsPage = () => {
                 openAddNewProjModal={addProjModalState}
                 closeAddNewProjModal={toggleAddProjModal}
                 updateProjectsState={updateProjectsState}/>
+                <span>Add Image</span>
+                <button onClick={sendImg}>Get Image</button>
+                {
+                    proj_img && 
+                    <img src={proj_img} alt='project img should be here'/>
+                }
             </div>
         </div>
     )
