@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ProjBtnsTemplate from '../../templates/projectsTemplate/ProjBtnsTemplate'
 
-const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
+const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsState}) => {
     /**
     @description: Renders btns that user can click on to open modal for project detail information. This component state is used for the projModal 
     @param {openProjModal - props.state} Boolean: bool which toggles between open/closeModal
@@ -22,7 +22,9 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
            editProjSegment: [], 
            inputChanges: ''
        }), 
-       [renderNewProjectField, setRenderNewProjectField] = useState([])
+       [renderNewProjectField, setRenderNewProjectField] = useState([]),
+       [renderSelection4Deletion, setRenderSelection4Deletion] = useState(false), 
+       [projToBeDeleted, setProjToBeDeleted] = useState([])
     
 
     const provideModalData = (event) => {
@@ -150,10 +152,27 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         setProjResources(projResources + ',New Project Resource')
     }
 
+
+    const toggleSelection4DeletionHandler = () => {
+        setRenderSelection4Deletion(true)
+    }
+
+
+    const stageProj4DeletionHandler = event => {
+        setProjToBeDeleted([...projToBeDeleted, parseInt(event.target.value)])
+    }
+
+
+    const submittedSuccesfulDeleteReq = () => {
+        setRenderSelection4Deletion(false)
+        setProjToBeDeleted([])
+    }
+
     
     return ProjBtnsTemplate(
         projectsState, // props.state
         openProjModal,
+        updateProjectsState,
         projId, // comp.state 
         projName,
         projDesc,
@@ -166,6 +185,8 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         renderNull,
         projectsStateEdited,
         renderNewProjectField,
+        renderSelection4Deletion,
+        projToBeDeleted,
         provideModalData, // comp.handlers
         closeProjModal,
         enterEditMode, 
@@ -174,7 +195,10 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal}) => {
         editProjSectionHandler,
         handleEditChanges,
         handleSelectedValue,
-        addToProjResources
+        addToProjResources,
+        toggleSelection4DeletionHandler, 
+        stageProj4DeletionHandler,
+        submittedSuccesfulDeleteReq
     )
 }
 

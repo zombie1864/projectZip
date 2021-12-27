@@ -1,6 +1,7 @@
 import {motion} from 'framer-motion'
 import ProjectModalTemplate from './ProjectModalTemplate'
 import '../../css/projBtns.css'
+import DeleteProj from '../../components/Projs/DeleteProj';
 
 
 const container = {
@@ -23,7 +24,8 @@ const item = {
 const ProjBtnsTemplate = (
     projectsState,
     openProjModal,
-    projId,
+    updateProjectsState,
+    projId, // comp.state 
     projName,
     projDesc,
     projPurpose,
@@ -35,7 +37,9 @@ const ProjBtnsTemplate = (
     renderNull,
     projectsStateEdited,
     renderNewProjectField,
-    provideModalData,
+    renderSelection4Deletion,
+    projToBeDeleted,
+    provideModalData, // comp.handlers
     closeProjModal,
     enterEditMode, 
     deleteProjSection, 
@@ -43,7 +47,10 @@ const ProjBtnsTemplate = (
     editProjSectionHandler,
     handleEditChanges,
     handleSelectedValue,
-    addToProjResources
+    addToProjResources,
+    toggleSelection4DeletionHandler, 
+    stageProj4DeletionHandler,
+    submittedSuccesfulDeleteReq
 ) => {
     /**
     @description: 
@@ -86,6 +93,14 @@ const ProjBtnsTemplate = (
                                 className='projBtnTitle'>
                                     {project.proj_name}
                                 </motion.p> 
+                                {renderSelection4Deletion && 
+                                <div>
+                                    <input 
+                                    onClick={stageProj4DeletionHandler}
+                                    value={project.proj_id}
+                                    type="checkbox"/>
+                                </div>
+                                }
                             </div>
                         )
                     })}
@@ -93,28 +108,33 @@ const ProjBtnsTemplate = (
             }
             {
                 ProjectModalTemplate(
-                openProjModal, 
-                projName,
-                projDesc,
-                projPurpose,
-                projTech,
-                projAoA,
-                projResources,
-                projSrcCode,
-                editMode,
-                renderNull,
-                projectsStateEdited,
-                renderNewProjectField,
-                closeProjModal,
-                enterEditMode, 
-                deleteProjSection, 
-                saveChangesToProjectsState,
-                editProjSectionHandler,
-                handleEditChanges,
-                handleSelectedValue,
-                addToProjResources
-                ) 
-            }
+                    openProjModal, 
+                    projName,
+                    projDesc,
+                    projPurpose,
+                    projTech,
+                    projAoA,
+                    projResources,
+                    projSrcCode,
+                    editMode,
+                    renderNull,
+                    projectsStateEdited,
+                    renderNewProjectField,
+                    closeProjModal,
+                    enterEditMode, 
+                    deleteProjSection, 
+                    saveChangesToProjectsState,
+                    editProjSectionHandler,
+                    handleEditChanges,
+                    handleSelectedValue,
+                    addToProjResources
+                    ) 
+                }
+            <DeleteProj 
+            arrOfProjToBeDeleted={projToBeDeleted}
+            updateProjectsState={updateProjectsState}
+            toggleDeletion={toggleSelection4DeletionHandler}
+            submittedSuccesfulDeleteReq={submittedSuccesfulDeleteReq}/>
         </div>
     )
 }
