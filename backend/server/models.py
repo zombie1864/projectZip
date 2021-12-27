@@ -12,6 +12,7 @@ class Project(db.Model):
     proj_src_code = db.Column(db.String(200), index=True, unique=False)
     proj_resources = db.relationship('Resource', backref='project', lazy='dynamic')
     proj_tasks = db.relationship('Task', backref='project', lazy='dynamic')
+    proj_img = db.relationship('Img', backref='project', lazy='dynamic')
 
 
     def __init__(self, proj_name, proj_desc, proj_purpose, proj_techs, proj_aoa, proj_src_code, proj_resources):
@@ -98,6 +99,15 @@ class Task(db.Model):
             "prio_lvl": self.prio_lvl, 
             "tags": self.tags
         }
+
+
+class Img(db.Model):
+    '''  '''
+    id = db.Column(db.Integer, primary_key=True)
+    img_data = db.Column(db.Text, unique=True)
+    name = db.Column(db.Text, unique=False)
+    filetype = db.Column(db.Text, unique=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
 
 if os.path.exists('backend.db'):

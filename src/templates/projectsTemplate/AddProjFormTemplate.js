@@ -31,7 +31,8 @@ const AddProjFormTemplate = (
     handleChange,
     addProjResource,
     saveResource,
-    cancelAddProjResource
+    cancelAddProjResource,
+    uploadImgHandler
 ) => {
     /**
     @description: 
@@ -230,6 +231,8 @@ const AddProjFormTemplate = (
                                     }
                             </ul>
                         }
+                        <span>Add Image</span>
+                        <input type='file' name='proj_img' onChange={uploadImgHandler}/>
                         <div className='saveBtnContainer'>
                             <span>
                                 <input 

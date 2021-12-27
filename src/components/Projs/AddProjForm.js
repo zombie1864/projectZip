@@ -19,6 +19,8 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         [proj_src_code, setProj_src_code] = useState(''), 
         [proj_resource, setProj_resource] = useState(''), 
         [proj_resources, setProj_resources] = useState([]),
+        [uploading_proj_img, setUploading_proj_img] = useState(false),
+        [proj_img, setProj_img] = useState(),
         [toggleAddProjResource, setToggleAddProjResource] = useState(false),
         [sliderState, setSliderState] = useState(false),
         [inputNameClassName, setInputNameClassName] = useState('formInput'),  
@@ -38,8 +40,20 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
                 body: JSON.stringify(dataToSubmit)
             }
         )
+        if (uploading_proj_img) {
+            const data = new FormData()
+            data.append('proj_img', proj_img, proj_img.name)
+            await fetch(
+                'http://localhost:5000/projects', 
+                {
+                    method: 'POST', 
+                    body: data
+                }
+            )
+        }
         const resp = await req.json() // sends back updated bd
         updateProjectsState(resp) 
+        setProj_resources([])
     }
 
 
@@ -60,11 +74,10 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
             proj_src_code: proj_src_code,
             proj_resources: proj_resources
         }
+
         let formMetaData = validateForm(dataToSubmit, sliderState),
         validForm = formMetaData.isFormValid,
-            invalidInputs = formMetaData['invalidInputs']
-        
-        console.log(invalidInputs);
+        invalidInputs = formMetaData['invalidInputs']
 
         if (invalidInputs.includes('proj_name')) {
             setInputNameClassName('formInput invalidInput')
@@ -133,15 +146,26 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         }
     }
 
+
     const addProjResource = () => setToggleAddProjResource(true)
+
+
     const cancelAddProjResource = () => {
         setToggleAddProjResource(false) 
         setProj_resources([])
     }
+
+
     const saveResource = () => {
         if (proj_resource === '') return 
         setProj_resources([...proj_resources,proj_resource])
         setProj_resource('')
+    }
+
+
+    const uploadImgHandler = event => {  
+        setUploading_proj_img(true)
+        setProj_img(event.target.files[0])
     }
 
 
@@ -169,7 +193,8 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         handleChange,
         addProjResource,
         saveResource,
-        cancelAddProjResource
+        cancelAddProjResource,
+        uploadImgHandler
     )
 }
   

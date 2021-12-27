@@ -1,6 +1,9 @@
+import io 
 from flask.globals import request
+from flask import send_file
 from server import app, jsonify, request, db
-from server.models import Project, Resource, Task
+from server.models import Project, Resource, Task, Img
+from werkzeug.utils import secure_filename
 
 
 @app.after_request
@@ -13,9 +16,10 @@ def add_headers(response):
 
 @app.route('/projects', methods=['GET', 'POST', 'PUT'])
 def projects():
-    ''' route func '''
-    incoming_data = request.json
+    ''' route func ''' 
+    print('Content-Type' in request.headers)
     if request.method == 'PUT': 
+        incoming_data = request.json
         data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
         for key, value in incoming_data.items():
             if key == 'proj_resources': 
@@ -44,17 +48,32 @@ def projects():
             # db.session.rollback()
             print(Exception)  
     elif request.method == 'POST': 
-        converted_data = Project(
-            proj_name = incoming_data['proj_name'], 
-            proj_desc = incoming_data['proj_desc'],
-            proj_purpose = incoming_data['proj_purpose'],
-            proj_techs = incoming_data['proj_techs'],
-            proj_aoa = incoming_data['proj_aoa'], 
-            proj_src_code = incoming_data['proj_src_code'],
-            proj_resources = incoming_data['proj_resources']
-        )
-        db.session.add(converted_data)
-        db.session.commit()
+        if request.headers['Content-Type'] == 'application/json': # NOTE this branch is good
+            incoming_data = request.json 
+            converted_data = Project(
+                proj_name = incoming_data['proj_name'], 
+                proj_desc = incoming_data['proj_desc'],
+                proj_purpose = incoming_data['proj_purpose'],
+                proj_techs = incoming_data['proj_techs'],
+                proj_aoa = incoming_data['proj_aoa'], 
+                proj_src_code = incoming_data['proj_src_code'],
+                proj_resources = incoming_data['proj_resources']
+            )
+            db.session.add(converted_data)
+            db.session.commit()
+        else:  
+            project = db.session.query(Project).order_by(Project.id.desc()).first()
+            img = request.files['proj_img'] # NOTE stores img data to var img 
+            filename = secure_filename(img.name)
+            filetype = img.mimetype
+            img_record_obj = Img(
+                img_data=img.read(), name=filename, filetype=filetype, project_id=project.id
+            )
+            db.session.add(img_record_obj)
+            db.session.commit()
+    elif request.method == 'GET' and 'Content-Type' in request.headers: 
+        images = Img.query.all()
+        return send_file(io.BytesIO(images[0].img_data), mimetype='image/gif')
     projects = Project.query.all()
     data = [project.as_dict() for project in projects]
     return jsonify(data)
