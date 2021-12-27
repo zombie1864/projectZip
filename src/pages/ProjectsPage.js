@@ -51,7 +51,8 @@ const ProjectsPage = () => {
                 <ProjBtns 
                 openProjModal={modalState}
                 projectsState={projectsState}
-                toggleModal={toggleModal}/>
+                toggleModal={toggleModal}
+                updateProjectsState={updateProjectsState}/>
                 <AddProjForm 
                 openAddNewProjModal={addProjModalState}
                 closeAddNewProjModal={toggleAddProjModal}

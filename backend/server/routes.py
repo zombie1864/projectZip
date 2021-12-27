@@ -14,10 +14,9 @@ def add_headers(response):
     return response
 
 
-@app.route('/projects', methods=['GET', 'POST', 'PUT'])
+@app.route('/projects', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def projects():
     ''' route func ''' 
-    print('Content-Type' in request.headers)
     if request.method == 'PUT': 
         incoming_data = request.json
         data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
@@ -74,6 +73,12 @@ def projects():
     elif request.method == 'GET' and 'Content-Type' in request.headers: 
         images = Img.query.all()
         return send_file(io.BytesIO(images[0].img_data), mimetype='image/gif')
+    elif request.method == 'DELETE':
+        list_of_proj_to_be_deleted = request.json
+        for proj_id in list_of_proj_to_be_deleted:
+            proj_to_be_deleted = Project.query.get(proj_id)
+            db.session.delete(proj_to_be_deleted)
+            db.session.commit()
     projects = Project.query.all()
     data = [project.as_dict() for project in projects]
     return jsonify(data)
@@ -100,12 +105,4 @@ def tasks():
 '''  
     NOTE 
         - You are using ORM - object Relation Mapping. The ORM API provides a way to perform CRUD operations without writing raw SQL statements 
-        - at this point i have build the model interface which communicates with db 
-            ⮑ i am able to process a GET req but am missing func to handle full CRUD 
-                ⮑ Create: avail
-                ⮑ Read: avail 
-                ⮑ Update: avail 
-                ⮑ Delete: i can delete records using 
-                    db.session.delete(id)
-                    db.session.commit()
 '''
