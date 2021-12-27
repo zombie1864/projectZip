@@ -30,7 +30,7 @@ const ProjectsPage = () => {
     const toggleAddProjModal = () => setAddProjModalState(!addProjModalState)
 
 
-    const sendImg = async () => {
+    const receiveImg = async () => {
         const upload_img_req = await fetch(
             'http://localhost:5000/projects', 
             {
@@ -39,7 +39,6 @@ const ProjectsPage = () => {
             }
         )
         const img_resp = await upload_img_req.blob()
-        console.log(URL.createObjectURL(img_resp));
         setProj_img(URL.createObjectURL(img_resp))
     }
 
@@ -57,12 +56,12 @@ const ProjectsPage = () => {
                 openAddNewProjModal={addProjModalState}
                 closeAddNewProjModal={toggleAddProjModal}
                 updateProjectsState={updateProjectsState}/>
-                <span>Add Image</span>
-                <button onClick={sendImg}>Get Image</button>
+                {/* <span>Add Image</span>
+                <button onClick={receiveImg}>Get Image</button>
                 {
                     proj_img && 
                     <img src={proj_img} alt='project img should be here'/>
-                }
+                } */}
             </div>
         </div>
     )

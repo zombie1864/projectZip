@@ -71,13 +71,8 @@ def projects():
             )
             db.session.add(img_record_obj)
             db.session.commit()
-    elif request.method == 'GET' and 'Content-Type' in request.headers: # NOTE need to figure this part out i need a way to know that the method is a GET request and that it is specifically getting the img rather than just a generic GET request 
+    elif request.method == 'GET' and 'Content-Type' in request.headers: 
         images = Img.query.all()
-        if len(images) >= 1:
-            print('\n----------[ START ]----------\n')
-            print(images[0])
-            print(type(images[0].img_data))
-            print('\n----------[ END ]----------\n') 
         return send_file(io.BytesIO(images[0].img_data), mimetype='image/gif')
     projects = Project.query.all()
     data = [project.as_dict() for project in projects]

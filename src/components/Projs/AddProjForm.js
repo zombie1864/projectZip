@@ -32,36 +32,28 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
 
 
     const addData = async (dataToSubmit) => {
-        console.log(dataToSubmit);
-        /**
-         WARNING you might not be able to stringify FormData - look it this check to see if you can send multiple things in body
-         body: {
-             json data 
-             img img_data 
-         } 
-         something to this effect 
-        **/ 
-        console.log(dataToSubmit);
-        const data = new FormData()
-        data.append('proj_img', proj_img, proj_img.name)
         const req = await fetch(
             'http://localhost:5000/projects', 
             {
                 method: 'POST', 
-                headers: { 'Content-type': 'application/json' }, // NOTE might not need this
-                // headers: { 'Content-type': 'multipart/form-data' }, // NOTE might not need this
+                headers: { 'Content-type': 'application/json' }, 
                 body: JSON.stringify(dataToSubmit)
             }
         )
-        const upload_img_req = await fetch(
-            'http://localhost:5000/projects', 
-            {
-                method: 'POST', 
-                body: data
-            }
-        )
+        if (uploading_proj_img) {
+            const data = new FormData()
+            data.append('proj_img', proj_img, proj_img.name)
+            await fetch(
+                'http://localhost:5000/projects', 
+                {
+                    method: 'POST', 
+                    body: data
+                }
+            )
+        }
         const resp = await req.json() // sends back updated bd
         updateProjectsState(resp) 
+        setProj_resources([])
     }
 
 
@@ -85,9 +77,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
 
         let formMetaData = validateForm(dataToSubmit, sliderState),
         validForm = formMetaData.isFormValid,
-            invalidInputs = formMetaData['invalidInputs']
-        
-        // console.log(invalidInputs);
+        invalidInputs = formMetaData['invalidInputs']
 
         if (invalidInputs.includes('proj_name')) {
             setInputNameClassName('formInput invalidInput')
@@ -173,11 +163,8 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
     }
 
 
-    const uploadImgHandler = event => { // NOTE you cannot log FormData you must trust that everything is working as expected 
+    const uploadImgHandler = event => {  
         setUploading_proj_img(true)
-        // const data = new FormData()
-        // data.append('file', event.target.files[0], event.target.files[0].name)
-        // let img = URL.createObjectURL(event.target.files[0])
         setProj_img(event.target.files[0])
     }
 
