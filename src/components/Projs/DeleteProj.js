@@ -1,4 +1,5 @@
 import React from 'react'
+import {MdOutlineDeleteSweep} from 'react-icons/md'
 
 const DeleteProj = ({
     toggleDeletion, 
@@ -31,9 +32,17 @@ const DeleteProj = ({
                 <button
                 onClick={deleteRecordsFromDB}
                 className='addProjBtn'>Delete</button> :
-                <button
-                onClick={toggleDeletion}
-                className='addProjBtn'>Delete Project(s)</button>
+                <div className='projBtnContainer'>
+                    <button
+                    onClick={toggleDeletion}
+                    className='addProjBtn'>
+                        <span
+                        className='projBtnIcon'>
+                            {<MdOutlineDeleteSweep/>}
+                        </span>
+                    </button>
+                    <p className='projBtnTitle'>Delete Project(s)</p>
+                </div>
             }
         </div>
     )
