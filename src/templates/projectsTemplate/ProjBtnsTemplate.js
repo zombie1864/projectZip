@@ -98,7 +98,13 @@ const ProjBtnsTemplate = (
                                     <input 
                                     onClick={stageProj4DeletionHandler}
                                     value={project.proj_id}
-                                    type="checkbox"/>
+                                    type="checkbox"
+                                    id={`selectedProj${projIdx}`}/>
+                                    <label for={`selectedProj${projIdx}`} class="checkbox">
+                                        <div class="checkbox__inner">
+                                            <div class="fill_in_ball"></div>
+                                        </div>
+                                    </label>
                                 </div>
                                 }
                             </div>

@@ -61,7 +61,12 @@ const AddProjFormTemplate = (
     @param {saveResource - event handler} 
     **/
     return (
-        <div className={openAddNewProjModal ? '' : 'addNewProjectComponent'}>
+        <div 
+        className={openAddNewProjModal ? '' : 'addNewProjectComponent'}
+        style={{
+            position:'fixed', 
+            left: '80%'
+        }}>
             {
                 !openAddNewProjModal ? 
                 <div className='projBtnContainer'>

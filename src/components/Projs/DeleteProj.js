@@ -1,5 +1,14 @@
 import React from 'react'
+import {motion} from 'framer-motion'
 import {MdOutlineDeleteSweep} from 'react-icons/md'
+import '../../css/deleteBtns.css'
+
+
+const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { opacity: 1 }
+};
+
 
 const DeleteProj = ({
     toggleDeletion, 
@@ -26,22 +35,45 @@ const DeleteProj = ({
 
 
     return (
-        <div>
+        <div className='deleteBtns'>
             {
                 arrOfProjToBeDeleted.length > 0 ? 
-                <button
-                onClick={deleteRecordsFromDB}
-                className='addProjBtn'>Delete</button> :
                 <div className='projBtnContainer'>
                     <button
-                    onClick={toggleDeletion}
-                    className='addProjBtn'>
-                        <span
-                        className='projBtnIcon'>
-                            {<MdOutlineDeleteSweep/>}
-                        </span>
+                    variants={item}
+                    onClick={deleteRecordsFromDB}
+                    className='deleteProjBtn'
+                    style={{
+                        position: 'relative', 
+                        top: '19px'
+                    }}>
+                        <span className='projBtnIcon'>{<MdOutlineDeleteSweep/>}</span>
                     </button>
-                    <p className='projBtnTitle'>Delete Project(s)</p>
+                    <p
+                    variants={item} 
+                    className='projBtnTitle'
+                    style={{position: 'relative', top: '19px'}}>Delete</p>
+                </div> :
+                <div className='projBtnContainer'>
+                    <motion.button
+                    variants={item}
+                    whileHover={{y:-15.0}} 
+                    onClick={toggleDeletion}
+                    className='addProjBtn'
+                    style={{
+                        position: 'relative', 
+                        top: '19px'
+                    }}>
+                        <motion.span className='projBtnIcon'>
+                            {<MdOutlineDeleteSweep/>}
+                        </motion.span>
+                    </motion.button>
+                    <motion.p  
+                    variants={item} 
+                    className='projBtnTitle'
+                    style={{position: 'relative', top: '19px'}}>
+                        Delete Project(s)
+                    </motion.p> 
                 </div>
             }
         </div>
