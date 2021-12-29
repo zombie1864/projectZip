@@ -59,6 +59,7 @@ const ProjectModalTemplate = (
         className="modal"
         initial={{scale: 0}} 
         animate={{scale: 1}}
+        style={editMode && {height:'525px'}} // editMode expans Modal 
         transition={{duration: 0.3}}>
             <div className="modalTitleLabelContainer">
                 { !renderNull.includes('proj_name') && 
