@@ -35,7 +35,7 @@ const DeleteProj = ({
 
 
     return (
-        <div className='deleteBtns'>
+        <div className='deleteBtns' style={{position: 'fixed', top: '127px'}}>
             {
                 arrOfProjToBeDeleted.length > 0 ? 
                 <div className='projBtnContainer'>

@@ -65,7 +65,8 @@ const AddProjFormTemplate = (
         className={openAddNewProjModal ? '' : 'addNewProjectComponent'}
         style={{
             position:'fixed', 
-            left: '80%'
+            left: '80%', 
+            top: '201px'
         }}>
             {
                 !openAddNewProjModal ? 
