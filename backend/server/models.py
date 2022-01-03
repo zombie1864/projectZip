@@ -1,3 +1,5 @@
+import base64
+import io
 import os 
 from server import db
 
@@ -41,6 +43,30 @@ class Project(db.Model):
         }
 
     
+    def home_resources(self):
+        ''' returns resources for home route '''
+        all_imgs = Img.query.filter(Img.project_id == self.id).all()
+        if len(all_imgs) > 0:
+            all_imgs = all_imgs[0]
+            with io.BytesIO(all_imgs.img_data) as image_file:
+                all_imgs = base64.b64encode(image_file.read()).decode()
+        return {
+            "proj_id": self.id, 
+            "proj_name":  self.proj_name,
+            "proj_desc": self.proj_desc, 
+            "proj_src_code": self.proj_src_code, 
+            # "proj_img": all_imgs
+        }
+
+
+    def project_img(self, id):
+        '''  '''
+        img_inst = Img.query.filter(Img.project_id == id).all() 
+        if len(img_inst) != 0: 
+            return img_inst[0].img_data
+        else: 
+            return None 
+
     def get_tasks(self):
         '''  return an obj: tasks_obj '''
         project_tasks = Project.query.get(self.id).proj_tasks.all()

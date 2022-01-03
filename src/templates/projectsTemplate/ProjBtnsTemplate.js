@@ -100,9 +100,9 @@ const ProjBtnsTemplate = (
                                     value={project.proj_id}
                                     type="checkbox"
                                     id={`selectedProj${projIdx}`}/>
-                                    <label for={`selectedProj${projIdx}`} class="checkbox">
-                                        <div class="checkbox__inner">
-                                            <div class="fill_in_ball"></div>
+                                    <label htmlFor={`selectedProj${projIdx}`} className="checkbox">
+                                        <div className="checkbox__inner">
+                                            <div className="fill_in_ball"></div>
                                         </div>
                                     </label>
                                 </div>

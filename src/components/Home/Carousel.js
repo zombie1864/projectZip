@@ -1,101 +1,67 @@
-import '../../css/carousal.css'
-import { motion } from 'framer-motion'
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import {imgSlides} from '../../utils/slides'
-import { CgChevronDoubleLeftR, CgChevronDoubleRightR} from 'react-icons/cg'
+import { useState, useEffect } from 'react'
+import CarouselTemplate from '../../templates/homeTemplate/CarouselTemplate'
 
 const Carousel = () => {
     /**
-    @description: This comp contains the carousal that will be rendered showing images/code snippets of python projects. To accomplish this npm i 3d-react-carousal was used. 
+    @description: This comp contains the carousal that will be rendered showing images/code snippets of python projects.
     **/
-    const [currImgIdx, setCurrImg] = useState(0)
-    const carousalLength = imgSlides.length 
+    const [currImgIdx, setCurrImg] = useState(0), 
+    [projectState, setProjectState] = useState(),
+    [proj_img, setProj_img] = useState()
+
     const carouselArray = []
+
+
     const nxtSlide = () => {
-        setCurrImg(currImgIdx === carousalLength - 1 ? 0 : currImgIdx + 1)
-    }
-    const prevSlide = () => {
-        setCurrImg(currImgIdx === 0 ? carousalLength - 1 : currImgIdx - 1)
+        setCurrImg(currImgIdx === projectState.length  - 1 ? 0 : currImgIdx + 1)
     }
 
+
+    const prevSlide = () => {
+        setCurrImg(currImgIdx === 0 ? projectState.length  - 1 : currImgIdx - 1)
+    }
+
+    useEffect( () => {
+        const receiveData = async () => {
+            const home_proj_resources = await fetch('http://localhost:5000/', {method: 'GET'})
+            const resp = await home_proj_resources.json()
+            let imgResource = []
+            resp.forEach(async proj_resource => {
+                const imgs = await fetch(
+                    `http://localhost:5000/proj_img/${proj_resource.proj_id}`, {method: 'GET'}
+                )
+                if (imgs.status === 204) { 
+                    imgResource.push('None')
+                } else {
+                    const img_resp = await imgs.blob()
+                    imgResource.push(URL.createObjectURL(img_resp))
+                }
+            });
+            setProjectState(resp); 
+            setProj_img(imgResource)
+        }
+        receiveData()
+    }, [])
+
     
-   if (!Array.isArray(imgSlides) || imgSlides.length === -1 ) {
+   if (!Array.isArray(projectState) || projectState.length === -1 ) {
        return null 
    } // this piece of logic is for when there is no data slides or when imgSlides isn't an arr 
    // this is only here for future scalability or additional features 
 
-   for (let num = 0; num < carousalLength; num++) {
+   for (let num = 0; num < projectState.length ; num++) {
     carouselArray.push(num)
    }
 
-   return (
-        <div className="carousalContainer">
-            <CgChevronDoubleLeftR className="leftArrow" onClick={prevSlide}/>
-            {imgSlides.map((imgObj, idx) => {
-                return (
-                    <motion.div 
-                    variants={container}
-                    initial='hidden'
-                    animate='visible'
-                    className={idx === currImgIdx ? 'activeSlide' : null} key={idx}>
-                        {
-                            idx === currImgIdx && (
-                                <div className="activeSlideContent">
-                                <img 
-                                src={imgObj.imgSrc} 
-                                alt={imgObj.alt} 
-                                className="carousalImg"/>
-                                <div className='carouselLinks'>
-                                    <Link 
-                                    to={{pathname: '/task'}} 
-                                    className='carouselLinkTag'>
-                                        <span className='carouselLinkText'>Project Task</span>
-                                    </Link>
-                                    <Link 
-                                    to={{pathname: '/projects'}} 
-                                    className='carouselLinkTag'>
-                                        <span className='carouselLinkText'>View Projects</span>
-                                    </Link>
-                                    <a 
-                                    className='carouselLinkTag carouselLinkText'
-                                    href={imgObj.srcCode} 
-                                    target="_blank" 
-                                    rel="noreferrer">Source Code</a>
-                                </div>
-                                <p className='carouselProjTitle'>
-                                    Project Title: {imgObj.projTitle}
-                                </p>
-                                <p className='carouselDesc'>{imgObj.desc}</p>
-                                </div>
-                            )
-                        }{/* trueStatement && result, this is a technique that for ternary without an else clause */}
-                    </motion.div>
-                )
-            })}
-            <CgChevronDoubleRightR className="rightArrow" onClick={nxtSlide}/>
-            <div className="carouselNavContainer">
-                {carouselArray.map(
-                    (_, idx) => 
-                    <div 
-                    className={idx === currImgIdx ? 'activeCarouselNav' : 'carouselNav'} 
-                    key={idx}/>
-                )}
-            </div>
-        </div>
-    )
+   return CarouselTemplate(
+       projectState,
+       proj_img,
+       currImgIdx, 
+       carouselArray,
+       nxtSlide, 
+       prevSlide
+   )
 }
 
-
-const container = {
-    hidden: { opacity: 0.3, scale: 0.2 },
-    visible: {
-      opacity: 1,
-      scale: 1.05,
-      transition: {
-          duration: 0.3
-      }
-    }
-};
 
 export default Carousel

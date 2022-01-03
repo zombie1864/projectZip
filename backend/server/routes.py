@@ -14,9 +14,31 @@ def add_headers(response):
     return response
 
 
+@app.route('/', methods=['GET'])
+def home_resources_API():
+    ''' route func - returns project name, project desc, project img, and project src code'''
+    if request.method == 'GET':
+        projects = Project.query.all()
+        data = [project.home_resources() for project in projects]
+        return jsonify(data)
+
+
+@app.route('/proj_img/<int:proj_id>', methods=['GET'])
+def proj_img_resource_API(proj_id):
+    ''' route func - returns project img'''
+    project = Project.query.get_or_404(proj_id)
+    proj_img_byte = project.project_img(proj_id)
+    if proj_img_byte == None:
+        return 'None', 204 # HTTP 204 means no content 
+    else:
+        return send_file(io.BytesIO(proj_img_byte), mimetype='image/gif')
+
+
 @app.route('/projects', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def projects():
-    ''' route func ''' 
+def projects_API():
+    ''' route func - Adds(POST), updates(PUT), and deletes(DELETE) projects with a default
+    HTTP GET request which returns project state
+    ''' 
     if request.method == 'PUT': 
         incoming_data = request.json
         data_to_update = Project.query.get_or_404(incoming_data['proj_id'])
@@ -47,7 +69,7 @@ def projects():
             # db.session.rollback()
             print(Exception)  
     elif request.method == 'POST': 
-        if request.headers['Content-Type'] == 'application/json': # NOTE this branch is good
+        if request.headers['Content-Type'] == 'application/json': 
             incoming_data = request.json 
             converted_data = Project(
                 proj_name = incoming_data['proj_name'], 
@@ -70,9 +92,6 @@ def projects():
             )
             db.session.add(img_record_obj)
             db.session.commit()
-    elif request.method == 'GET' and 'Content-Type' in request.headers: 
-        images = Img.query.all()
-        return send_file(io.BytesIO(images[0].img_data), mimetype='image/gif')
     elif request.method == 'DELETE':
         list_of_proj_to_be_deleted = request.json
         for proj_id in list_of_proj_to_be_deleted:
@@ -85,7 +104,7 @@ def projects():
 
 
 @app.route('/tasks', methods=['GET', 'POST'])
-def tasks():
+def tasks_API():
     ''' route func '''
     incoming_data = request.json 
     if incoming_data:
@@ -104,5 +123,6 @@ def tasks():
 
 '''  
     NOTE 
-        - You are using ORM - object Relation Mapping. The ORM API provides a way to perform CRUD operations without writing raw SQL statements 
+        - You are using ORM - object Relation Mapping. The ORM API provides a way to perform CRUD operations without writing raw SQL statements. This is what SQLAlchemy does 
+        - This server provides full CRUD API 
 '''
