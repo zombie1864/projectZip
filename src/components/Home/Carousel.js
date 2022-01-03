@@ -26,7 +26,7 @@ const Carousel = () => {
             const home_proj_resources = await fetch('http://localhost:5000/', {method: 'GET'})
             const resp = await home_proj_resources.json()
             let imgResource = []
-            resp.forEach(async proj_resource => {
+            for (const proj_resource of resp) {
                 const imgs = await fetch(
                     `http://localhost:5000/proj_img/${proj_resource.proj_id}`, {method: 'GET'}
                 )
@@ -36,7 +36,7 @@ const Carousel = () => {
                     const img_resp = await imgs.blob()
                     imgResource.push(URL.createObjectURL(img_resp))
                 }
-            });
+            }
             setProjectState(resp); 
             setProj_img(imgResource)
         }

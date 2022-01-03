@@ -108,6 +108,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
             setProj_aoa('')
             setProj_src_code('')
             setToggleAddProjResource(false)
+            closeAddNewProjModal()
         }
     }
 

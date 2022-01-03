@@ -130,7 +130,7 @@ class Task(db.Model):
 class Img(db.Model):
     '''  '''
     id = db.Column(db.Integer, primary_key=True)
-    img_data = db.Column(db.Text, unique=True)
+    img_data = db.Column(db.Text, unique=False)
     name = db.Column(db.Text, unique=False)
     filetype = db.Column(db.Text, unique=False)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))

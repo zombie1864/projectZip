@@ -44,8 +44,7 @@ const CarouselTemplate = (
                                         proj_img && 
                                         <img 
                                         src={
-                                            // proj_img.length > 1 ? proj_img[idx] : staticImg
-                                            proj_img.length > 1 && proj_img[idx] !== 'None' ? proj_img[idx] : staticImg
+                                            proj_img.length > 1 && proj_img[idx] !== 'None' ? proj_img[idx] : staticImg 
                                         } 
                                         alt={'img'} 
                                         className="carousalImg"/>
