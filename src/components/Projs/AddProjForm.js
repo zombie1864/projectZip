@@ -173,7 +173,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
     return AddProjFormTemplate(
         openAddNewProjModal,
         closeAddNewProjModal,
-        proj_name,
+        proj_name, //comp.state
         proj_desc,
         proj_purpose,
         proj_techs,
@@ -189,7 +189,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
         txtAreaDescClassName,
         txtAreaPurposeClassName,
         toggleAddProjResource,
-        toggleSlider,
+        toggleSlider, // comp.handlers
         submitForm,
         handleChange,
         addProjResource,

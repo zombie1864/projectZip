@@ -1,0 +1,13 @@
+.taskTable, .taskTableRow, .taskTableData {
+    border: 1px solid black; 
+}
+
+.taskUl {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task_desc {
+    list-style-position:inside;
+    border: 1px solid black;
+}

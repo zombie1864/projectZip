@@ -2,6 +2,7 @@ import base64
 import io
 import os 
 from server import db
+from typing import Dict, Any
 
 class Project(db.Model):
     ''' Project schema '''
@@ -67,13 +68,13 @@ class Project(db.Model):
         else: 
             return None 
 
-    def get_tasks(self):
-        '''  return an obj: tasks_obj '''
+    def get_tasks(self) -> Dict[str, Any]:
+        '''   '''
         project_tasks = Project.query.get(self.id).proj_tasks.all()
         return {
             "proj_id": self.id,
             "proj_name": self.proj_name, 
-            "list_of_tasks": [task.as_dict() for task in project_tasks]
+            "proj_tasks": [task.as_dict() for task in project_tasks] # NOTE task obj has .as_dict method
         }
 
 
@@ -101,29 +102,32 @@ class Resource(db.Model):
 class Task(db.Model):
     '''  '''
     id = db.Column(db.Integer, primary_key=True)
-    task = db.Column(db.String(2500), unique=False)
+    task_desc = db.Column(db.String(2500), unique=False)
     due_date = db.Column(db.String(10), unique=False)
-    prio_lvl = db.Column(db.String(20), unique=False)
-    tags = db.Column(db.String(2500), unique=False) # tag1-tag2-tag3...
+    prio = db.Column(db.String(20), unique=False)
+    proj_tags = db.Column(db.String(2500), unique=False) # tag1-tag2-tag3...
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
 
 
-    def __init__(self, task, due_date, prio_lvl, tags, project_id):
+    def __init__(self, task_desc, due_date, prio, proj_tags, project_id):
         '''  '''
-        self.task = task 
+        self.task_desc = task_desc 
         self.due_date = due_date 
-        self.prio_lvl = prio_lvl 
-        self.tags = tags 
+        self.prio = prio 
+        self.proj_tags = proj_tags 
         self.project_id = project_id
 
     
     def as_dict(self):
         '''  '''
         return {
-            "task": self.task, 
-            "due_date": self.due_date, # NOTE worry about the details later 
-            "prio_lvl": self.prio_lvl, 
-            "tags": self.tags
+            "task_desc": self.task_desc, 
+            "proj_tags": self.proj_tags,
+            "prio_lvl": { 
+                "lvl": self.prio, 
+                "due_date": self.due_date, 
+            },
+            "task_id": self.id
         }
 
 

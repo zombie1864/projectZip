@@ -105,18 +105,26 @@ def projects_API():
 
 @app.route('/tasks', methods=['GET', 'POST'])
 def tasks_API():
-    ''' route func '''
+    ''' route func 
+    [X]_1. GET returns project tasks
+    [X]_2. can POST task for a specific project 
+    []_3. DELETE a specific task from a project 
+    []_4. PATCH a specific attr of a task for a specific project 
+    '''
     incoming_data = request.json 
     if incoming_data:
         converted_data = Task(
-            task = incoming_data['task'], 
+            task_desc = incoming_data['task_desc'], 
             due_date = incoming_data['due_date'], 
-            prio_lvl = incoming_data['prio_lvl'], 
-            tags = incoming_data['tags'], 
+            prio = incoming_data['prio'], 
+            proj_tags = incoming_data['proj_tags'], 
             project_id = incoming_data['proj_id'] 
         )
-        db.session.add(converted_data)
-        db.session.commit()
+        try:
+            db.session.add(converted_data)
+            db.session.commit()
+        except Exception:
+            print('err')
     projects = Project.query.all()
     list_of_tasks = [project.get_tasks() for project in projects]
     return jsonify(list_of_tasks)
