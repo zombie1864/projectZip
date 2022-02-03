@@ -8,13 +8,15 @@ const TasksTemplate = (
     selectedValue, 
     inputTag,
     tags,
+    taskDesc,
     handleSelectedValue, // comp.handlers 
     toggleFrom,
     getDateHandler,
     submitTaskForm,
     handleInputTagChange,
     handleInputTag,
-    handleSelectedPrio
+    handleSelectedPrio,
+    handleTaskDesc
     ) => {
     return (
         <div>
@@ -46,7 +48,10 @@ const TasksTemplate = (
             </table>
             {   displayForm && 
                 <form className='addTaskForm' onSubmit={submitTaskForm}>
-                    <textarea className='taskDesc'></textarea>
+                    <textarea 
+                    className='taskDesc'
+                    value={taskDesc}
+                    onChange={handleTaskDesc}/>
                     <CalendarComponent onChange={getDateHandler}/>
                     {   tags.length > 0 && tags }
                     <input

@@ -2,25 +2,40 @@ import TasksTemplate from '../../templates/tasksTemplate/TasksTemplate'
 import { useState } from 'react'
 
 
-const Tasks = ({tasksState}) => {
+const Tasks = ({tasksState, setTasksState}) => {
     const [selectedValue, setSelectedValue] = useState(), 
     [displayForm, setDisplayForm] = useState(false),
     [date, setDate] = useState(),
     [inputTag, setInputTag] = useState(''), 
     [tags, setTags] = useState([]),
-    [prioLvl, setPrioLvl] = useState()
+    [prioLvl, setPrioLvl] = useState(),
+    [taskDesc, setTaskDesc] = useState()
 
 
     const submitTaskForm = event => {
         event.preventDefault()
         const taskToSubmit = {
-            "task_desc": "doing more for 2",
-            "due_date": date,
+            "task_desc": taskDesc,
+            "due_date": date.slice(1,11),
             "prio": prioLvl, 
-            "proj_tags": tags,
+            "proj_tags": tags.join('-'),
             "proj_id": selectedValue + 1
         }
-        console.log(taskToSubmit);
+        addData(taskToSubmit);
+    }
+
+
+    const addData = async (dataToSubmit) => {
+        const req = await fetch(
+            'http://localhost:5000/tasks', 
+            {
+                method: 'POST', 
+                headers: { 'Content-type': 'application/json' }, 
+                body: JSON.stringify(dataToSubmit)
+            }
+        )
+        const resp = await req.json() // sends back updated bd
+        setTasksState(resp); 
     }
 
     
@@ -39,7 +54,9 @@ const Tasks = ({tasksState}) => {
 
     const handleSelectedPrio = event => setPrioLvl(event.target.value)
 
-    const getDateHandler = event => setDate(JSON.stringify(event.target.value)) // onClick gets date ex: "2022-01-28T05:00:00.000Z"
+    const handleTaskDesc = event => setTaskDesc(event.target.value)
+
+    const getDateHandler = event => setDate(JSON.stringify(event.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
 
     const toggleFrom = () => setDisplayForm(!displayForm)
 
@@ -50,13 +67,15 @@ const Tasks = ({tasksState}) => {
         selectedValue,
         inputTag,
         tags,
+        taskDesc,
         handleSelectedValue,
         toggleFrom,
         getDateHandler,
         submitTaskForm,
         handleInputTagChange,
         handleInputTag,
-        handleSelectedPrio
+        handleSelectedPrio,
+        handleTaskDesc
     )
 }
 

@@ -20,7 +20,7 @@ const TaskPage = () => {
 
     return (
         <div className="taskPageContainer">
-            <Tasks tasksState={tasksState}/>
+            <Tasks tasksState={tasksState} setTasksState={setTasksState}/>
         </div>
     )
 }
