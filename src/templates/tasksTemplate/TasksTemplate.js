@@ -9,6 +9,9 @@ const TasksTemplate = (
     inputTag,
     tags,
     taskDesc,
+    missingFields,
+    txtAreaTaskDescClassName,
+    taskPrioLvlClassName,
     handleSelectedValue, // comp.handlers 
     toggleFrom,
     getDateHandler,
@@ -46,12 +49,14 @@ const TasksTemplate = (
                 <tr className='taskTableRow'><td className='taskTableData'>Upcoming</td></tr>
             </tbody>
             </table>
-            {   displayForm && 
+            {   (displayForm && !selectedValue) ? <span>Please Select a Project</span> :
+                !displayForm ? null :
                 <form className='addTaskForm' onSubmit={submitTaskForm}>
                     <textarea 
-                    className='taskDesc'
+                    className={txtAreaTaskDescClassName} // NOTE if invalid input this changes CSS to indicate to user missing field
                     value={taskDesc}
                     onChange={handleTaskDesc}/>
+                    { (missingFields && missingFields.includes('date')) && <span>YO add the date</span>}
                     <CalendarComponent onChange={getDateHandler}/>
                     {   tags.length > 0 && tags }
                     <input
@@ -62,7 +67,7 @@ const TasksTemplate = (
                     onKeyDown={handleInputTag}
                     placeholder="Add a tag"
                     />
-                    <select defaultValue='none' onChange={handleSelectedPrio}>
+                    <select defaultValue='none' onChange={handleSelectedPrio} className={taskPrioLvlClassName}> 
                         <option value='none' disabled hidden>-Select Priority Level-</option>
                         <option value='top'>Top</option>
                         <option value='EOD'>End of Day</option>
