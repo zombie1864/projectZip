@@ -23,6 +23,13 @@ const TasksTemplate = (
     ) => {
     return (
         <div>
+            {/* {
+                tasksState.forEach(taskObj => {
+                    taskObj.proj_tasks.forEach(proj_task => {
+                        console.log(proj_task.prio_lvl.lvl);
+                    })
+                })
+            } */}
             <h1>Tasks</h1>
             <div>
                 <button onClick={toggleFrom}>Add Task</button>
@@ -43,7 +50,16 @@ const TasksTemplate = (
                                 )   }
                             </ul>   }
                     </td>
-                    <td className='taskTableData'>Top Priority</td>
+                    <td className='taskTableData'>
+                        <p>Top Priority</p>
+                        {/* WARNING FIND A WAY TO SHOW ALL TASK BASED ON PRIO LVL*/}
+                        <ul>{   tasksState.forEach(taskObj => {
+                            taskObj.proj_tasks.forEach( proj_task => {
+                                return <li>{proj_task.prio_lvl.lvl}</li>
+                            }) 
+                        })}</ul>
+                        {/* WARNING */}
+                    </td>
                 </tr>
                 <tr className='taskTableRow'><td className='taskTableData'>End of Day (E.O.D)</td></tr>
                 <tr className='taskTableRow'><td className='taskTableData'>Upcoming</td></tr>
