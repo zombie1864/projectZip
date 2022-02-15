@@ -21,15 +21,19 @@ const TasksTemplate = (
     handleSelectedPrio,
     handleTaskDesc
     ) => {
+
+    let taskPrioLvl = lvl_desc => {
+        return tasksState[selectedValue].proj_tasks.map((projTaskObj, idx) => {
+            if (projTaskObj.prio_lvl.lvl === lvl_desc) {
+                return <li key={idx}>{  projTaskObj.task_desc   }</li>
+            } else {
+                return null 
+            }
+        })
+    }
+
     return (
         <div>
-            {/* {
-                tasksState.forEach(taskObj => {
-                    taskObj.proj_tasks.forEach(proj_task => {
-                        console.log(proj_task.prio_lvl.lvl);
-                    })
-                })
-            } */}
             <h1>Tasks</h1>
             <div>
                 <button onClick={toggleFrom}>Add Task</button>
@@ -43,36 +47,34 @@ const TasksTemplate = (
                             <option value='none' disabled hidden>-Select A Project-</option>
                             {   tasksState.map((taskObj, idx) => <option key={idx} value={idx}>{taskObj.proj_name}</option>)    }
                         </select>
-                        {   selectedValue !== undefined && 
-                            <ul className='taskUl'>{                                    
+                        {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                 tasksState[selectedValue]["proj_tasks"].map(
-                                    (task_obj, idx) => <li className='task_desc' key={idx}>{task_obj.task_desc}</li>
-                                )   }
+                                    (task_obj, idx) => <li className='task_desc' key={idx}>{task_obj.task_desc}</li>)   }
                             </ul>   }
                     </td>
                     <td className='taskTableData'>
                         <p>Top Priority</p>
-                        {/* WARNING FIND A WAY TO SHOW ALL TASK BASED ON PRIO LVL*/}
-                        <ul>{   tasksState.forEach(taskObj => {
-                            taskObj.proj_tasks.forEach( proj_task => {
-                                return <li>{proj_task.prio_lvl.lvl}</li>
-                            }) 
-                        })}</ul>
-                        {/* WARNING */}
+                        {   selectedValue !== undefined && <ul>{  taskPrioLvl('TOP')  }</ul>  }
                     </td>
                 </tr>
-                <tr className='taskTableRow'><td className='taskTableData'>End of Day (E.O.D)</td></tr>
-                <tr className='taskTableRow'><td className='taskTableData'>Upcoming</td></tr>
+                <tr className='taskTableRow'><td className='taskTableData'>
+                    <p>End of Day (E.O.D)</p>
+                    {   selectedValue !== undefined && <ul>{  taskPrioLvl('EOD') }</ul>  }
+                </td></tr>
+                <tr className='taskTableRow'><td className='taskTableData'>
+                    <p>Upcoming</p>
+                    {   selectedValue !== undefined && <ul>{  taskPrioLvl('upcoming')  }</ul>  }
+                </td></tr>
             </tbody>
             </table>
-            {   (displayForm && !selectedValue) ? <span>Please Select a Project</span> :
+            {   (displayForm && selectedValue === undefined) ? <span>Please Select a Project</span> :
                 !displayForm ? null :
                 <form className='addTaskForm' onSubmit={submitTaskForm}>
                     <textarea 
                     className={txtAreaTaskDescClassName} // NOTE if invalid input this changes CSS to indicate to user missing field
                     value={taskDesc}
                     onChange={handleTaskDesc}/>
-                    { (missingFields && missingFields.includes('date')) && <span>YO add the date</span>}
+                    { (missingFields.includes('date')) ? <span>YO add the date</span> : null }
                     <CalendarComponent onChange={getDateHandler}/>
                     {   tags.length > 0 && tags }
                     <input

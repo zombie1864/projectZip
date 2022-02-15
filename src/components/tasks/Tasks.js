@@ -13,7 +13,7 @@ const Tasks = ({tasksState, setTasksState}) => {
     [taskDesc, setTaskDesc] = useState(),
     [txtAreaTaskDescClassName, setTxtAreaTaskDescClassName] = useState('taskDescTextArea'),
     [taskPrioLvlClassName, setTaskPrioLvlClassName] = useState('taskPrioLvl'),
-    [missingFields, setMissingFields] = useState() 
+    [missingFields, setMissingFields] = useState([]) 
 
 
     const submitTaskForm = event => {
@@ -39,16 +39,17 @@ const Tasks = ({tasksState, setTasksState}) => {
 
 
     const addData = async (dataToSubmit) => {
-        const req = await fetch(
-            'http://localhost:5000/tasks', 
-            {
-                method: 'POST', 
-                headers: { 'Content-type': 'application/json' }, 
-                body: JSON.stringify(dataToSubmit)
-            }
-        )
-        const resp = await req.json() // sends back updated bd
-        setTasksState(resp); 
+        console.log(dataToSubmit);
+        // const req = await fetch(
+        //     'http://localhost:5000/tasks', 
+        //     {
+        //         method: 'POST', 
+        //         headers: { 'Content-type': 'application/json' }, 
+        //         body: JSON.stringify(dataToSubmit)
+        //     }
+        // )
+        // const resp = await req.json() // sends back updated bd
+        // setTasksState(resp); 
     }
 
     
@@ -69,7 +70,15 @@ const Tasks = ({tasksState, setTasksState}) => {
 
     const handleTaskDesc = event => setTaskDesc(event.target.value)
 
-    const getDateHandler = event => setDate(JSON.stringify(event.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
+    const getDateHandler = event => {
+        console.log('2nd');
+        setDate(JSON.stringify(event.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
+        if (missingFields.includes('date')) {
+            let idx = missingFields.indexOf('date')
+            missingFields.splice(idx, 1)
+            setMissingFields([])
+        }
+    }
 
     const toggleFrom = () => setDisplayForm(!displayForm)
 
