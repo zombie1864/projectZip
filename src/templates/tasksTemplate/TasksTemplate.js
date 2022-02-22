@@ -31,7 +31,10 @@ const TasksTemplate = (
             }
         })
     }
+/**
+uiClick('edit') -> [inputFields for task_desc and proj_tags] and [editMode=true DISPLAY:save btn] -> 
 
+**/
     return (
         <div>
             <h1>Tasks</h1>
@@ -49,8 +52,16 @@ const TasksTemplate = (
                         </select>
                         {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                 tasksState[selectedValue]["proj_tasks"].map(
-                                    (task_obj, idx) => <li className='task_desc' key={idx}>{task_obj.task_desc}</li>)   }
-                            </ul>   }
+                                    (task_obj, idx) => {
+                                        return (<div key={idx}>
+                                                    <li className='task_desc'>{task_obj.task_desc}</li>
+                                                    <div>
+                                                        <button>EDIT</button>
+                                                        <button>DELETE</button>
+                                                    </div>
+                                                    <div>{  
+                                                    task_obj.proj_tags.split('-').map( (tag, idx) => <p key={idx}>{tag}</p>) }  </div>
+                                                </div>  )   })   }  </ul>   }
                     </td>
                     <td className='taskTableData'>
                         <p>Top Priority</p>

@@ -39,17 +39,17 @@ const Tasks = ({tasksState, setTasksState}) => {
 
 
     const addData = async (dataToSubmit) => {
-        console.log(dataToSubmit);
-        // const req = await fetch(
-        //     'http://localhost:5000/tasks', 
-        //     {
-        //         method: 'POST', 
-        //         headers: { 'Content-type': 'application/json' }, 
-        //         body: JSON.stringify(dataToSubmit)
-        //     }
-        // )
-        // const resp = await req.json() // sends back updated bd
-        // setTasksState(resp); 
+        // console.log(dataToSubmit);
+        const req = await fetch(
+            'http://localhost:5000/tasks', 
+            {
+                method: 'POST', 
+                headers: { 'Content-type': 'application/json' }, 
+                body: JSON.stringify(dataToSubmit)
+            }
+        )
+        const resp = await req.json() // sends back updated bd
+        setTasksState(resp); 
     }
 
     
