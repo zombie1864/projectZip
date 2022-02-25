@@ -4,6 +4,7 @@ from flask import send_file
 from server import app, jsonify, request, db
 from server.models import Project, Resource, Task, Img
 from werkzeug.utils import secure_filename
+from typing import Dict, Any
 
 
 @app.after_request
@@ -66,7 +67,6 @@ def projects_API():
         try: 
             db.session.commit()
         except Exception: 
-            # db.session.rollback()
             print(Exception)  
     elif request.method == 'POST': 
         if request.headers['Content-Type'] == 'application/json': 
@@ -103,15 +103,41 @@ def projects_API():
     return jsonify(data)
 
 
-@app.route('/tasks', methods=['GET', 'POST'])
+@app.route('/tasks', methods=['GET', 'POST', 'PATCH'])
 def tasks_API():
     ''' route func 
     [X]_1. GET returns project tasks
     [X]_2. can POST task for a specific project 
     []_3. DELETE a specific task from a project 
-    []_4. PATCH a specific attr of a task for a specific project 
+    [x]_4. PATCH a specific attr of a task for a specific project 
     '''
     incoming_data = request.json 
+    '''  [FRONTEND PARAMS REQ]:
+    [x]_proj_id <- tells me which proj i need to look up in the db 
+    [x]_task_idx <- tells me which task i need to update 
+    []_user should be able to change prio_lvl details 
+    [x]_user should be able to change proj_tags and task_desc 
+    []_Ex:
+        {
+            "proj_id":"1",
+            "task_idx":"0",
+            "patch_update":{ NOTE user on the UI can either update `task_desc`, `proj_tags`, or `prio_lvl`
+                "task_desc":"PATCH UPDATE ROUTE SUCCESS" NOTE when user performs update key:value pair are added to dict 
+            }
+        }
+    '''
+    if request.method == 'PATCH':
+        proj_to_update = Project.query.get_or_404(int(incoming_data['proj_id'])) # <- the incoming data requires proj_id 
+        proj_tasks = proj_to_update.get_tasks_as_inst_obj() # <- NOTE this returns all the task associated with a proj
+        task_inst_obj = proj_tasks[int(incoming_data['task_idx'])]
+        for key, value in incoming_data['patch_update'].items():
+            setattr(task_inst_obj, key, value)
+        try:
+            db.session.commit()
+        except Exception: 
+            db.session.rollback()
+            print(Exception) 
+        return 'success_2' # NOTE RETURN something more useful 
     if incoming_data:
         converted_data = Task(
             task_desc = incoming_data['task_desc'], 

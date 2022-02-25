@@ -76,6 +76,10 @@ class Project(db.Model):
             "proj_name": self.proj_name, 
             "proj_tasks": [task.as_dict() for task in project_tasks] # NOTE task obj has .as_dict method
         }
+    
+    def get_tasks_as_inst_obj(self):
+        '''  '''
+        return Project.query.get(self.id).proj_tasks.all()
 
 
     def __repr__(self):
