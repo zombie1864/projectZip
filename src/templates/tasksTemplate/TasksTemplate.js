@@ -1,10 +1,10 @@
 import React from 'react'
 import '../../css/taskPage.css'
-import { CalendarComponent } from '@syncfusion/ej2-react-calendars';
+import { CalendarComponent, DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 const TasksTemplate = (
-    tasksState, // comp.state
-    displayForm, 
+    tasksState, // props.state
+    displayForm, // comp.state 
     selectedValue, 
     inputTag,
     tags,
@@ -12,6 +12,11 @@ const TasksTemplate = (
     missingFields,
     txtAreaTaskDescClassName,
     taskPrioLvlClassName,
+    taskIDXSelected,
+    taskDescDefaultValue,
+    projTagsDefaultValue,
+    prioLvlDefaultValue,
+    dueDateDefaultValue,
     handleSelectedValue, // comp.handlers 
     toggleFrom,
     getDateHandler,
@@ -19,7 +24,8 @@ const TasksTemplate = (
     handleInputTagChange,
     handleInputTag,
     handleSelectedPrio,
-    handleTaskDesc
+    handleTaskDesc,
+    editTaskHandler
     ) => {
 
     let taskPrioLvl = lvl_desc => {
@@ -53,15 +59,34 @@ uiClick('edit') -> [inputFields for task_desc and proj_tags] and [editMode=true 
                         {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                 tasksState[selectedValue]["proj_tasks"].map(
                                     (task_obj, idx) => {
-                                        return (<div key={idx}>
+                                        return <div key={idx}>
                                                     <li className='task_desc'>{task_obj.task_desc}</li>
+                                                    {/* WARNING-value can only be str:dt */}
+                                                    <button 
+                                                    onClick={editTaskHandler}
+                                                    value={task_obj.task_id} 
+                                                    data-selectedvalue={selectedValue}
+                                                    data-taskidx={idx}
+                                                    >EDIT</button> 
+                                                    <button>DELETE</button>
+                                                    {   (taskIDXSelected === idx && taskDescDefaultValue) && <textarea defaultValue={taskDescDefaultValue}/>
+                                                    }
+                                                    {   (taskIDXSelected === idx && projTagsDefaultValue) && projTagsDefaultValue.map((projTag, idx) => <input key={idx} defaultValue={projTag}/>)
+                                                    }
+                                                    {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
                                                     <div>
-                                                        <button>EDIT</button>
-                                                        <button>DELETE</button>
+                                                        <span>Select Prio lvl</span>
+                                                        <select defaultValue={prioLvlDefaultValue} onChange={handleSelectedPrio} className={taskPrioLvlClassName}> 
+                                                            <option value='top'>Top</option>
+                                                            <option value='EOD'>End of Day</option>
+                                                            <option value='upcoming'>Upcoming</option>
+                                                        </select>
                                                     </div>
-                                                    <div>{  
+                                                    }
+                                                    {   (taskIDXSelected === idx && prioLvlDefaultValue) && <DatePickerComponent value={dueDateDefaultValue}/>}
+                                                    <div>{  (taskIDXSelected === idx && projTagsDefaultValue) ? null :
                                                     task_obj.proj_tags.split('-').map( (tag, idx) => <p key={idx}>{tag}</p>) }  </div>
-                                                </div>  )   })   }  </ul>   }
+                                                </div>     })   }  </ul>   }
                     </td>
                     <td className='taskTableData'>
                         <p>Top Priority</p>

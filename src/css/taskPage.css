@@ -1,3 +1,4 @@
+@import url("https://cdn.syncfusion.com/ej2/material.css");
 .taskTable, .taskTableRow, .taskTableData {
     border: 1px solid black; 
 }
