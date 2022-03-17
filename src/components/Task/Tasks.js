@@ -5,69 +5,9 @@ import { useState } from 'react'
 
 const Tasks = ({tasksState, setTasksState}) => {
     /**
-    []_JSON data ex that needs to be sent to the backend API
-    {
-        "proj_id":"1",
-        "task_idx":"0",
-        "patch_update":{ NOTE user on the UI can either update `task_desc`, `proj_tags`, or `prio_lvl`
-            "task_desc":"PATCH UPDATE ROUTE SUCCESS" NOTE when user performs update key:value pair are added to dict 
-        }
-    }
-    |state〉
-    〈setState|
-    〈x|HTML〉
-    〈HTML〉
-
-    [x]_[SET DEFAULTVALUES AFTER ONCLICK EDIT LOGISTICS]:
-        [x]_〈edit|button〉:: onClick[editTaskHandler]:
-            [x]_editTaskHandler::{
-                ''' 
-                logistics to render defaultValues to HTML objects 
-                The 〈button〉:: setATTR({value=task_id, data-selectedvalue=selectedValue, data-taskidx=idx})
-                `btn setATTR(value)` <=> `〈HTML〉:: setATTR(value)`
-                The funcRef will perform op to init defaultValues to HTML objs 
-                NOTE e.trg.value:str 
-                NOTE e.trg.dataset.selectedvalue:str
-                NOTE e.trg.dataset.taskidx:str
-                '''
-                [x]_〈setTaskToEdit[parseInt(e.trg.value)]|
-                [x]_〈setTaskDescDefaultValue[
-                    tasksState[parseInt(e.trg.dataset.selectedvalue)].proj_tasks[parseInt(e.trg.dataset.taskidx)].task_desc
-                ]|
-                [x]_〈setProjTagsDefaultValue[
-                    tasksState[parseInt(e.trg.dataset.selectedvalue)].proj_tasks[parseInt(e.trg.dataset.taskidx)].proj_tags.split('-')
-                ]|
-                [x]_〈setPrioLvlDefaultValue[
-                    tasksState[parseInt(e.trg.dataset.selectedvalue)].proj_tasks[parseInt(e.trg.dataset.taskidx)].prio_lvl
-                ]|
-            }
-
-    [x]_[RENDER UI CHANGES AFTER ONCLICK]:
-        [x]_〈edit|button〉:: onClick => { 
-            [x]_〈textbox〉:: recATTR(defaultValue=taskDescDefaultValue:str)
-            `textbox recATTR(value)` <=> `HTML recATTR(value)`
-            [x]_FOREACH::|tagsDefaultValue:List[str]〉=>〈input〉:: recATTR(tagDefaultValue:str)
-            [x]_〈select::option〉:: recATTR(prioLvlDefaultValue:Dict[str,str].lvl)
-            [x]_〈calender〉:: recATTR(prioLvlDefaultValue:Dict[str,str].due_date)
-        }
-    
-    []_[HANDLE INPUT CHANGE TO TXT FIELDS]:
-        []_〈textbox〉:: onChange[editInputHandler]:
-            []_editInputHandler::{
-                ''' 
-                logistics to handle input changes to txtInput HTML el
-                generic handler depending on e.trg.dataset.htmldesc
-                '''
-                []_IF[e.trg.dataset.htmldesc == 'taskDesc'] {
-                    []_setInputChangeToTaskDesc[e.trg.value]
-                }[]_ELIF[e.trg.dataset.htmldesc == 'proLvl'] {
-                    []_setChangePrioLvl[e.trg.value]
-                }[]_ELIF[e.trg.dataset.htmldesc == 'dueDate'] { 
-                    []_setChangeDueDate[e.trg.value]
-                }[]_ELSE {
-                    []_setChangeTagDesc[e.trg.value]
-                }
-            }
+    @description-REQ:
+    !!![]_PERFORM UI TESTING
+    []_ADD DELETE FEATURE
     **/
     const [selectedValue, setSelectedValue] = useState(), 
     [displayForm, setDisplayForm] = useState(false),
@@ -87,9 +27,14 @@ const Tasks = ({tasksState, setTasksState}) => {
     [dueDateDefaultValue, setDueDateDefaultValue] = useState()
 
 
-    const submitTaskForm = event => {
-
-        event.preventDefault()
+    const submitTaskForm = e => {
+        /**
+        @description: 
+            []_after〈onClick|"Submit Task"|button〉calls funcRef validateTaskFormFields to validate state of interest 
+            []_saves state to obj to be transmitted to backend API 
+            []_IF[not validation] setMissingFieldsState 
+        **/
+        e.preventDefault()
         let taskToSubmit = null
         let validationResult = validateTaskFormFields(taskDesc, date, prioLvl) //=>Arr[str]
         if(validationResult.length === 0) {
@@ -100,7 +45,7 @@ const Tasks = ({tasksState, setTasksState}) => {
                 "proj_tags": tags.join('-'),
                 "proj_id": selectedValue + 1
             }
-            addData(taskToSubmit);
+            httpTransmit(taskToSubmit, 'POST');
         } else {
             setMissingFields(validationResult) 
             if(validationResult.includes('taskDesc')) setTxtAreaTaskDescClassName('taskDescTextArea invalidInput')
@@ -109,40 +54,73 @@ const Tasks = ({tasksState, setTasksState}) => {
     }
 
 
-    const addData = async (dataToSubmit) => {
-        const req = await fetch(
-            'http://localhost:5000/tasks', 
-            {
-                method: 'POST', 
-                headers: { 'Content-type': 'application/json' }, 
-                body: JSON.stringify(dataToSubmit)
-            }
-        )
-        const resp = await req.json() // sends back updated bd
-        setTasksState(resp); 
+    const httpTransmit = async (dataToSubmit, reqType) => {
+        /**
+         !!! RFE !!!
+        @description: handles HTTP RESTful lifecycle and resets state after succ state transfer 
+        @param {dataToSubmit} Obj: contains data that is to be transmitted to server 
+        @param {reqType} str: requestType, determines which CRUD method is performed on server's API 
+        !!! RFE !!!
+        **/
+        if (reqType === 'POST') {
+            const req = await fetch(
+                'http://localhost:5000/tasks', 
+                {
+                    method: reqType, 
+                    headers: { 'Content-type': 'application/json' }, 
+                    body: JSON.stringify(dataToSubmit)
+                }
+            )
+            const resp = await req.json() // sends back updated bd
+            setTasksState(resp); 
+            // reset states 
+            setTaskDesc()
+            setDate()
+            setPrioLvl()
+            setTags([])
+            setSelectedValue()
+        } else if (reqType === 'PATCH') {
+            const req = await fetch(
+                'http://localhost:5000/tasks', 
+                {
+                    method: reqType, 
+                    headers: { 'Content-type': 'application/json' }, 
+                    body: JSON.stringify(dataToSubmit)
+                }
+            )
+            const resp = await req.json() // sends back updated bd
+            setTasksState(resp) 
+            setTaskIDXSelected()
+            setTaskDesc()
+            setDate()
+            setPrioLvl()
+            setTags([])
+        }
     }
 
     
-    const handleInputTag = event => {
-        if (event.key === 'Enter') {
+    const handleInputTag = e => {
+        if (e.key === 'Enter') {
             setTags([...tags, inputTag])
             setInputTag('')
-            event.preventDefault()
+            e.preventDefault()
         }
     }
     
     
-    const handleSelectedValue = event => setSelectedValue(parseInt(event.target.value))
+    const handleSelectedValue = e => setSelectedValue(parseInt(e.target.value))
     
-    const handleInputTagChange = event => setInputTag(event.target.value)
+    const handleInputTagChange = e => setInputTag(e.target.value)
 
-    const handleSelectedPrio = event => setPrioLvl(event.target.value)
+    const handleSelectedPrio = e => setPrioLvl(e.target.value)
 
-    const handleTaskDesc = event => setTaskDesc(event.target.value)
+    const handleTaskDesc = e => setTaskDesc(e.target.value)
 
-    const getDateHandler = event => {
-        console.log('2nd');
-        setDate(JSON.stringify(event.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
+    const getDateHandler = e => {
+        /**
+        @description: setState for Date:str 
+        **/
+        setDate(JSON.stringify(e.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
         if (missingFields.includes('date')) {
             let idx = missingFields.indexOf('date')
             missingFields.splice(idx, 1)
@@ -150,24 +128,58 @@ const Tasks = ({tasksState, setTasksState}) => {
         }
     }
 
+
     const toggleFrom = () => setDisplayForm(!displayForm)
 
-    const editTaskHandler = e => { //user will have acc to edit task_desc, proj_tags, prio_lvl 
+
+    const editTaskHandler = e => { 
         /**
-        @description: sets defaultValue after onClick `edit` logistics, setATTR to HTML el 
+        @description: 
+            []_sets defaultValue after onClick `edit` logistics, setATTR to HTML el 
+            []_responsible for triggering UI changes.〈onClick|"Edit"|button〉<=> "edit mode"
         **/
-        setTaskIDToEdit(parseInt(e.target.value))
-        setTaskIDXSelected(parseInt(e.target.dataset.taskidx))
-        setTaskDescDefaultValue(
-            tasksState[parseInt(e.target.dataset.selectedvalue)].proj_tasks[parseInt(e.target.dataset.taskidx)].task_desc
-        )
-        setProjTagsDefaultValue(
-            tasksState[parseInt(e.target.dataset.selectedvalue)].proj_tasks[parseInt(e.target.dataset.taskidx)].proj_tags.split('-')
-        ) //=> projTagsDefaultValue:List[str]
-        setPrioLvlDefaultValue(
-            tasksState[parseInt(e.target.dataset.selectedvalue)].proj_tasks[parseInt(e.target.dataset.taskidx)].prio_lvl.lvl
-            ) //=> str
-        setDueDateDefaultValue(new Date(tasksState[parseInt(e.target.dataset.selectedvalue)].proj_tasks[parseInt(e.target.dataset.taskidx)].prio_lvl.due_date))
+        let idx = parseInt(e.target.dataset.selectedvalue)
+        let taskIdx = parseInt(e.target.dataset.taskidx)
+        setTaskIDToEdit(taskIdx)
+        setTaskIDXSelected(taskIdx)
+        setTaskDescDefaultValue(tasksState[idx].proj_tasks[taskIdx].task_desc)
+        setProjTagsDefaultValue(tasksState[idx].proj_tasks[taskIdx].proj_tags.split('-')) //=> projTagsDefaultValue:List[str]
+        setPrioLvlDefaultValue(tasksState[idx].proj_tasks[taskIdx].prio_lvl.lvl) //=> str
+        setDueDateDefaultValue(new Date(tasksState[idx].proj_tasks[taskIdx].prio_lvl.due_date))
+    }
+
+
+    const editInputHandler = e => {
+        /**
+        @description: setState depending on HTTML.el.dataset.ATTR  
+        **/
+        if (e.target.dataset.htmldesc === 'taskDesc') {
+            setTaskDesc(e.target.value)
+        } else if (e.target.dataset.htmldesc === 'tag') {
+            projTagsDefaultValue.splice(parseInt(e.target.dataset.tagidx), 1, e.target.value)
+            setTags(projTagsDefaultValue) //List[str]
+        } else if (e.target.dataset.htmldesc === 'proLvl') {
+            setPrioLvl(e.target.value)
+        } 
+    }
+
+
+    const saveChanges = () => {
+        /**
+        @description: 
+            []_after〈onClick|"Save Button"|button〉saves state to an Obj to be transmitted to backend. 
+            []_Contains IF[cond] as validator 
+        **/
+        let editedObj = {
+            "proj_id": tasksState[selectedValue].proj_id,
+            "task_idx": taskIDToEdit, 
+            "patch_update": {}
+        }
+        if (taskDesc) editedObj.patch_update["task_desc"] = taskDesc
+        if (tags.length > 0) editedObj.patch_update["proj_tags"] = tags.join('-')
+        if (date) editedObj.patch_update["due_date"] = date.slice(1,11)
+        if (prioLvl) editedObj.patch_update["prio"] = prioLvl
+        if (Object.keys(editedObj.patch_update).length > 0 ) httpTransmit(editedObj, 'PATCH')
     }
 
 
@@ -194,7 +206,9 @@ const Tasks = ({tasksState, setTasksState}) => {
         handleInputTag,
         handleSelectedPrio,
         handleTaskDesc,
-        editTaskHandler
+        editTaskHandler,
+        editInputHandler,
+        saveChanges
     )
 }
 

@@ -25,7 +25,9 @@ const TasksTemplate = (
     handleInputTag,
     handleSelectedPrio,
     handleTaskDesc,
-    editTaskHandler
+    editTaskHandler,
+    editInputHandler,
+    saveChanges
     ) => {
 
     let taskPrioLvl = lvl_desc => {
@@ -37,10 +39,7 @@ const TasksTemplate = (
             }
         })
     }
-/**
-uiClick('edit') -> [inputFields for task_desc and proj_tags] and [editMode=true DISPLAY:save btn] -> 
 
-**/
     return (
         <div>
             <h1>Tasks</h1>
@@ -64,26 +63,46 @@ uiClick('edit') -> [inputFields for task_desc and proj_tags] and [editMode=true 
                                                     {/* WARNING-value can only be str:dt */}
                                                     <button 
                                                     onClick={editTaskHandler}
-                                                    value={task_obj.task_id} 
                                                     data-selectedvalue={selectedValue}
                                                     data-taskidx={idx}
                                                     >EDIT</button> 
                                                     <button>DELETE</button>
-                                                    {   (taskIDXSelected === idx && taskDescDefaultValue) && <textarea defaultValue={taskDescDefaultValue}/>
+                                                    {   (taskIDXSelected === idx && taskDescDefaultValue) && 
+                                                        <textarea 
+                                                        defaultValue={taskDescDefaultValue}
+                                                        data-htmldesc='taskDesc'
+                                                        onChange={editInputHandler}/>
                                                     }
-                                                    {   (taskIDXSelected === idx && projTagsDefaultValue) && projTagsDefaultValue.map((projTag, idx) => <input key={idx} defaultValue={projTag}/>)
+                                                    {   (taskIDXSelected === idx && projTagsDefaultValue) && 
+                                                        projTagsDefaultValue.map(
+                                                            (projTag, idx) => <input 
+                                                                                key={idx} 
+                                                                                data-htmldesc='tag'
+                                                                                data-tagidx={idx}
+                                                                                defaultValue={projTag}
+                                                                                onChange={editInputHandler}/>
+                                                        )
                                                     }
                                                     {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
                                                     <div>
                                                         <span>Select Prio lvl</span>
-                                                        <select defaultValue={prioLvlDefaultValue} onChange={handleSelectedPrio} className={taskPrioLvlClassName}> 
-                                                            <option value='top'>Top</option>
+                                                        <select 
+                                                        defaultValue={prioLvlDefaultValue} 
+                                                        onChange={editInputHandler} 
+                                                        className={taskPrioLvlClassName}
+                                                        data-htmldesc='proLvl'> 
+                                                            <option value='TOP'>Top</option>
                                                             <option value='EOD'>End of Day</option>
                                                             <option value='upcoming'>Upcoming</option>
                                                         </select>
                                                     </div>
                                                     }
-                                                    {   (taskIDXSelected === idx && prioLvlDefaultValue) && <DatePickerComponent value={dueDateDefaultValue}/>}
+                                                    {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
+                                                        <DatePickerComponent 
+                                                        value={dueDateDefaultValue} 
+                                                        onChange={getDateHandler}/>
+                                                    }
+                                                    {   taskIDXSelected === idx && <button onClick={saveChanges}>Save Changes</button>  }
                                                     <div>{  (taskIDXSelected === idx && projTagsDefaultValue) ? null :
                                                     task_obj.proj_tags.split('-').map( (tag, idx) => <p key={idx}>{tag}</p>) }  </div>
                                                 </div>     })   }  </ul>   }

@@ -11,7 +11,7 @@ from typing import Dict, Any
 def add_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] =  "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-    response.headers['Access-Control-Allow-Methods']=  "POST, GET, PUT, DELETE, OPTIONS"
+    response.headers['Access-Control-Allow-Methods']=  "POST, GET, PUT, DELETE, PATCH, OPTIONS"
     return response
 
 
@@ -125,6 +125,8 @@ def tasks_API():
                 "task_desc":"PATCH UPDATE ROUTE SUCCESS" NOTE when user performs update key:value pair are added to dict 
             }
         }
+    NOTE a better method would have been to use Task table and get the task by id to do the changes. See if in a future IMP you can do 
+    these changes jsonify('success_2')
     '''
     if request.method == 'PATCH':
         proj_to_update = Project.query.get_or_404(int(incoming_data['proj_id'])) # <- the incoming data requires proj_id 
@@ -137,7 +139,9 @@ def tasks_API():
         except Exception: 
             db.session.rollback()
             print(Exception) 
-        return 'success_2' # NOTE RETURN something more useful 
+        projects = Project.query.all()
+        list_of_tasks = [project.get_tasks() for project in projects]
+        return jsonify(list_of_tasks)
     if incoming_data:
         converted_data = Task(
             task_desc = incoming_data['task_desc'], 
