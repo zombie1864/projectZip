@@ -106,13 +106,10 @@ def projects_API():
 @app.route('/tasks', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def tasks_API():
     ''' route func 
-    RFE: look at code and follow DRY principle 
     '''
     incoming_data = request.json 
     if request.method == 'PATCH':
-        proj_to_update = Project.query.get_or_404(int(incoming_data['proj_id'])) # <- the incoming data requires proj_id 
-        proj_tasks = proj_to_update.get_tasks_as_inst_obj() # <- NOTE this returns all the task associated with a proj
-        task_inst_obj = proj_tasks[int(incoming_data['task_idx'])]
+        task_inst_obj = Project.query.get_or_404(int(incoming_data['proj_id'])).get_tasks_as_inst_obj()[int(incoming_data['task_idx'])]
         for key, value in incoming_data['patch_update'].items():
             setattr(task_inst_obj, key, value)
         try:
@@ -120,20 +117,14 @@ def tasks_API():
         except Exception: 
             db.session.rollback()
             print(Exception) 
-        projects = Project.query.all()
-        list_of_tasks = [project.get_tasks() for project in projects]
-        return jsonify(list_of_tasks)
     elif request.method == 'DELETE':
         try:
             db.session.delete(Task.query.get_or_404(int(incoming_data['task_id'])))
             db.session.commit()
-            projects = Project.query.all()
-            list_of_tasks = [project.get_tasks() for project in projects]
-            return jsonify(list_of_tasks)
         except Exception:
             db.session.rollback()
             print(Exception) 
-    if incoming_data:
+    elif request.method == 'POST':
         converted_data = Task(
             task_desc = incoming_data['task_desc'], 
             due_date = incoming_data['due_date'], 
