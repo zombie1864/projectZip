@@ -209,3 +209,82 @@
 .taskBtnLinkTag:hover {
     color: rgb(233, 139, 17);
 }
+
+.editModeBtn {
+    background-color: #00ccff;
+    border-width: thin;
+    border-radius: 5px;
+    width: 95px;
+    height: 38px;
+    font-size: 1.2em;
+}
+
+.editModeBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(233, 139, 17);
+    box-shadow: 0 0 5px rgb(0, 192, 199), 0 0 15px rgb(0, 192, 199), 0 0 65px rgb(0, 192, 199)
+}
+
+.editDelContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.editBtn {
+    background-color: rgb(228, 202, 88);
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 25px;
+    font-size: 0.9em;
+}
+
+
+.editBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(233, 139, 17);
+    box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
+}
+
+
+.delBtn {
+    background-color: rgb(228, 128, 88);
+    border: none;
+    border-radius: 5px;
+    width: 55px;
+    height: 25px;
+    font-size: 0.9em;
+}
+
+
+.delBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(241, 48, 23);
+    box-shadow: 0 0 5px rgb(241, 48, 23), 0 0 15px rgb(241, 48, 23), 0 0 65px rgb(241, 48, 23)
+}
+
+
+.saveEditBtn {
+    background-color: rgb(132, 228, 88);
+    border-width: thin;
+    border-radius: 5px;
+    width: 115px;
+    height: 45px;
+    font-size: 1.2em;
+}
+
+
+.saveEditBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(132, 228, 88);
+    box-shadow: 0 0 5px rgb(132, 228, 88), 0 0 15px rgb(132, 228, 88), 0 0 65px rgb(132, 228, 88)
+}

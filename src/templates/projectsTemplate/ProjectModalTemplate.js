@@ -31,12 +31,14 @@ const ProjectModalTemplate = (
             <div>
                 {
                     editMode && 
-                    <div>
+                    <div className='editDelContainer'>
                         <button
                         value={projSection}
+                        className='editBtn'
                         onClick={editProjSectionHandler}>Edit</button>
                         <button
                         value={projSection}
+                        className='delBtn'
                         onClick={deleteProjSection}>Delete</button>
                     </div>
                 }
@@ -249,8 +251,10 @@ const ProjectModalTemplate = (
                 {
                     editMode ? 
                     <button
+                    className='saveEditBtn'
                     onClick={saveChangesToProjectsState}>Save Changes</button> : 
                     <button
+                    className='editModeBtn'
                     onClick={enterEditMode}>Edit Mode</button>
                 }
                 {
