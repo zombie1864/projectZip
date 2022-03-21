@@ -4,11 +4,6 @@ import { useState } from 'react'
 
 
 const Tasks = ({tasksState, setTasksState}) => {
-    /**
-    @description-REQ:
-    !!![]_PERFORM UI TESTING
-    []_ADD DELETE FEATURE
-    **/
     const [selectedValue, setSelectedValue] = useState(), 
     [displayForm, setDisplayForm] = useState(false),
     [date, setDate] = useState(),
@@ -56,11 +51,10 @@ const Tasks = ({tasksState, setTasksState}) => {
 
     const httpTransmit = async (dataToSubmit, reqType) => {
         /**
-         !!! RFE !!!
         @description: handles HTTP RESTful lifecycle and resets state after succ state transfer 
         @param {dataToSubmit} Obj: contains data that is to be transmitted to server 
         @param {reqType} str: requestType, determines which CRUD method is performed on server's API 
-        !!! RFE !!!
+         !!! RFE !!!: see if you can opt this func
         **/
         if (reqType === 'POST') {
             const req = await fetch(
@@ -72,13 +66,13 @@ const Tasks = ({tasksState, setTasksState}) => {
                 }
             )
             const resp = await req.json() // sends back updated bd
-            setTasksState(resp); 
             // reset states 
+            setTasksState(resp); 
+            setDisplayForm(!displayForm)
             setTaskDesc()
             setDate()
             setPrioLvl()
             setTags([])
-            setSelectedValue()
         } else if (reqType === 'PATCH') {
             const req = await fetch(
                 'http://localhost:5000/tasks', 
@@ -95,6 +89,17 @@ const Tasks = ({tasksState, setTasksState}) => {
             setDate()
             setPrioLvl()
             setTags([])
+        } else if (reqType === 'DELETE') {
+            const req = await fetch(
+                'http://localhost:5000/tasks', 
+                {
+                    method: reqType, 
+                    headers: { 'Content-type': 'application/json' }, 
+                    body: JSON.stringify(dataToSubmit)
+                }
+            )
+            const resp = await req.json() // sends back updated bd
+            setTasksState(resp) 
         }
     }
 
@@ -108,7 +113,10 @@ const Tasks = ({tasksState, setTasksState}) => {
     }
     
     
-    const handleSelectedValue = e => setSelectedValue(parseInt(e.target.value))
+    const handleSelectedValue = e => { 
+        if (displayForm) setDisplayForm(!displayForm)
+        setSelectedValue(parseInt(e.target.value)) 
+    }
     
     const handleInputTagChange = e => setInputTag(e.target.value)
 
@@ -164,6 +172,11 @@ const Tasks = ({tasksState, setTasksState}) => {
     }
 
 
+    const deleteHandler = e => {
+        httpTransmit({"task_id":e.target.value}, 'DELETE')
+    }
+
+
     const saveChanges = () => {
         /**
         @description: 
@@ -208,7 +221,8 @@ const Tasks = ({tasksState, setTasksState}) => {
         handleTaskDesc,
         editTaskHandler,
         editInputHandler,
-        saveChanges
+        saveChanges,
+        deleteHandler
     )
 }
 

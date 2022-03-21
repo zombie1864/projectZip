@@ -27,7 +27,8 @@ const TasksTemplate = (
     handleTaskDesc,
     editTaskHandler,
     editInputHandler,
-    saveChanges
+    saveChanges,
+    deleteHandler
     ) => {
 
     let taskPrioLvl = lvl_desc => {
@@ -44,7 +45,9 @@ const TasksTemplate = (
         <div>
             <h1>Tasks</h1>
             <div>
-                <button onClick={toggleFrom}>Add Task</button>
+                {   displayForm && selectedValue !== undefined ? 
+                    <button onClick={toggleFrom}>CANCEL</button> : 
+                    <button onClick={toggleFrom}>Add Task</button>  }
             </div>
             <div>
             <table className='taskTable'>
@@ -66,7 +69,9 @@ const TasksTemplate = (
                                                     data-selectedvalue={selectedValue}
                                                     data-taskidx={idx}
                                                     >EDIT</button> 
-                                                    <button>DELETE</button>
+                                                    <button
+                                                    value={task_obj.task_id}
+                                                    onClick={deleteHandler}>DELETE</button>
                                                     {   (taskIDXSelected === idx && taskDescDefaultValue) && 
                                                         <textarea 
                                                         defaultValue={taskDescDefaultValue}
@@ -142,7 +147,7 @@ const TasksTemplate = (
                     />
                     <select defaultValue='none' onChange={handleSelectedPrio} className={taskPrioLvlClassName}> 
                         <option value='none' disabled hidden>-Select Priority Level-</option>
-                        <option value='top'>Top</option>
+                        <option value='TOP'>Top</option>
                         <option value='EOD'>End of Day</option>
                         <option value='upcoming'>Upcoming</option>
                     </select>

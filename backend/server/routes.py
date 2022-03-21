@@ -103,31 +103,12 @@ def projects_API():
     return jsonify(data)
 
 
-@app.route('/tasks', methods=['GET', 'POST', 'PATCH'])
+@app.route('/tasks', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def tasks_API():
     ''' route func 
-    [X]_1. GET returns project tasks
-    [X]_2. can POST task for a specific project 
-    []_3. DELETE a specific task from a project 
-    [x]_4. PATCH a specific attr of a task for a specific project 
+    RFE: look at code and follow DRY principle 
     '''
     incoming_data = request.json 
-    '''  [FRONTEND PARAMS REQ]:
-    [x]_proj_id <- tells me which proj i need to look up in the db 
-    [x]_task_idx <- tells me which task i need to update 
-    []_user should be able to change prio_lvl details 
-    [x]_user should be able to change proj_tags and task_desc 
-    []_Ex:
-        {
-            "proj_id":"1",
-            "task_idx":"0",
-            "patch_update":{ NOTE user on the UI can either update `task_desc`, `proj_tags`, or `prio_lvl`
-                "task_desc":"PATCH UPDATE ROUTE SUCCESS" NOTE when user performs update key:value pair are added to dict 
-            }
-        }
-    NOTE a better method would have been to use Task table and get the task by id to do the changes. See if in a future IMP you can do 
-    these changes jsonify('success_2')
-    '''
     if request.method == 'PATCH':
         proj_to_update = Project.query.get_or_404(int(incoming_data['proj_id'])) # <- the incoming data requires proj_id 
         proj_tasks = proj_to_update.get_tasks_as_inst_obj() # <- NOTE this returns all the task associated with a proj
@@ -142,6 +123,16 @@ def tasks_API():
         projects = Project.query.all()
         list_of_tasks = [project.get_tasks() for project in projects]
         return jsonify(list_of_tasks)
+    elif request.method == 'DELETE':
+        try:
+            db.session.delete(Task.query.get_or_404(int(incoming_data['task_id'])))
+            db.session.commit()
+            projects = Project.query.all()
+            list_of_tasks = [project.get_tasks() for project in projects]
+            return jsonify(list_of_tasks)
+        except Exception:
+            db.session.rollback()
+            print(Exception) 
     if incoming_data:
         converted_data = Task(
             task_desc = incoming_data['task_desc'], 
