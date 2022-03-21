@@ -54,53 +54,23 @@ const Tasks = ({tasksState, setTasksState}) => {
         @description: handles HTTP RESTful lifecycle and resets state after succ state transfer 
         @param {dataToSubmit} Obj: contains data that is to be transmitted to server 
         @param {reqType} str: requestType, determines which CRUD method is performed on server's API 
-         !!! RFE !!!: see if you can opt this func
         **/
-        if (reqType === 'POST') {
-            const req = await fetch(
-                'http://localhost:5000/tasks', 
-                {
-                    method: reqType, 
-                    headers: { 'Content-type': 'application/json' }, 
-                    body: JSON.stringify(dataToSubmit)
-                }
-            )
-            const resp = await req.json() // sends back updated bd
-            // reset states 
-            setTasksState(resp); 
-            setDisplayForm(!displayForm)
-            setTaskDesc()
-            setDate()
-            setPrioLvl()
-            setTags([])
-        } else if (reqType === 'PATCH') {
-            const req = await fetch(
-                'http://localhost:5000/tasks', 
-                {
-                    method: reqType, 
-                    headers: { 'Content-type': 'application/json' }, 
-                    body: JSON.stringify(dataToSubmit)
-                }
-            )
-            const resp = await req.json() // sends back updated bd
-            setTasksState(resp) 
-            setTaskIDXSelected()
-            setTaskDesc()
-            setDate()
-            setPrioLvl()
-            setTags([])
-        } else if (reqType === 'DELETE') {
-            const req = await fetch(
-                'http://localhost:5000/tasks', 
-                {
-                    method: reqType, 
-                    headers: { 'Content-type': 'application/json' }, 
-                    body: JSON.stringify(dataToSubmit)
-                }
-            )
-            const resp = await req.json() // sends back updated bd
-            setTasksState(resp) 
-        }
+        const req = await fetch(
+           'http://localhost:5000/tasks', 
+           {
+               method: reqType, 
+               headers: { 'Content-type': 'application/json' }, 
+               body: JSON.stringify(dataToSubmit)
+           }
+        )
+        const resp = await req.json() // sends back updated bd
+        if (reqType === 'POST') setDisplayForm(!displayForm)
+        if (reqType === 'PATCH') setTaskIDXSelected()
+        setTasksState(resp) 
+        setTaskDesc()
+        setDate()
+        setPrioLvl()
+        setTags([])
     }
 
     
@@ -172,9 +142,7 @@ const Tasks = ({tasksState, setTasksState}) => {
     }
 
 
-    const deleteHandler = e => {
-        httpTransmit({"task_id":e.target.value}, 'DELETE')
-    }
+    const deleteHandler = e => httpTransmit({"task_id":e.target.value}, 'DELETE')
 
 
     const saveChanges = () => {
