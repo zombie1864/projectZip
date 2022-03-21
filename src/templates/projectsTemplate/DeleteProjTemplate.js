@@ -10,34 +10,16 @@ const item = {
 };
 
 
-const DeleteProj = ({
-    toggleDeletion, 
-    arrOfProjToBeDeleted, 
-    updateProjectsState, 
-    submittedSuccesfulDeleteReq
-}) => {
-
-    const deleteRecordsFromDB = async () => {
-        const deleteReq = await fetch(
-            'http://localhost:5000/projects', 
-            {
-                method: 'DELETE', 
-                headers: {'Content-type': 'application/json'},
-                body: JSON.stringify(arrOfProjToBeDeleted)
-            }
-        )
-        const updatedBackendData = await deleteReq.json()
-        if (updatedBackendData) {
-            updateProjectsState(updatedBackendData)
-            submittedSuccesfulDeleteReq()
-        }
-    }
-
+const DeleteProjTemplate = (
+    projToBeDeleted, 
+    toggleSelection4DeletionHandler, 
+    deleteRecordsFromDB
+) => {
 
     return (
         <div className='deleteBtns' style={{position: 'fixed', top: '127px'}}>
             {
-                arrOfProjToBeDeleted.length > 0 ? 
+                projToBeDeleted.length > 0 ? 
                 <div className='projBtnContainer'>
                     <button
                     variants={item}
@@ -58,7 +40,7 @@ const DeleteProj = ({
                     <motion.button
                     variants={item}
                     whileHover={{y:-15.0}} 
-                    onClick={toggleDeletion}
+                    onClick={toggleSelection4DeletionHandler}
                     className='addProjBtn'
                     style={{
                         position: 'relative', 
@@ -80,4 +62,4 @@ const DeleteProj = ({
     )
 }
 
-export default DeleteProj
+export default DeleteProjTemplate

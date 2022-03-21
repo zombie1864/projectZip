@@ -1,7 +1,7 @@
 import {motion} from 'framer-motion'
 import ProjectModalTemplate from './ProjectModalTemplate'
 import '../../css/projBtns.css'
-import DeleteProj from '../../components/Projs/DeleteProj';
+import DeleteProjTemplate from './DeleteProjTemplate';
 
 
 const container = {
@@ -24,7 +24,6 @@ const item = {
 const ProjBtnsTemplate = (
     projectsState,
     openProjModal,
-    updateProjectsState,
     projId, // comp.state 
     projName,
     projDesc,
@@ -50,7 +49,7 @@ const ProjBtnsTemplate = (
     addToProjResources,
     toggleSelection4DeletionHandler, 
     stageProj4DeletionHandler,
-    submittedSuccesfulDeleteReq
+    deleteRecordsFromDB
 ) => {
     /**
     @description: 
@@ -59,7 +58,7 @@ const ProjBtnsTemplate = (
     @param {projId - state} 
     @param {projName - state} 
     @param {projPurpose - state} 
-    @param {projTec - state,} 
+    @param {projTech - state,} 
     @param {projAoA - state} 
     @param {projSrcCode - state} 
     **/
@@ -136,11 +135,13 @@ const ProjBtnsTemplate = (
                     addToProjResources
                     ) 
                 }
-            <DeleteProj 
-            arrOfProjToBeDeleted={projToBeDeleted}
-            updateProjectsState={updateProjectsState}
-            toggleDeletion={toggleSelection4DeletionHandler}
-            submittedSuccesfulDeleteReq={submittedSuccesfulDeleteReq}/>
+            {
+                DeleteProjTemplate(
+                    projToBeDeleted,
+                    toggleSelection4DeletionHandler,
+                    deleteRecordsFromDB,
+                ) 
+            }
         </div>
     )
 }

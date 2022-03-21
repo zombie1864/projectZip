@@ -6,7 +6,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
     @description: Renders btns that user can click on to open modal for project detail information. This component state is used for the projModal 
     @param {openProjModal - props.state} Boolean: bool which toggles between open/closeModal
     @param {projectsState - props.state} Array[Objects]: each obj contains data abt a proj 
-    @param {toggleModal - props.handlers} Event_handler: toggle openProjModal state 
+    @param {toggleModal - props.handlers} e_handler: toggle openProjModal state 
     **/
    const [projId, setProjId] = useState(),
        [projName, setProjName] = useState(),
@@ -18,28 +18,25 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
        [projResources, setProjResources] = useState(), 
        [editMode, setEditMode] = useState(false),
        [renderNull, setRenderNull] = useState([]),
-       [projectsStateEdited, setProjectsStateEdited] = useState({
-           editProjSegment: [], 
-           inputChanges: ''
-       }), 
+       [projectsStateEdited, setProjectsStateEdited] = useState({editProjSegment: [], inputChanges: ''}), 
        [renderNewProjectField, setRenderNewProjectField] = useState([]),
        [renderSelection4Deletion, setRenderSelection4Deletion] = useState(false), 
        [projToBeDeleted, setProjToBeDeleted] = useState([])
     
 
-    const provideModalData = (event) => {
+    const provideModalData = (e) => {
         toggleModal()
-        setProjId(event.currentTarget.dataset.projid)
-        setProjName(event.currentTarget.dataset.projname)
-        setProjDesc(event.currentTarget.dataset.projdesc)
-        setProjPurpose(event.currentTarget.dataset.projpurpose)
-        setProjTech(event.currentTarget.dataset.projtech)
-        setProjAoA(event.currentTarget.dataset.projaoa)
-        setProjSrcCode(event.currentTarget.dataset.projsrccode)
-        setProjResources(event.currentTarget.dataset.projresources)
+        setProjId(e.currentTarget.dataset.projid)
+        setProjName(e.currentTarget.dataset.projname)
+        setProjDesc(e.currentTarget.dataset.projdesc)
+        setProjPurpose(e.currentTarget.dataset.projpurpose)
+        setProjTech(e.currentTarget.dataset.projtech)
+        setProjAoA(e.currentTarget.dataset.projaoa)
+        setProjSrcCode(e.currentTarget.dataset.projsrccode)
+        setProjResources(e.currentTarget.dataset.projresources)
         setProjectsStateEdited({
             ...projectsStateEdited, 
-            proj_id: parseInt(event.target.dataset.projidx) + 1
+            proj_id: parseInt(e.target.dataset.projidx) + 1
         }) 
     }
 
@@ -63,9 +60,9 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
     const enterEditMode = () => setEditMode(true)
 
 
-    const deleteProjSection = event => { 
-        if (event.target.value.includes('resources')) {
-            let resourceIdx = parseInt(event.target.value.substring(15,event.target.value.length))
+    const deleteProjSection = e => { 
+        if (e.target.value.includes('resources')) {
+            let resourceIdx = parseInt(e.target.value.substring(15,e.target.value.length))
             let proj_resources_dataset = projResources.split(',')
 
             proj_resources_dataset.splice(resourceIdx,1,'null')
@@ -75,10 +72,10 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
             })
             setProjResources(proj_resources_dataset.join(','))
         } else {
-            setRenderNull([...renderNull, event.target.value])
+            setRenderNull([...renderNull, e.target.value])
             setProjectsStateEdited({
                 ...projectsStateEdited, 
-                [event.target.value]: ''
+                [e.target.value]: ''
             })
         }
     }
@@ -106,23 +103,23 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
     }
 
 
-    const editProjSectionHandler = event => {
+    const editProjSectionHandler = e => {
         setProjectsStateEdited({
             ...projectsStateEdited,
-            editProjSegment: [...projectsStateEdited.editProjSegment, event.target.value]
+            editProjSegment: [...projectsStateEdited.editProjSegment, e.target.value]
         })
     }
 
 
-    const handleEditChanges = event => {
-        if (event.target.dataset.nameofprojsectionforediting.includes('resources')) {
+    const handleEditChanges = e => {
+        if (e.target.dataset.nameofprojsectionforediting.includes('resources')) {
             let idx = parseInt(
-                event.target.dataset.nameofprojsectionforediting.substring(
-                    15, event.target.dataset.nameofprojsectionforediting.length
+                e.target.dataset.nameofprojsectionforediting.substring(
+                    15, e.target.dataset.nameofprojsectionforediting.length
                 )
             )
             let projResourcesEdited = projResources.split(',')
-            projResourcesEdited[idx] = event.target.value
+            projResourcesEdited[idx] = e.target.value
             // console.log(projResourcesEdited);
             setProjectsStateEdited({
                 ...projectsStateEdited, 
@@ -132,34 +129,45 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
         } else {
             setProjectsStateEdited({
                 ...projectsStateEdited, 
-                [event.target.dataset.nameofprojsectionforediting] : event.target.value
+                [e.target.dataset.nameofprojsectionforediting] : e.target.value
             })
         }
     }
 
 
-    const handleSelectedValue = event => {
-        if (!renderNewProjectField.includes(event.target.value)) {
+    const handleSelectedValue = e => {
+        if (!renderNewProjectField.includes(e.target.value)) {
             setRenderNewProjectField([
                 ...renderNewProjectField, 
-                event.target.value
+                e.target.value
             ])
         }
     }
 
 
-    const addToProjResources = () => {
-        setProjResources(projResources + ',New Project Resource')
-    }
+    const addToProjResources = () => setProjResources(projResources + ',New Project Resource')
 
 
-    const toggleSelection4DeletionHandler = () => {
-        setRenderSelection4Deletion(true)
-    }
+    const toggleSelection4DeletionHandler = () => setRenderSelection4Deletion(true)
 
 
-    const stageProj4DeletionHandler = event => {
-        setProjToBeDeleted([...projToBeDeleted, parseInt(event.target.value)])
+    const stageProj4DeletionHandler = e => {
+        /**
+        @description: 
+            []_〈onClick|`circleIcon`|input::checkbox〉:: {
+                []_IF[user clicks on `circleIcon` to check a proj] {
+                    []_projToBeDeleted.remove(e.trg.value)
+                }[]_ELSE {
+                    []_〈setProjToBeDeleted|projToBeDeleted〉
+                }
+            }
+        **/
+        if (projToBeDeleted.includes(parseInt(e.target.value))) {
+            projToBeDeleted.splice(projToBeDeleted.indexOf(parseInt(e.target.value)), 1)
+            setProjToBeDeleted([...projToBeDeleted]) 
+        } else {
+            setProjToBeDeleted([...projToBeDeleted, parseInt(e.target.value)])
+        }
     }
 
 
@@ -168,11 +176,25 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
         setProjToBeDeleted([])
     }
 
+    const deleteRecordsFromDB = async () => {
+        const deleteReq = await fetch(
+            'http://localhost:5000/projects', 
+            {
+                method: 'DELETE', 
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify(projToBeDeleted)
+            }
+        )
+        const updatedBackendData = await deleteReq.json()
+        if (updatedBackendData) {
+            updateProjectsState(updatedBackendData)
+            submittedSuccesfulDeleteReq()
+        }
+    }
     
     return ProjBtnsTemplate(
         projectsState, // props.state
         openProjModal,
-        updateProjectsState,
         projId, // comp.state 
         projName,
         projDesc,
@@ -198,7 +220,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
         addToProjResources,
         toggleSelection4DeletionHandler, 
         stageProj4DeletionHandler,
-        submittedSuccesfulDeleteReq
+        deleteRecordsFromDB
     )
 }
 
