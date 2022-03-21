@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { fetchData } from '../utils/http'
-import Tasks from '../components/tasks/Tasks'
+import Tasks from '../components/Task/Tasks'
 
 const TaskPage = () => {
     /**
@@ -20,7 +20,7 @@ const TaskPage = () => {
 
     return (
         <div className="taskPageContainer">
-            <Tasks tasksState={tasksState}/>
+            <Tasks tasksState={tasksState} setTasksState={setTasksState}/>
         </div>
     )
 }

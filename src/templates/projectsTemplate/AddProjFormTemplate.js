@@ -10,7 +10,7 @@ const item = {
 const AddProjFormTemplate = (
     openAddNewProjModal,
     closeAddNewProjModal,
-    proj_name,
+    proj_name, // comp.state
     proj_desc,
     proj_purpose,
     proj_techs,
@@ -26,7 +26,7 @@ const AddProjFormTemplate = (
     txtAreaDescClassName,
     txtAreaPurposeClassName,
     toggleAddProjResource,
-    toggleSlider,
+    toggleSlider, // comp.handlers
     submitForm,
     handleChange,
     addProjResource,

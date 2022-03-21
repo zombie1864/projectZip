@@ -4,13 +4,14 @@ from flask import send_file
 from server import app, jsonify, request, db
 from server.models import Project, Resource, Task, Img
 from werkzeug.utils import secure_filename
+from typing import Dict, Any
 
 
 @app.after_request
 def add_headers(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] =  "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-    response.headers['Access-Control-Allow-Methods']=  "POST, GET, PUT, DELETE, OPTIONS"
+    response.headers['Access-Control-Allow-Methods']=  "POST, GET, PUT, DELETE, PATCH, OPTIONS"
     return response
 
 
@@ -66,7 +67,6 @@ def projects_API():
         try: 
             db.session.commit()
         except Exception: 
-            # db.session.rollback()
             print(Exception)  
     elif request.method == 'POST': 
         if request.headers['Content-Type'] == 'application/json': 
@@ -103,20 +103,49 @@ def projects_API():
     return jsonify(data)
 
 
-@app.route('/tasks', methods=['GET', 'POST'])
+@app.route('/tasks', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def tasks_API():
-    ''' route func '''
+    ''' route func 
+    RFE: look at code and follow DRY principle 
+    '''
     incoming_data = request.json 
+    if request.method == 'PATCH':
+        proj_to_update = Project.query.get_or_404(int(incoming_data['proj_id'])) # <- the incoming data requires proj_id 
+        proj_tasks = proj_to_update.get_tasks_as_inst_obj() # <- NOTE this returns all the task associated with a proj
+        task_inst_obj = proj_tasks[int(incoming_data['task_idx'])]
+        for key, value in incoming_data['patch_update'].items():
+            setattr(task_inst_obj, key, value)
+        try:
+            db.session.commit()
+        except Exception: 
+            db.session.rollback()
+            print(Exception) 
+        projects = Project.query.all()
+        list_of_tasks = [project.get_tasks() for project in projects]
+        return jsonify(list_of_tasks)
+    elif request.method == 'DELETE':
+        try:
+            db.session.delete(Task.query.get_or_404(int(incoming_data['task_id'])))
+            db.session.commit()
+            projects = Project.query.all()
+            list_of_tasks = [project.get_tasks() for project in projects]
+            return jsonify(list_of_tasks)
+        except Exception:
+            db.session.rollback()
+            print(Exception) 
     if incoming_data:
         converted_data = Task(
-            task = incoming_data['task'], 
+            task_desc = incoming_data['task_desc'], 
             due_date = incoming_data['due_date'], 
-            prio_lvl = incoming_data['prio_lvl'], 
-            tags = incoming_data['tags'], 
+            prio = incoming_data['prio'], 
+            proj_tags = incoming_data['proj_tags'], 
             project_id = incoming_data['proj_id'] 
         )
-        db.session.add(converted_data)
-        db.session.commit()
+        try:
+            db.session.add(converted_data)
+            db.session.commit()
+        except Exception:
+            print('err')
     projects = Project.query.all()
     list_of_tasks = [project.get_tasks() for project in projects]
     return jsonify(list_of_tasks)
