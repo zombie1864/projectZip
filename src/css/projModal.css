@@ -276,8 +276,9 @@
     border-width: thin;
     border-radius: 5px;
     width: 115px;
-    height: 45px;
+    height: 40px;
     font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 
@@ -287,4 +288,43 @@
     transition: 0.6s;
     color: rgb(132, 228, 88);
     box-shadow: 0 0 5px rgb(132, 228, 88), 0 0 15px rgb(132, 228, 88), 0 0 65px rgb(132, 228, 88)
+}
+
+.projNameBtnContainer {
+    padding: 0 190px 0px 200px;
+}
+
+.addProjRESbtn {
+    cursor: pointer;
+    background-color: #151b26;
+    color: rgb(233, 139, 17);
+    border-width: thin;
+    border-radius: 5px;
+    width: 155px;
+    height: 30px;
+    font-size: 0.9em;
+}
+
+
+.addProjRESbtn:hover {
+    background-color: rgb(255, 251, 0);
+    transition: 0.6s;
+    color: rgb(233, 139, 17);
+    box-shadow: 0 0 5px rgb(255, 251, 0), 0 0 15px rgb(255, 251, 0), 0 0 65px rgb(255, 251, 0)
+}
+
+.projDropdownMenu {
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 2px 5px 2px 5px;
+}
+
+.noSrcCode {
+    background-color: #414d63;
+    color: rgb(233, 229, 17);
+    border-width: thin;
+    border-radius: 5px;
+    width: 151px;
+    height: 38px;
+    font-size: 1.0em;
 }

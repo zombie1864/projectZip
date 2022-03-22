@@ -61,7 +61,7 @@ const ProjectModalTemplate = (
         className="modal"
         initial={{scale: 0}} 
         animate={{scale: 1}}
-        style={editMode && {height:'525px'}} // editMode expans Modal 
+        style={editMode && {height:'527px'}} // editMode expans Modal 
         transition={{duration: 0.3}}>
             <div className="modalTitleLabelContainer">
                 { !renderNull.includes('proj_name') && 
@@ -78,7 +78,7 @@ const ProjectModalTemplate = (
                     }
                 </div>
                 }
-                {renderEditModeBtns(editMode, 'proj_name')}
+                <div className='projNameBtnContainer'>{renderEditModeBtns(editMode, 'proj_name')}</div>
             </div>
             <div className="modalContentContainer">
                 { (
@@ -195,6 +195,7 @@ const ProjectModalTemplate = (
                         {
                             editMode && 
                             <button
+                            className='addProjRESbtn'
                             onClick={addToProjResources}>Add Project Resource</button>
                         }
                         <ul>
@@ -212,7 +213,7 @@ const ProjectModalTemplate = (
                                     }
                                     data-nameofprojsectionforediting={`proj_resources_${idx}`}
                                     onChange={handleEditChanges}/> : 
-                                    renderNewProjectField.includes('proj_resources') ? 'New Project Resource' : resource
+                                    renderNewProjectField.includes('proj_resources') ? 'Click "Edit" to Edit New Resource' : resource
                                     } 
                                     {renderEditModeBtns(editMode, `proj_resources_${idx}`)}
                                 </li>
@@ -261,6 +262,7 @@ const ProjectModalTemplate = (
                     editMode && 
                     <div>
                         <select 
+                        className='projDropdownMenu'
                         onChange={handleSelectedValue}
                         defaultValue={'All Project Fields Are Available'}>
                             <option 
