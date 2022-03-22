@@ -145,7 +145,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
     }
 
 
-    const addToProjResources = () => setProjResources(projResources + ',New Project Resource')
+    const addToProjResources = () => setProjResources(projResources + ',Click "Edit" to Edit New Resource')
 
 
     const toggleSelection4DeletionHandler = () => setRenderSelection4Deletion(true)
