@@ -10,7 +10,7 @@ const HomePage = () => {
        <div className="homePageContainer">
             <h1 className="homeTitle">ProjectZip</h1>
             <div className="homeMsg">
-                ProjectZip is a metadata profile for your projects. Here you can plan your projects details such as resources, description, purpose, and so much more.
+                ProjectZip is a metadata profile for your projects. Here you can plan your projects details such as resources, description, purpose, and so much more. Click the 'Projects' tab to begin planning your next project.
             </div>
             <center>
                 <Carousel/>
