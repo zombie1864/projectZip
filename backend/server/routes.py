@@ -142,7 +142,10 @@ def tasks_API():
     return jsonify(list_of_tasks)
 
 '''  
-    NOTE 
-        - You are using ORM - object Relation Mapping. The ORM API provides a way to perform CRUD operations without writing raw SQL statements. This is what SQLAlchemy does 
-        - This server provides full CRUD API 
+[MISC]
+    []_You are using ORM - object Relation Mapping. The ORM API provides a way to perform CRUD operations without writing raw 
+    SQL statements. This is what SQLAlchemy does 
+    []_This server provides full CRUD API 
+    []_MVC design pattern: each route is associated with a controller. controller is the business logic that 
+    CONN(httpReq, DB)
 '''
