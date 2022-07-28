@@ -12,3 +12,41 @@
     list-style-position:inside;
     border: 1px solid black;
 }
+
+.pageTitle_tasks { 
+    position: absolute;
+    top: 28px;
+    left: 222px;
+    color: seashell;
+    font-size: 1.5em;
+}
+
+.addTaskBtn { 
+    color: white;
+    border-radius: 20px;
+    width: 85px;
+    height: 90px;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07addb, 
+        #151b26 
+    );
+    background-size: 27px;
+    border-style: solid;
+    border-width: thin;
+    margin: 0px 20px 20px 20px;
+    padding: 5px 0 0 0;
+}
+
+.addTaskBtn:hover {
+    box-shadow: 10px -10px 25px 0 rgba(64, 122, 248, 0.8), -10px 10px 25px 0 rgba(39, 200, 255, 0.8);
+    transition: transform 0.1s;
+    cursor: pointer;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07db51, 
+        #151b26 
+    );
+}

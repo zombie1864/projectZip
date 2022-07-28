@@ -43,11 +43,11 @@ const TasksTemplate = (
 
     return (
         <div>
-            <h1>Tasks</h1>
+            <h1 className='pageTitle_tasks'>Tasks - View Tasks for a Selected Project</h1>
             <div>
                 {   displayForm && selectedValue !== undefined ? 
                     <button onClick={toggleFrom}>CANCEL</button> : 
-                    <button onClick={toggleFrom}>Add Task</button>  }
+                    <button className='addTaskBtn' onClick={toggleFrom}>Add Task</button>  }
             </div>
             <div>
             <table className='taskTable'>
