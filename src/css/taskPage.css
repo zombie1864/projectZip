@@ -21,11 +21,17 @@
     font-size: 1.5em;
 }
 
+.addCancelTaskBtnContainer {
+    position: relative;
+    bottom: 300px;
+    left: 10px;
+}
+
 .addTaskBtn { 
     color: white;
     border-radius: 20px;
     width: 85px;
-    height: 90px;
+    height: 55px;
     background: linear-gradient(
         180deg,
         #151b26, 
@@ -40,8 +46,8 @@
 }
 
 .addTaskBtn:hover {
-    box-shadow: 10px -10px 25px 0 rgba(64, 122, 248, 0.8), -10px 10px 25px 0 rgba(39, 200, 255, 0.8);
-    transition: transform 0.1s;
+    box-shadow: 10px -10px 25px 0 rgba(93, 246, 51, 0.8), -10px 10px 25px 0 #07db51;
+    transition: 1.5s;
     cursor: pointer;
     background: linear-gradient(
         180deg,

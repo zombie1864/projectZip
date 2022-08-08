@@ -15,7 +15,7 @@ const ProjectsPage = () => {
    
    useEffect( () => { // ~ componentDidMount, makes http req 
        const getProjsDataFromServer = async () => {
-           const projectsDataFromServer = await fetchData('http://localhost:5000/projects')
+           const projectsDataFromServer = await fetchData('http://localhost:8000/projects')
            setProjectsState(projectsDataFromServer)
        }
        getProjsDataFromServer()

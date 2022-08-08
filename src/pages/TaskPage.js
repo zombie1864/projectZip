@@ -11,7 +11,7 @@ const TaskPage = () => {
 
     useEffect( () => { // ~ componentDidMount, makes http req 
         const getTasksDataFromServer = async () => {
-            const dataFromServer = await fetchData('http://localhost:5000/tasks')
+            const dataFromServer = await fetchData('http://localhost:8000/tasks')
             setTasksState(dataFromServer)
         }
         getTasksDataFromServer()

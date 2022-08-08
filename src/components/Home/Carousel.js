@@ -23,12 +23,12 @@ const Carousel = () => {
 
     useEffect( () => {
         const receiveData = async () => {
-            const home_proj_resources = await fetch('http://localhost:5000/', {method: 'GET'})
+            const home_proj_resources = await fetch('http://localhost:8000/', {method: 'GET'})
             const resp = await home_proj_resources.json()
             let imgResource = []
             for (const proj_resource of resp) {
                 const imgs = await fetch(
-                    `http://localhost:5000/proj_img/${proj_resource.proj_id}`, {method: 'GET'}
+                    `http://localhost:8000/proj_img/${proj_resource.proj_id}`, {method: 'GET'}
                 )
                 if (imgs.status === 204) { 
                     imgResource.push('None')

@@ -56,7 +56,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         @param {reqType} str: requestType, determines which CRUD method is performed on server's API 
         **/
         const req = await fetch(
-           'http://localhost:5000/tasks', 
+           'http://localhost:8000/tasks', 
            {
                method: reqType, 
                headers: { 'Content-type': 'application/json' }, 
