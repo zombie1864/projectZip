@@ -54,63 +54,88 @@ const TasksTemplate = (
             <tbody>
                 <tr className='taskTableRow'>
                     <td rowSpan="3" className='taskTableData'>
-                        <select defaultValue={'none'} onChange={handleSelectedValue}>
-                            <option value='none' disabled hidden>-Select A Project-</option>
-                            {   tasksState.map((taskObj, idx) => <option key={idx} value={idx}>{taskObj.proj_name}</option>)    }
-                        </select>
+                        {/* jsxElStart: drop down list */}
+                            <select defaultValue={'none'} onChange={handleSelectedValue}>
+                                <option value='none' disabled hidden>-Select A Project-</option>
+                                {   tasksState.map((taskObj, idx) => <option key={idx} value={idx}>{taskObj.proj_name}</option>)    }
+                            </select>
+                        {/* jsxElEnd: drop down list */}
                         {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                 tasksState[selectedValue]["proj_tasks"].map(
                                     (task_obj, idx) => {
-                                        return <div key={idx}>
-                                                    <li className='task_desc'>{task_obj.task_desc}</li>
+                                        return <div key={idx} className='taskLiContainer'>
+                                                    {/* jsxElStart: task desc */}
+                                                        <li className='task_desc'>➤ {task_obj.task_desc}</li>
+                                                    {/* jsxElEnd: task desc */}
                                                     {/* WARNING-value can only be str:dt */}
-                                                    <button 
-                                                    onClick={editTaskHandler}
-                                                    data-selectedvalue={selectedValue}
-                                                    data-taskidx={idx}
-                                                    >EDIT</button> 
-                                                    <button
-                                                    value={task_obj.task_id}
-                                                    onClick={deleteHandler}>DELETE</button>
-                                                    {   (taskIDXSelected === idx && taskDescDefaultValue) && 
-                                                        <textarea 
-                                                        defaultValue={taskDescDefaultValue}
-                                                        data-htmldesc='taskDesc'
-                                                        onChange={editInputHandler}/>
-                                                    }
-                                                    {   (taskIDXSelected === idx && projTagsDefaultValue) && 
-                                                        projTagsDefaultValue.map(
-                                                            (projTag, idx) => <input 
-                                                                                key={idx} 
-                                                                                data-htmldesc='tag'
-                                                                                data-tagidx={idx}
-                                                                                defaultValue={projTag}
-                                                                                onChange={editInputHandler}/>
-                                                        )
-                                                    }
-                                                    {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
-                                                    <div>
-                                                        <span>Select Prio lvl</span>
-                                                        <select 
-                                                        defaultValue={prioLvlDefaultValue} 
-                                                        onChange={editInputHandler} 
-                                                        className={taskPrioLvlClassName}
-                                                        data-htmldesc='proLvl'> 
-                                                            <option value='TOP'>Top</option>
-                                                            <option value='EOD'>End of Day</option>
-                                                            <option value='upcoming'>Upcoming</option>
-                                                        </select>
-                                                    </div>
-                                                    }
-                                                    {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
-                                                        <DatePickerComponent 
-                                                        value={dueDateDefaultValue} 
-                                                        onChange={getDateHandler}/>
-                                                    }
+                                                    <button className='taskEditBtn'
+                                                        onClick={editTaskHandler}
+                                                        data-selectedvalue={selectedValue}
+                                                        data-taskidx={idx}>EDIT
+                                                    </button> 
+                                                    <button className='taskDelBtn'
+                                                        value={task_obj.task_id}
+                                                        onClick={deleteHandler}>DELETE
+                                                    </button>
+                                                    {/* jsxElStart: textarea when editing the task desc */}
+                                                        {   (taskIDXSelected === idx && taskDescDefaultValue) && 
+                                                            <textarea 
+                                                            defaultValue={taskDescDefaultValue}
+                                                            data-htmldesc='taskDesc'
+                                                            onChange={editInputHandler}/>
+                                                        }
+                                                    {/* jsxElEnd: textarea when editing the task desc */}
+                                                    {/* jsxElStart: input when editing the proj tags */}
+                                                        {   (taskIDXSelected === idx && projTagsDefaultValue) && 
+                                                            projTagsDefaultValue.map(
+                                                                (projTag, idx) => <input 
+                                                                                    key={idx} 
+                                                                                    data-htmldesc='tag'
+                                                                                    data-tagidx={idx}
+                                                                                    defaultValue={projTag}
+                                                                                    onChange={editInputHandler}/>
+                                                            )
+                                                        }
+                                                    {/* jsxElEnd: input when editing the proj tags */}
+                                                    {/* jsxElStart: dropdown option when editing proj prioLvl */}
+                                                        {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
+                                                        <div>
+                                                            <span>Select Prio lvl</span>
+                                                            <select 
+                                                            defaultValue={prioLvlDefaultValue} 
+                                                            onChange={editInputHandler} 
+                                                            className={taskPrioLvlClassName}
+                                                            data-htmldesc='proLvl'> 
+                                                                <option value='TOP'>Top</option>
+                                                                <option value='EOD'>End of Day</option>
+                                                                <option value='upcoming'>Upcoming</option>
+                                                            </select>
+                                                        </div>
+                                                        }
+                                                    {/* jsxElEnd: dropdown option when editing proj prioLvl */}
+                                                    {/* jsxElStart: calander component when editing task due date */}
+                                                        {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
+                                                            <DatePickerComponent 
+                                                            value={dueDateDefaultValue} 
+                                                            onChange={getDateHandler}/>
+                                                        }
+                                                    {/* jsxElEnd: calander component when editing task due date */}
                                                     {   taskIDXSelected === idx && <button onClick={saveChanges}>Save Changes</button>  }
-                                                    <div>{  (taskIDXSelected === idx && projTagsDefaultValue) ? null :
-                                                    task_obj.proj_tags.split('-').map( (tag, idx) => <p key={idx}>{tag}</p>) }  </div>
-                                                </div>     })   }  </ul>   }
+                                                    {/* jsxElStart: render tags */}
+                                                    <div className="taskTagsOuterContainer">
+                                                        <p className="taskTagsLbl">Task Tags:</p>
+                                                        <div className="taskTagsContainer">
+                                                            {  (taskIDXSelected === idx && projTagsDefaultValue) ? null :
+                                                                task_obj.proj_tags.split('-').map( 
+                                                                    (tag, idx) => <p key={idx} className="taskTag">{tag}</p>
+                                                                ) 
+                                                            }  
+                                                        </div>
+                                                    </div>
+                                                    {/* jsxElStart: render tags */}
+                                                </div>     
+                                        })   }  
+                        </ul>}
                     </td>
                     <td className='taskTableData'>
                         <p>Top Priority</p>

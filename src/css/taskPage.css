@@ -1,6 +1,8 @@
-@import url("https://cdn.syncfusion.com/ej2/material.css");
 .taskTable, .taskTableRow, .taskTableData {
     border: 1px solid black; 
+    border-radius: 20px;
+    border-collapse: separate;
+    border-spacing: 3px;
 }
 
 .taskUl {
@@ -8,10 +10,6 @@
     padding: 0;
 }
 
-.task_desc {
-    list-style-position:inside;
-    border: 1px solid black;
-}
 
 .pageTitle_tasks { 
     position: absolute;
@@ -21,11 +19,6 @@
     font-size: 1.5em;
 }
 
-.addCancelTaskBtnContainer {
-    position: relative;
-    bottom: 300px;
-    left: 10px;
-}
 
 .addTaskBtn { 
     color: white;
@@ -55,4 +48,75 @@
         #07db51, 
         #151b26 
     );
+}
+
+.taskTable {
+    background-color: #1e2338;
+    color: aliceblue;
+}
+
+
+.taskLiContainer {
+    border: 0.5px solid black; 
+}
+
+
+.task_desc {
+    padding: 20px;
+    color:#07addb;
+}
+
+.taskEditBtn {
+    background-color: rgb(228, 202, 88);
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 25px;
+    font-size: 0.8em;
+    margin-left: 20px;
+}
+
+
+.taskEditBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(233, 139, 17);
+    box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
+}
+
+.taskTagsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.taskDelBtn {
+    background-color: rgb(228, 128, 88);
+    border: none;
+    border-radius: 5px;
+    width: 65px;
+    height: 25px;
+    font-size: 0.8em;
+    margin-left: 40px;
+}
+
+
+.taskDelBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(241, 48, 23);
+    box-shadow: 0 0 5px rgb(241, 48, 23), 0 0 15px rgb(241, 48, 23), 0 0 65px rgb(241, 48, 23)
+}
+
+.taskTagsOuterContainer {
+    width: 100%;
+    display: flex;
+}
+
+.taskTagsLbl {
+    width: 90px;
+    margin-left: 20px;
 }
