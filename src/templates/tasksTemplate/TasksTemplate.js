@@ -55,7 +55,7 @@ const TasksTemplate = (
                 <tr className='taskTableRow'>
                     <td rowSpan="3" className='taskTableData'>
                         {/* jsxElStart: drop down list */}
-                            <select defaultValue={'none'} onChange={handleSelectedValue}>
+                            <select className="selectDropDown" defaultValue={'none'} onChange={handleSelectedValue}>
                                 <option value='none' disabled hidden>-Select A Project-</option>
                                 {   tasksState.map((taskObj, idx) => <option key={idx} value={idx}>{taskObj.proj_name}</option>)    }
                             </select>
@@ -127,7 +127,9 @@ const TasksTemplate = (
                                                         <div className="taskTagsContainer">
                                                             {  (taskIDXSelected === idx && projTagsDefaultValue) ? null :
                                                                 task_obj.proj_tags.split('-').map( 
-                                                                    (tag, idx) => <p key={idx} className="taskTag">{tag}</p>
+                                                                    (tag, idx) => <div className="taskTagWrapper">
+                                                                                    <p key={idx} className="taskTag">{tag}</p>
+                                                                                </div>
                                                                 ) 
                                                             }  
                                                         </div>

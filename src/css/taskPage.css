@@ -55,6 +55,12 @@
     color: aliceblue;
 }
 
+.selectDropDown {
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
 
 .taskLiContainer {
     border: 0.5px solid black; 
@@ -114,9 +120,24 @@
 .taskTagsOuterContainer {
     width: 100%;
     display: flex;
+    margin: 10px 0;
 }
 
 .taskTagsLbl {
+    font-size: 0.9em;
     width: 90px;
     margin-left: 20px;
+}
+
+
+.taskTagWrapper {
+    background-color: #30a28447;
+    border-radius: 20px;
+    padding: 0 20px;
+    height: 40px;
+}
+
+.taskTag {
+    color: #04ff9f;
+    font-size: 0.8em;
 }
