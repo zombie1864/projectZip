@@ -1,4 +1,10 @@
-.taskTable, .taskTableRow, .taskTableData {
+
+.taskTableAndFormContainer {
+    display: flex;
+}
+
+
+.defaultTaskTable, .taskTable, .taskTableRow, .taskTableData {
     border: 1px solid black; 
     border-radius: 20px;
     border-collapse: separate;
@@ -50,9 +56,47 @@
     );
 }
 
+
+.cancelTaskBtn {
+    color: white;
+    border-radius: 20px;
+    width: 85px;
+    height: 55px;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07addb, 
+        #151b26 
+    );
+    background-size: 27px;
+    border-style: solid;
+    border-width: thin;
+    margin: 0px 20px 20px 20px;
+    padding: 5px 0 0 0;
+}
+
+.cancelTaskBtn:hover {
+    box-shadow: 10px -10px 25px 0 rgba(246, 194, 51, 0.8), -10px 10px 25px 0 #db4007;
+    transition: 1.5s;
+    cursor: pointer;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #db3507, 
+        #151b26 
+    );
+}
+
+
+.defaultTaskTable {
+    background-color: #1e2338;
+    color: aliceblue;
+}
+
 .taskTable {
     background-color: #1e2338;
     color: aliceblue;
+    min-width: 800px;
 }
 
 .selectDropDown {
@@ -64,6 +108,7 @@
 
 .taskLiContainer {
     border: 0.5px solid black; 
+    min-width: 465px;
 }
 
 
@@ -140,4 +185,28 @@
 .taskTag {
     color: #04ff9f;
     font-size: 0.8em;
+}
+
+.topPrioTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.eodPrioTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upcomingPrioTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.topUlTask, .eodUlTask, .upcomingUlTask {
+    margin: 5px 20px;
 }

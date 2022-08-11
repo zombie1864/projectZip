@@ -19,7 +19,8 @@ const Tasks = ({tasksState, setTasksState}) => {
     [taskDescDefaultValue, setTaskDescDefaultValue] = useState(),
     [projTagsDefaultValue, setProjTagsDefaultValue] = useState(),
     [prioLvlDefaultValue, setPrioLvlDefaultValue] = useState(), 
-    [dueDateDefaultValue, setDueDateDefaultValue] = useState()
+    [dueDateDefaultValue, setDueDateDefaultValue] = useState(),
+    [calanderValue, setCalanderValue] = useState(new Date())
 
 
     const submitTaskForm = e => {
@@ -35,7 +36,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         if(validationResult.length === 0) {
             taskToSubmit = {
                 "task_desc": taskDesc,
-                "due_date": date.slice(1,11),
+                "due_date": JSON.stringify(calanderValue).slice(1,11),
                 "prio": prioLvl, 
                 "proj_tags": tags.join('-'),
                 "proj_id": selectedValue + 1
@@ -98,6 +99,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         /**
         @description: setState for Date:str 
         **/
+       console.log(e.target.value);
         setDate(JSON.stringify(e.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
         if (missingFields.includes('date')) {
             let idx = missingFields.indexOf('date')
@@ -179,6 +181,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         projTagsDefaultValue,
         prioLvlDefaultValue,
         dueDateDefaultValue,
+        calanderValue,
         handleSelectedValue, // comp.handlers
         toggleFrom,
         getDateHandler,
@@ -190,7 +193,8 @@ const Tasks = ({tasksState, setTasksState}) => {
         editTaskHandler,
         editInputHandler,
         saveChanges,
-        deleteHandler
+        deleteHandler,
+        setCalanderValue
     )
 }
 
