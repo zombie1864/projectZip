@@ -23,7 +23,6 @@ const TasksTemplate = (
     calanderValue,
     handleSelectedValue, // comp.handlers 
     toggleFrom,
-    getDateHandler,
     submitTaskForm,
     handleInputTagChange,
     handleInputTag,
@@ -126,8 +125,8 @@ const TasksTemplate = (
                                                         {/* jsxElStart: calander component when editing task due date */}
                                                             {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
                                                                 <Calendar 
-                                                                value={dueDateDefaultValue} 
-                                                                onChange={getDateHandler}/>
+                                                                defaultValue={dueDateDefaultValue}
+                                                                onChange={setCalanderValue}/>
                                                             }
                                                         {/* jsxElEnd: calander component when editing task due date */}
                                                         {   taskIDXSelected === idx && <button onClick={saveChanges}>Save Changes</button>  }
