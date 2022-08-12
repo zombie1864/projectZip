@@ -87,7 +87,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
         delete dataToSubmit.inputChanges
         const patchData = async (dataToSubmit) => {
             const patchReq = await fetch(
-                'http://localhost:5000/projects', 
+                'http://localhost:8000/projects', 
                 {
                     method: 'PUT', 
                     headers: {'Content-type': 'application/json'}, 
@@ -178,7 +178,7 @@ const ProjBtns = ({openProjModal, projectsState, toggleModal, updateProjectsStat
 
     const deleteRecordsFromDB = async () => {
         const deleteReq = await fetch(
-            'http://localhost:5000/projects', 
+            'http://localhost:8000/projects', 
             {
                 method: 'DELETE', 
                 headers: {'Content-type': 'application/json'},

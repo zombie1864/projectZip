@@ -2,3 +2,4 @@ Flask==2.0.1
 Flask-SQLAlchemy==2.5.1
 # create a venv then activate
 # pip install -r requirements.txt to install dependencies 
+# to run backend in TRML run `python3 app.py`

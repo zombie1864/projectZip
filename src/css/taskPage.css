@@ -1,6 +1,14 @@
-@import url("https://cdn.syncfusion.com/ej2/material.css");
-.taskTable, .taskTableRow, .taskTableData {
+
+.taskTableAndFormContainer {
+    display: flex;
+}
+
+
+.defaultTaskTable, .taskTable, .taskTableRow, .taskTableData {
     border: 1px solid black; 
+    border-radius: 20px;
+    border-collapse: separate;
+    border-spacing: 3px;
 }
 
 .taskUl {
@@ -8,7 +16,296 @@
     padding: 0;
 }
 
+
+.pageTitle_tasks { 
+    position: absolute;
+    top: 28px;
+    left: 222px;
+    color: seashell;
+    font-size: 1.5em;
+}
+
+
+.addTaskBtn { 
+    color: white;
+    border-radius: 20px;
+    width: 85px;
+    height: 55px;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07addb, 
+        #151b26 
+    );
+    background-size: 27px;
+    border-style: solid;
+    border-width: thin;
+    margin: 0px 20px 20px 20px;
+    padding: 5px 0 0 0;
+}
+
+.addTaskBtn:hover {
+    box-shadow: 10px -10px 25px 0 rgba(93, 246, 51, 0.8), -10px 10px 25px 0 #07db51;
+    transition: 1.5s;
+    cursor: pointer;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07db51, 
+        #151b26 
+    );
+}
+
+
+.cancelTaskBtn {
+    color: white;
+    border-radius: 20px;
+    width: 85px;
+    height: 55px;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #07addb, 
+        #151b26 
+    );
+    background-size: 27px;
+    border-style: solid;
+    border-width: thin;
+    margin: 0px 20px 20px 20px;
+    padding: 5px 0 0 0;
+}
+
+.cancelTaskBtn:hover {
+    box-shadow: 10px -10px 25px 0 rgba(246, 194, 51, 0.8), -10px 10px 25px 0 #db4007;
+    transition: 1.5s;
+    cursor: pointer;
+    background: linear-gradient(
+        180deg,
+        #151b26, 
+        #db3507, 
+        #151b26 
+    );
+}
+
+
+.defaultTaskTable {
+    background-color: #1e2338;
+    color: aliceblue;
+}
+
+.taskTable {
+    background-color: #1e2338;
+    color: aliceblue;
+    min-width: 800px;
+}
+
+.selectDropDown {
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+.taskLiContainer {
+    border: 0.5px solid black; 
+    min-width: 465px;
+}
+
+
 .task_desc {
-    list-style-position:inside;
-    border: 1px solid black;
+    padding: 20px;
+    color:#07addb;
+}
+
+.taskEditBtn {
+    background-color: rgb(228, 202, 88);
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 25px;
+    font-size: 0.8em;
+    margin-left: 20px;
+}
+
+
+.taskEditBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(233, 139, 17);
+    box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
+}
+
+.taskTagsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.taskDelBtn {
+    background-color: rgb(228, 128, 88);
+    border: none;
+    border-radius: 5px;
+    width: 65px;
+    height: 25px;
+    font-size: 0.8em;
+    margin-left: 40px;
+}
+
+
+.taskDelBtn:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(241, 48, 23);
+    box-shadow: 0 0 5px rgb(241, 48, 23), 0 0 15px rgb(241, 48, 23), 0 0 65px rgb(241, 48, 23)
+}
+
+.taskTagsOuterContainer {
+    width: 100%;
+    display: flex;
+    margin: 10px 0;
+}
+
+.taskTagsLbl {
+    font-size: 0.9em;
+    width: 90px;
+    margin-left: 20px;
+}
+
+
+.taskTagWrapper {
+    background-color: #30a28447;
+    border-radius: 20px;
+    padding: 0 20px;
+    height: 40px;
+}
+
+.taskTag {
+    color: #04ff9f;
+    font-size: 0.8em;
+}
+
+.topPrioTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.eodPrioTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upcomingPrioTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.topUlTask, .eodUlTask, .upcomingUlTask {
+    margin: 5px 20px;
+}
+
+.addTaskForm {
+    background-color: #43ae8e;
+    border-radius: 20px;
+    height: 600px;
+}
+
+#newTaskDescTextArea {
+    height: 125px;
+    width: 320px;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.addTaskCalendar {
+    margin: 15px;
+    border-radius: 20px;
+}
+
+.inputTagsContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.tagsAndTaskPrioLvlContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.submitTaskBtnContainer span{
+    position: relative;
+    width: 125px;
+    height: 35px;
+    margin: 20px 0 20px 125px;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.submitTaskBtnContainer span::before,
+.submitTaskBtnContainer span::after{
+    content: '';
+    position: absolute;
+}
+
+.submitTaskBtnContainer span:nth-child(1)::before,
+.submitTaskBtnContainer span:nth-child(1)::after{
+    background: linear-gradient(45deg, #3498db, #0e1538, #ffc312);
+}
+
+.submitTaskBtnContainer span:hover::before {
+    border-radius: 10px;
+    inset: -3px;
+}
+.submitTaskBtnContainer span:hover::after {
+    inset: -6px;
+    filter: blur(10px);
+}
+
+.submitTaskBtnContainer span input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background-color: #151b26;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.0em;
+    color: wheat;
+    border: 1px solid #0e31db;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+.submitTaskBtn:hover {
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+0% {
+    box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.5);
+    /* transform: scale(1); */
+}
+70% {
+    box-shadow: 0 0 0 1.5em rgba(30, 144, 255, 0.0);
+    /* transform: scale(1.1); */
+}
+    100% {
+    box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.0);
+    /* transform: scale(1); */
+}
 }

@@ -6,7 +6,6 @@ import { useState } from 'react'
 const Tasks = ({tasksState, setTasksState}) => {
     const [selectedValue, setSelectedValue] = useState(), 
     [displayForm, setDisplayForm] = useState(false),
-    [date, setDate] = useState(),
     [inputTag, setInputTag] = useState(''), 
     [tags, setTags] = useState([]),
     [prioLvl, setPrioLvl] = useState(),
@@ -19,7 +18,8 @@ const Tasks = ({tasksState, setTasksState}) => {
     [taskDescDefaultValue, setTaskDescDefaultValue] = useState(),
     [projTagsDefaultValue, setProjTagsDefaultValue] = useState(),
     [prioLvlDefaultValue, setPrioLvlDefaultValue] = useState(), 
-    [dueDateDefaultValue, setDueDateDefaultValue] = useState()
+    [dueDateDefaultValue, setDueDateDefaultValue] = useState(),
+    [calanderValue, setCalanderValue] = useState(new Date())
 
 
     const submitTaskForm = e => {
@@ -31,11 +31,11 @@ const Tasks = ({tasksState, setTasksState}) => {
         **/
         e.preventDefault()
         let taskToSubmit = null
-        let validationResult = validateTaskFormFields(taskDesc, date, prioLvl) //=>Arr[str]
+        let validationResult = validateTaskFormFields(taskDesc, calanderValue, prioLvl) //=>Arr[str]
         if(validationResult.length === 0) {
             taskToSubmit = {
                 "task_desc": taskDesc,
-                "due_date": date.slice(1,11),
+                "due_date": JSON.stringify(calanderValue).slice(1,11),
                 "prio": prioLvl, 
                 "proj_tags": tags.join('-'),
                 "proj_id": selectedValue + 1
@@ -56,7 +56,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         @param {reqType} str: requestType, determines which CRUD method is performed on server's API 
         **/
         const req = await fetch(
-           'http://localhost:5000/tasks', 
+           'http://localhost:8000/tasks', 
            {
                method: reqType, 
                headers: { 'Content-type': 'application/json' }, 
@@ -68,7 +68,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         if (reqType === 'PATCH') setTaskIDXSelected()
         setTasksState(resp) 
         setTaskDesc()
-        setDate()
+        setCalanderValue(new Date())
         setPrioLvl()
         setTags([])
     }
@@ -94,19 +94,6 @@ const Tasks = ({tasksState, setTasksState}) => {
 
     const handleTaskDesc = e => setTaskDesc(e.target.value)
 
-    const getDateHandler = e => {
-        /**
-        @description: setState for Date:str 
-        **/
-        setDate(JSON.stringify(e.target.value)) // gets date ex: "2022-01-28T05:00:00.000Z"
-        if (missingFields.includes('date')) {
-            let idx = missingFields.indexOf('date')
-            missingFields.splice(idx, 1)
-            setMissingFields([])
-        }
-    }
-
-
     const toggleFrom = () => setDisplayForm(!displayForm)
 
 
@@ -123,7 +110,11 @@ const Tasks = ({tasksState, setTasksState}) => {
         setTaskDescDefaultValue(tasksState[idx].proj_tasks[taskIdx].task_desc)
         setProjTagsDefaultValue(tasksState[idx].proj_tasks[taskIdx].proj_tags.split('-')) //=> projTagsDefaultValue:List[str]
         setPrioLvlDefaultValue(tasksState[idx].proj_tasks[taskIdx].prio_lvl.lvl) //=> str
-        setDueDateDefaultValue(new Date(tasksState[idx].proj_tasks[taskIdx].prio_lvl.due_date))
+        let yearMonthDayArrValues = tasksState[idx].proj_tasks[taskIdx].prio_lvl.due_date.split('-')
+        let yearValue = yearMonthDayArrValues.shift()
+        yearMonthDayArrValues.push(yearValue)
+        let monthDayYearformat = yearMonthDayArrValues.join('-')
+        setDueDateDefaultValue(new Date(monthDayYearformat))
     }
 
 
@@ -158,7 +149,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         }
         if (taskDesc) editedObj.patch_update["task_desc"] = taskDesc
         if (tags.length > 0) editedObj.patch_update["proj_tags"] = tags.join('-')
-        if (date) editedObj.patch_update["due_date"] = date.slice(1,11)
+        if (calanderValue) editedObj.patch_update["due_date"] = JSON.stringify(calanderValue).slice(1,11)
         if (prioLvl) editedObj.patch_update["prio"] = prioLvl
         if (Object.keys(editedObj.patch_update).length > 0 ) httpTransmit(editedObj, 'PATCH')
     }
@@ -179,9 +170,9 @@ const Tasks = ({tasksState, setTasksState}) => {
         projTagsDefaultValue,
         prioLvlDefaultValue,
         dueDateDefaultValue,
+        calanderValue,
         handleSelectedValue, // comp.handlers
         toggleFrom,
-        getDateHandler,
         submitTaskForm,
         handleInputTagChange,
         handleInputTag,
@@ -190,7 +181,8 @@ const Tasks = ({tasksState, setTasksState}) => {
         editTaskHandler,
         editInputHandler,
         saveChanges,
-        deleteHandler
+        deleteHandler,
+        setCalanderValue
     )
 }
 

@@ -33,7 +33,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
 
     const addData = async (dataToSubmit) => {
         const req = await fetch(
-            'http://localhost:5000/projects', 
+            'http://localhost:8000/projects', 
             {
                 method: 'POST', 
                 headers: { 'Content-type': 'application/json' }, 
@@ -44,7 +44,7 @@ const AddProjForm = ({openAddNewProjModal, closeAddNewProjModal, updateProjectsS
             const data = new FormData()
             data.append('proj_img', proj_img, proj_img.name)
             await fetch(
-                'http://localhost:5000/projects', 
+                'http://localhost:8000/projects', 
                 {
                     method: 'POST', 
                     body: data

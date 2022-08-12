@@ -107,8 +107,8 @@ def projects_API():
 def tasks_API():
     ''' route func 
     '''
-    incoming_data = request.json 
     if request.method == 'PATCH':
+        incoming_data = request.json
         task_inst_obj = Project.query.get_or_404(int(incoming_data['proj_id'])).get_tasks_as_inst_obj()[int(incoming_data['task_idx'])]
         for key, value in incoming_data['patch_update'].items():
             setattr(task_inst_obj, key, value)
@@ -119,12 +119,14 @@ def tasks_API():
             print(Exception) 
     elif request.method == 'DELETE':
         try:
+            incoming_data = request.json
             db.session.delete(Task.query.get_or_404(int(incoming_data['task_id'])))
             db.session.commit()
         except Exception:
             db.session.rollback()
             print(Exception) 
     elif request.method == 'POST':
+        incoming_data = request.json
         converted_data = Task(
             task_desc = incoming_data['task_desc'], 
             due_date = incoming_data['due_date'], 
