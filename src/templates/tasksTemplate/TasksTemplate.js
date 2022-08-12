@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../css/taskPage.css'
-// import { CalendarComponent, DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 
@@ -175,12 +174,15 @@ const TasksTemplate = (
                     <span>Please Select a Project</span> :
                     !displayForm ? null :
                     <form className='addTaskForm' onSubmit={submitTaskForm}>
-                        <textarea 
-                        className={txtAreaTaskDescClassName} // NOTE if invalid input this changes CSS to indicate to user missing field
-                        value={taskDesc}
-                        onChange={handleTaskDesc}/>
+                        {/* jsxElStart: textarea to input desc of new task */}
+                            <textarea 
+                            id="newTaskDescTextArea"
+                            className={txtAreaTaskDescClassName} // NOTE if invalid input this changes CSS to indicate to user missing field
+                            value={taskDesc}
+                            onChange={handleTaskDesc}/>
+                        {/* jsxElEnd: textarea to input desc of new task */}
                         {   (missingFields.includes('date')) ? <span>Please add a date</span> : null    }
-                        <Calendar onChange={setCalanderValue} value={calanderValue}/>
+                        <Calendar className="addTaskCalendar" onChange={setCalanderValue} value={calanderValue}/>
                         {   tags.length > 0 && tags }
                         <input
                         type="text"
