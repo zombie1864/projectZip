@@ -218,7 +218,7 @@
 }
 
 #newTaskDescTextArea {
-    height: 150px;
+    height: 125px;
     width: 320px;
     border-radius: 5px;
     padding: 20px;
@@ -226,12 +226,24 @@
 
 .addTaskCalendar {
     margin: 15px;
+    border-radius: 20px;
+}
+
+.inputTagsContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.tagsAndTaskPrioLvlContainer {
+    display: flex;
+    justify-content: space-around;
 }
 
 .submitTaskBtnContainer span{
     position: relative;
-    width: 130px;
-    height: 40px;
+    width: 125px;
+    height: 35px;
     margin: 20px;
     display: inline-block;
     background-color: #fff;

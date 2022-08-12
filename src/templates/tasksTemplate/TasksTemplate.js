@@ -49,6 +49,7 @@ const TasksTemplate = (
             {/* jsxElStart: page title */}
                 <h1 className='pageTitle_tasks'>Tasks - View Tasks for a Selected Project</h1>
             {/* jsxElEnd: page title */}
+
             {/* jsxElStart: add task/ cancel task button */}
                 <div className='addCancelTaskBtnContainer'>
                     {   displayForm && selectedValue !== undefined ? 
@@ -56,6 +57,7 @@ const TasksTemplate = (
                         <button className='addTaskBtn' onClick={toggleFrom}>Add Task</button>  }
                 </div>
             {/* jsxElEnd: add task/ cancel task button */}
+
             <div className="taskTableAndFormContainer">
             <table className={  selectedValue === undefined ? 'defaultTaskTable' : 'taskTable'  }>
             <tbody>
@@ -68,6 +70,7 @@ const TasksTemplate = (
                                     {   tasksState.map((taskObj, idx) => <option key={idx} value={idx}>{taskObj.proj_name}</option>)    }
                                 </select>
                             {/* jsxElEnd: drop down list */}
+
                             {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                     tasksState[selectedValue]["proj_tasks"].map(
                                         (task_obj, idx) => {
@@ -75,6 +78,7 @@ const TasksTemplate = (
                                                         {/* jsxElStart: task desc */}
                                                             <li className='task_desc'>➤ {task_obj.task_desc}</li>
                                                         {/* jsxElEnd: task desc */}
+
                                                         {/* WARNING-value can only be str:dt */}
                                                         <button className='taskEditBtn'
                                                             onClick={editTaskHandler}
@@ -93,6 +97,7 @@ const TasksTemplate = (
                                                                 onChange={editInputHandler}/>
                                                             }
                                                         {/* jsxElEnd: textarea when editing the task desc */}
+
                                                         {/* jsxElStart: input when editing the proj tags */}
                                                             {   (taskIDXSelected === idx && projTagsDefaultValue) && 
                                                                 projTagsDefaultValue.map(
@@ -105,6 +110,7 @@ const TasksTemplate = (
                                                                 )
                                                             }
                                                         {/* jsxElEnd: input when editing the proj tags */}
+
                                                         {/* jsxElStart: dropdown option when editing proj prioLvl */}
                                                             {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
                                                             <div>
@@ -121,6 +127,7 @@ const TasksTemplate = (
                                                             </div>
                                                             }
                                                         {/* jsxElEnd: dropdown option when editing proj prioLvl */}
+
                                                         {/* jsxElStart: calander component when editing task due date */}
                                                             {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
                                                                 <Calendar 
@@ -128,6 +135,7 @@ const TasksTemplate = (
                                                                 onChange={setCalanderValue}/>
                                                             }
                                                         {/* jsxElEnd: calander component when editing task due date */}
+
                                                         {   taskIDXSelected === idx && <button onClick={saveChanges}>Save Changes</button>  }
                                                         {/* jsxElStart: render tags */}
                                                             <div className="taskTagsOuterContainer">
@@ -143,11 +151,13 @@ const TasksTemplate = (
                                                                 </div>
                                                             </div>
                                                         {/* jsxElEnd: render tags */}
+
                                                     </div>     
                                             })   }  
                             </ul>}
                         </td>
                     {/* jsxElEnd: first column on UI */}
+
                         {/* jsxElStart: second column on UI */}
                             <td className='taskTableData'>
                                 <div className="topPrioTitle"><p>Top Priority</p></div>
@@ -167,6 +177,7 @@ const TasksTemplate = (
                                 </td>
                             </tr>
                         {/* jsxElEnd: second column on UI */}
+
             </tbody>
             </table>
             {/* jsxElStart: form displayed when adding new task / errMsg when user attempts to add task without selecting a project */}
@@ -181,23 +192,42 @@ const TasksTemplate = (
                             value={taskDesc}
                             onChange={handleTaskDesc}/>
                         {/* jsxElEnd: textarea to input desc of new task */}
+
                         {   (missingFields.includes('date')) ? <span>Please add a date</span> : null    }
-                        <Calendar className="addTaskCalendar" onChange={setCalanderValue} value={calanderValue}/>
-                        {   tags.length > 0 && tags }
-                        <input
-                        type="text"
-                        value={inputTag}
-                        className='taskTagInput'
-                        onChange={handleInputTagChange}
-                        onKeyDown={handleInputTag}
-                        placeholder="Add a tag"/>
-                        <select defaultValue='none' onChange={handleSelectedPrio} className={taskPrioLvlClassName}> 
-                            <option value='none' disabled hidden>-Select Priority Level-</option>
-                            <option value='TOP'>Top</option>
-                            <option value='EOD'>End of Day</option>
-                            <option value='upcoming'>Upcoming</option>
-                        </select>
-                        <div className='submitTaskBtnContainer'>
+
+                        {/* jsxElStart: 3rd party calendar component */}
+                            <Calendar className="addTaskCalendar" onChange={setCalanderValue} value={calanderValue}/>
+                        {/* jsxElEnd: 3rd party calendar component */}
+
+                        {/* jsxElStart: conditional rendering of inputted tags by the usr */}
+                            <div className="inputTagsContainer">
+                                {   tags.length > 0 && tags.map(
+                                        (tag, idx) => <span className="inputtedTag" key={idx}>{tag}</span>
+                                    ) }
+                            </div>
+                        {/* jsxElEnd: conditional rendering of inputted tags by the usr */}
+                        
+                        {/* jsxElStart: input field for tags and dropdown selection container */}
+                            <div className="tagsAndTaskPrioLvlContainer">
+                                <input
+                                type="text"
+                                value={inputTag}
+                                className='taskTagInput'
+                                onChange={handleInputTagChange}
+                                onKeyDown={handleInputTag}
+                                placeholder="Add a tag"/>
+
+                                <select defaultValue='none' onChange={handleSelectedPrio} className={taskPrioLvlClassName}> 
+                                    <option value='none' disabled hidden>-Select Priority Level-</option>
+                                    <option value='TOP'>Top</option>
+                                    <option value='EOD'>End of Day</option>
+                                    <option value='upcoming'>Upcoming</option>
+                                </select>
+                            </div>
+                        {/* jsxElEnd: input field for tags and dropdown selection container */}
+                        
+                        {/* jsxElStart: submit button which sends to backend new task */}
+                            <div className='submitTaskBtnContainer'>
                                 <span>
                                     <input 
                                     className='submitTaskBtn' 
@@ -205,6 +235,8 @@ const TasksTemplate = (
                                     value="Submit Task"/>
                                 </span>
                             </div>
+                        {/* jsxElEnd: submit button which sends to backend new task */}
+
                     </form> 
                 }
             {/* jsxElEnd: form displayed when adding new task / errMsg when user attempts to add task without selecting a project */}
