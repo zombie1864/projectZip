@@ -97,6 +97,8 @@
     background-color: #1e2338;
     color: aliceblue;
     min-width: 800px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .selectDropDown {
@@ -308,4 +310,23 @@
     box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.0);
     /* transform: scale(1); */
 }
+}
+
+.saveTaskEdit {
+    background-color: rgb(132, 228, 88);
+    border-width: thin;
+    border-radius: 5px;
+    width: 115px;
+    height: 40px;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+
+.saveTaskEdit:hover {
+    cursor: pointer;
+    background-color: #151b26;
+    transition: 0.6s;
+    color: rgb(132, 228, 88);
+    box-shadow: 0 0 5px rgb(132, 228, 88), 0 0 15px rgb(132, 228, 88), 0 0 65px rgb(132, 228, 88)
 }
