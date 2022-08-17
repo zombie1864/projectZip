@@ -17,7 +17,7 @@ const TasksTemplate = (
     taskIDXSelected,
     taskDescDefaultValue,
     projTagsDefaultValue,
-    prioLvlDefaultValue,
+    taskTagsDefaultValue,
     dueDateDefaultValue,
     calanderValue,
     handleSelectedValue, // comp.handlers 
@@ -76,7 +76,7 @@ const TasksTemplate = (
                                 {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                         tasksState[selectedValue]["proj_tasks"].map(
                                             (task_obj, idx) => {
-                                                return <div key={idx} className='taskLiContainer'>
+                                                return <div id={taskIDXSelected === idx ? 'editTask' : undefined} key={idx} className='taskLiContainer'>
                                                             {/* jsxElStart: task desc */}
                                                                 <li className='task_desc'>➤ {task_obj.task_desc}</li>
                                                             {/* jsxElEnd: task desc */}
@@ -86,7 +86,7 @@ const TasksTemplate = (
                                                                 <button className='taskEditBtn'
                                                                     onClick={editTaskHandler}
                                                                     data-selectedvalue={selectedValue}
-                                                                    data-taskidx={idx}>EDIT
+                                                                    data-taskidx={idx}>{taskIDXSelected === idx ? 'CANCEL' : 'EDIT'}
                                                                 </button> 
                                                             {/* jsxElEnd: Edit button to edit task fields */}
 
@@ -108,7 +108,7 @@ const TasksTemplate = (
                                                             {/* jsxElEnd: textarea when editing the task desc */}
 
                                                             {/* jsxElStart: calander component when editing task due date */}
-                                                                {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
+                                                                {   (taskIDXSelected === idx && taskTagsDefaultValue) && 
                                                                         <Calendar 
                                                                         className="editCalendarValue"
                                                                         defaultValue={dueDateDefaultValue}
@@ -116,26 +116,33 @@ const TasksTemplate = (
                                                                 }
                                                             {/* jsxElEnd: calander component when editing task due date */}
 
-                                                            {/* jsxElStart: input when editing the proj tags */}
-                                                                {   (taskIDXSelected === idx && projTagsDefaultValue) && 
-                                                                    projTagsDefaultValue.map(
-                                                                        (projTag, idx) => <input 
-                                                                                            className="editTaskTag"
-                                                                                            key={idx} 
-                                                                                            data-htmldesc='tag'
-                                                                                            data-tagidx={idx}
-                                                                                            defaultValue={projTag}
-                                                                                            onChange={editInputHandler}/>
-                                                                    )
-                                                                }
-                                                            {/* jsxElEnd: input when editing the proj tags */}
+                                                            {/* jsxElStart: input tags when editing the task tags */}
+                                                            {   (taskIDXSelected === idx && projTagsDefaultValue) && 
+                                                                <div className="editTagsDivContainer">
+                                                                <span className="taskTagsEditLbl">Task Tags: </span>
+                                                                    <div className="editTagsContainer">
+                                                                        {   projTagsDefaultValue.map(
+                                                                                (projTag, idx) => <input 
+                                                                                                    className="editTaskTag"
+                                                                                                    key={idx} 
+                                                                                                    data-htmldesc='tag'
+                                                                                                    data-tagidx={idx}
+                                                                                                    defaultValue={projTag}
+                                                                                                    onChange={editInputHandler}/>
+                                                                                )
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            {/* jsxElEnd: input tags when editing the task tags */}
 
                                                             {/* jsxElStart: dropdown option when editing proj prioLvl */}
-                                                                {   (taskIDXSelected === idx && prioLvlDefaultValue) && 
-                                                                <div>
-                                                                    <span>Select Prio lvl</span>
+                                                                {   (taskIDXSelected === idx && taskTagsDefaultValue) && 
+                                                                <div className="editPrioLvlContainer">
+                                                                    <span className="editPrioLvlLbl">Select Priority Level: </span>
                                                                     <select 
-                                                                        defaultValue={prioLvlDefaultValue} 
+                                                                        id="editPrioLvlSelectTag"
+                                                                        defaultValue={taskTagsDefaultValue} 
                                                                         onChange={editInputHandler} 
                                                                         className={taskPrioLvlClassName}
                                                                         data-htmldesc='proLvl'> 
@@ -155,9 +162,11 @@ const TasksTemplate = (
                                                             {/* jsxElStart: render tags and handles editing logic */}
                                                                 { task_obj.proj_tags.length > 0 ?
                                                                     <div className="taskTagsOuterContainer">
-                                                                        <p className="taskTagsLbl">Task Tags:</p>
+                                                                        {   taskIDXSelected === idx ? null : 
+                                                                            <p className="taskTagsLbl">Task Tags:</p>
+                                                                        }
                                                                         <div className="taskTagsContainer">
-                                                                            {  (taskIDXSelected === idx && projTagsDefaultValue) ? null :
+                                                                            {  (taskIDXSelected === idx && projTagsDefaultValue) ? null : // when usr clicks to edit, hides the rendered tags
                                                                                 task_obj.proj_tags.split('-').map( 
                                                                                     (tag, idx) => <div key={idx} className="taskTagWrapper">
                                                                                                     <p className="taskTag">{tag}</p>
