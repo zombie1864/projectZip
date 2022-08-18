@@ -79,7 +79,8 @@ const TasksTemplate = (
                                 {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                         tasksState[selectedValue]["proj_tasks"].map(
                                             (task_obj, idx) => {
-                                                return <div id={    taskIDXSelected === idx ? 'editTask' : undefined    } 
+                                                let editMode = taskIDXSelected === idx 
+                                                return <div id={    editMode ? 'editTask' : undefined    } 
                                                             key={idx} 
                                                             className='taskLiContainer'>
                                                             {/* jsxElStart: task desc */}
@@ -89,11 +90,11 @@ const TasksTemplate = (
                                                             {/* jsxElStart: Edit button to edit task fields */}
                                                             {/* WARNING-value can only be str:dt */}
                                                                 <button className={
-                                                                        taskIDXSelected === idx ? 'cancelTaskEditBtn' : 'taskEditBtn'   
+                                                                        editMode ? 'cancelTaskEditBtn' : 'taskEditBtn'   
                                                                     }
                                                                     onClick={editTaskHandler}
                                                                     data-selectedvalue={selectedValue}
-                                                                    data-taskidx={idx}>{taskIDXSelected === idx ? 'CANCEL' : 'EDIT'}
+                                                                    data-taskidx={idx}>{    editMode ? 'CANCEL' : 'EDIT'    }
                                                                 </button> 
                                                             {/* jsxElEnd: Edit button to edit task fields */}
 
@@ -105,7 +106,7 @@ const TasksTemplate = (
                                                             {/* jsxElEnd: Delete button to delete task on UI and backend */}
 
                                                             {/* jsxElStart: textarea when editing the task desc */}
-                                                                {   (taskIDXSelected === idx && taskDescDefaultValue) && 
+                                                                {   (editMode && taskDescDefaultValue) && 
                                                                     <textarea 
                                                                     className="editTaskDescTxtArea"
                                                                     defaultValue={taskDescDefaultValue}
@@ -115,7 +116,7 @@ const TasksTemplate = (
                                                             {/* jsxElEnd: textarea when editing the task desc */}
 
                                                             {/* jsxElStart: calander component when editing task due date */}
-                                                                {   (taskIDXSelected === idx && taskTagsDefaultValue) && 
+                                                                {   (editMode && taskTagsDefaultValue) && 
                                                                         <Calendar 
                                                                         className="editCalendarValue"
                                                                         defaultValue={dueDateDefaultValue}
@@ -124,7 +125,7 @@ const TasksTemplate = (
                                                             {/* jsxElEnd: calander component when editing task due date */}
 
                                                             {/* jsxElStart: input tags when editing the task tags */}
-                                                            {   (taskIDXSelected === idx && projTagsDefaultValue) && 
+                                                            {   (editMode && projTagsDefaultValue) && 
                                                                 <div className="editTagsDivContainer">
                                                                 <span className="taskTagsEditLbl">Task Tags: </span>
                                                                     <div className="editTagsContainer">
@@ -144,7 +145,7 @@ const TasksTemplate = (
                                                             {/* jsxElEnd: input tags when editing the task tags */}
 
                                                             {/* jsxElStart: dropdown option when editing proj prioLvl */}
-                                                                {   (taskIDXSelected === idx && taskTagsDefaultValue) && 
+                                                                {   (editMode && taskTagsDefaultValue) && 
                                                                 <div className="editPrioLvlContainer">
                                                                     <span className="editPrioLvlLbl">Select Priority Level: </span>
                                                                     <select 
@@ -162,18 +163,18 @@ const TasksTemplate = (
                                                             {/* jsxElEnd: dropdown option when editing proj prioLvl */}
 
                                                             {/* jsxElStart: save button that saves changes made to a task via edit */}
-                                                                {   taskIDXSelected === idx && 
+                                                                {   editMode && 
                                                                     <button className="saveTaskEdit" onClick={saveChanges}>Save Changes</button>  }
                                                             {/* jsxElEnd: save button that saves changes made to a task via edit */}
                                                             
                                                             {/* jsxElStart: render tags and handles editing logic */}
                                                                 { task_obj.proj_tags.length > 0 ?
                                                                     <div className="taskTagsOuterContainer">
-                                                                        {   taskIDXSelected === idx ? null : 
+                                                                        {   editMode ? null : 
                                                                             <p className="taskTagsLbl">Task Tags:</p>
                                                                         }
                                                                         <div className="taskTagsContainer">
-                                                                            {  (taskIDXSelected === idx && projTagsDefaultValue) ? null : // when usr clicks to edit, hides the rendered tags
+                                                                            {  (editMode && projTagsDefaultValue) ? null : // when usr clicks to edit, hides the rendered tags
                                                                                 task_obj.proj_tags.split('-').map( 
                                                                                     (tag, idx) => <div key={idx} className="taskTagWrapper">
                                                                                                     <p className="taskTag">{tag}</p>
@@ -193,23 +194,29 @@ const TasksTemplate = (
                         {/* jsxElEnd: first column on UI */}
 
                             {/* jsxElStart: second column on UI */}
-                                <td className='taskTableData'>
-                                    <div className="topPrioTitle"><p>Top Priority</p></div>
-                                    {   selectedValue !== undefined && <ul className="topUlTask">{  taskPrioLvl('TOP')  }</ul>  }
-                                </td>
+                                {   selectedValue !== undefined &&
+                                    <td className='taskTableData'>
+                                        <div className="topPrioTitle"><p>Top Priority</p></div>
+                                        <ul className="topUlTask">{  taskPrioLvl('TOP')  }</ul> 
+                                    </td>
+                                }
                     </tr>
-                                <tr className='taskTableRow'>
-                                    <td className='taskTableData'>
-                                        <div className="eodPrioTitle"><p>End of Day (E.O.D)</p></div>
-                                        {   selectedValue !== undefined && <ul className="eodUlTask">{  taskPrioLvl('EOD') }</ul>  }
-                                    </td>
-                                </tr>
-                                <tr className='taskTableRow'>
-                                    <td className='taskTableData'>
-                                        <div className="upcomingPrioTitle"><p>Upcoming</p></div>
-                                        {   selectedValue !== undefined && <ul className="upcomingUlTask">{  taskPrioLvl('upcoming')  }</ul>  }
-                                    </td>
-                                </tr>
+                                {   selectedValue !== undefined && 
+                                    <tr className='taskTableRow'>
+                                        <td className='taskTableData'>
+                                            <div className="eodPrioTitle"><p>End of Day (E.O.D)</p></div>
+                                            <ul className="eodUlTask">{  taskPrioLvl('EOD') }</ul> 
+                                        </td>
+                                    </tr>
+                                }
+                                {   selectedValue !== undefined && 
+                                    <tr className='taskTableRow'>
+                                        <td className='taskTableData'>
+                                            <div className="upcomingPrioTitle"><p>Upcoming</p></div>
+                                            <ul className="upcomingUlTask">{  taskPrioLvl('upcoming')  }</ul> 
+                                        </td>
+                                    </tr>
+                                }
                             {/* jsxElEnd: second column on UI */}
 
                 </tbody>
