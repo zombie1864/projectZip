@@ -13,10 +13,11 @@ const Tasks = ({tasksState, setTasksState}) => {
     [txtAreaTaskDescClassName, setTxtAreaTaskDescClassName] = useState('taskDescTextArea'),
     [taskPrioLvlClassName, setTaskPrioLvlClassName] = useState('taskPrioLvl'),
     [missingFields, setMissingFields] = useState([]),
+    [editTask, setEditTask] = useState(false), 
     [taskIDToEdit, setTaskIDToEdit] = useState(),
     [taskIDXSelected, setTaskIDXSelected] = useState(),
     [taskDescDefaultValue, setTaskDescDefaultValue] = useState(),
-    [projTagsDefaultValue, setProjTagsDefaultValue] = useState(),
+    [taskTagsDefaultValue, setTaskTagsDefaultValue] = useState(),
     [prioLvlDefaultValue, setPrioLvlDefaultValue] = useState(), 
     [dueDateDefaultValue, setDueDateDefaultValue] = useState(),
     [calanderValue, setCalanderValue] = useState(new Date())
@@ -105,16 +106,24 @@ const Tasks = ({tasksState, setTasksState}) => {
         **/
         let idx = parseInt(e.target.dataset.selectedvalue)
         let taskIdx = parseInt(e.target.dataset.taskidx)
-        setTaskIDToEdit(taskIdx)
-        setTaskIDXSelected(taskIdx)
-        setTaskDescDefaultValue(tasksState[idx].proj_tasks[taskIdx].task_desc)
-        setProjTagsDefaultValue(tasksState[idx].proj_tasks[taskIdx].proj_tags.split('-')) //=> projTagsDefaultValue:List[str]
-        setPrioLvlDefaultValue(tasksState[idx].proj_tasks[taskIdx].prio_lvl.lvl) //=> str
-        let yearMonthDayArrValues = tasksState[idx].proj_tasks[taskIdx].prio_lvl.due_date.split('-')
-        let yearValue = yearMonthDayArrValues.shift()
-        yearMonthDayArrValues.push(yearValue)
-        let monthDayYearformat = yearMonthDayArrValues.join('-')
-        setDueDateDefaultValue(new Date(monthDayYearformat))
+        if (taskIDXSelected !== taskIdx) { // either on initial onClick 'edit' or onClick on another task 
+            setTaskIDToEdit(taskIdx)
+            setTaskIDXSelected(taskIdx)
+            setTaskDescDefaultValue(tasksState[idx].proj_tasks[taskIdx].task_desc)
+            setTaskTagsDefaultValue(tasksState[idx].proj_tasks[taskIdx].proj_tags.split('-')) //=> projTagsDefaultValue:List[str]
+            setPrioLvlDefaultValue(tasksState[idx].proj_tasks[taskIdx].prio_lvl.lvl) //=> str
+            let yearMonthDayArrValues = tasksState[idx].proj_tasks[taskIdx].prio_lvl.due_date.split('-')
+            let yearValue = yearMonthDayArrValues.shift()
+            yearMonthDayArrValues.push(yearValue)
+            let monthDayYearformat = yearMonthDayArrValues.join('-')
+            setDueDateDefaultValue(new Date(monthDayYearformat))
+            if (!editTask) setEditTask(!editTask)
+        } else { // onClick again on the same taskIdx 
+            if (editTask) {
+                setEditTask(!editTask)
+                setTaskIDXSelected()
+            }
+        }
     }
 
 
@@ -125,8 +134,8 @@ const Tasks = ({tasksState, setTasksState}) => {
         if (e.target.dataset.htmldesc === 'taskDesc') {
             setTaskDesc(e.target.value)
         } else if (e.target.dataset.htmldesc === 'tag') {
-            projTagsDefaultValue.splice(parseInt(e.target.dataset.tagidx), 1, e.target.value)
-            setTags(projTagsDefaultValue) //List[str]
+            taskTagsDefaultValue.splice(parseInt(e.target.dataset.tagidx), 1, e.target.value)
+            setTags(taskTagsDefaultValue) //List[str]
         } else if (e.target.dataset.htmldesc === 'proLvl') {
             setPrioLvl(e.target.value)
         } 
@@ -167,7 +176,7 @@ const Tasks = ({tasksState, setTasksState}) => {
         taskPrioLvlClassName,
         taskIDXSelected,
         taskDescDefaultValue,
-        projTagsDefaultValue,
+        taskTagsDefaultValue,
         prioLvlDefaultValue,
         dueDateDefaultValue,
         calanderValue,

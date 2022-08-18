@@ -3,6 +3,10 @@
     display: flex;
 }
 
+.taskCompContainer {
+    position: absolute;
+    top: 85px;
+}
 
 .defaultTaskTable, .taskTable, .taskTableRow, .taskTableData {
     border: 1px solid black; 
@@ -30,7 +34,7 @@
     color: white;
     border-radius: 20px;
     width: 85px;
-    height: 55px;
+    height: 45px;
     background: linear-gradient(
         180deg,
         #151b26, 
@@ -61,7 +65,7 @@
     color: white;
     border-radius: 20px;
     width: 85px;
-    height: 55px;
+    height: 45px;
     background: linear-gradient(
         180deg,
         #151b26, 
@@ -93,10 +97,25 @@
     color: aliceblue;
 }
 
+/* cssStart: color indicator when user is editing a task */
+    #editTask {
+        background: linear-gradient(
+            180deg,
+            #151b26, 
+            #dbbb07, 
+            #151b26 
+        );
+        border-radius: 20px;
+        width: 400px;
+    }
+/* cssEnd: color indicator when user is editing a task */
+
 .taskTable {
     background-color: #1e2338;
     color: aliceblue;
     min-width: 800px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .selectDropDown {
@@ -117,24 +136,47 @@
     color:#07addb;
 }
 
-.taskEditBtn {
-    background-color: rgb(228, 202, 88);
-    border: none;
-    border-radius: 5px;
-    width: 40px;
-    height: 25px;
-    font-size: 0.8em;
-    margin-left: 20px;
-}
+/* cssStart: default look for 'EDIT' */
+    .taskEditBtn {
+        background-color: rgb(228, 202, 88);
+        border: none;
+        border-radius: 5px;
+        width: 40px;
+        height: 25px;
+        font-size: 0.8em;
+        margin-left: 20px;
+    }
 
 
-.taskEditBtn:hover {
-    cursor: pointer;
-    background-color: #151b26;
-    transition: 0.6s;
-    color: rgb(233, 139, 17);
-    box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
-}
+    .taskEditBtn:hover {
+        cursor: pointer;
+        background-color: #151b26;
+        transition: 0.6s;
+        color: rgb(233, 139, 17);
+        box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
+    }
+/* cssEnd: default look for 'EDIT' */
+
+/* cssStart: cancel 'EDIT' */
+    .cancelTaskEditBtn {
+        background-color: rgb(186, 88, 228);
+        border: none;
+        border-radius: 5px;
+        width: 70px;
+        height: 25px;
+        font-size: 0.8em;
+        margin-left: 20px;
+    }
+
+
+    .cancelTaskEditBtn:hover {
+        cursor: pointer;
+        background-color: #151b26;
+        transition: 0.6s;
+        color: rgb(186, 88, 228);
+        box-shadow: 0 0 5px rgb(186, 88, 228), 0 0 15px rgb(186, 88, 228), 0 0 65px rgb(186, 88, 228);
+    }
+/* cssEnd: cancel 'EDIT' */
 
 .taskTagsContainer {
     width: 100%;
@@ -240,72 +282,161 @@
     justify-content: space-around;
 }
 
-.submitTaskBtnContainer span{
-    position: relative;
-    width: 125px;
-    height: 35px;
-    margin: 20px 0 20px 125px;
-    display: inline-block;
-    background-color: #fff;
-    border-radius: 10px;
-}
+/* cssStart: related to the adding new task form */
 
-.submitTaskBtnContainer span::before,
-.submitTaskBtnContainer span::after{
-    content: '';
-    position: absolute;
-}
+    .submitTaskBtnContainer span{
+        position: relative;
+        width: 125px;
+        height: 35px;
+        margin: 20px 0 20px 125px;
+        display: inline-block;
+        background-color: #fff;
+        border-radius: 10px;
+    }
 
-.submitTaskBtnContainer span:nth-child(1)::before,
-.submitTaskBtnContainer span:nth-child(1)::after{
-    background: linear-gradient(45deg, #3498db, #0e1538, #ffc312);
-}
+    .submitTaskBtnContainer span::before,
+    .submitTaskBtnContainer span::after{
+        content: '';
+        position: absolute;
+    }
 
-.submitTaskBtnContainer span:hover::before {
-    border-radius: 10px;
-    inset: -3px;
-}
-.submitTaskBtnContainer span:hover::after {
-    inset: -6px;
-    filter: blur(10px);
-}
+    .submitTaskBtnContainer span:nth-child(1)::before,
+    .submitTaskBtnContainer span:nth-child(1)::after{
+        background: linear-gradient(45deg, #3498db, #0e1538, #ffc312);
+    }
 
-.submitTaskBtnContainer span input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-    background-color: #151b26;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.0em;
-    color: wheat;
-    border: 1px solid #0e31db;
-    overflow: hidden;
-    cursor: pointer;
-    border-radius: 10px;
-}
+    .submitTaskBtnContainer span:hover::before {
+        border-radius: 10px;
+        inset: -3px;
+    }
+    .submitTaskBtnContainer span:hover::after {
+        inset: -6px;
+        filter: blur(10px);
+    }
+
+    .submitTaskBtnContainer span input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        background-color: #151b26;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.0em;
+        color: wheat;
+        border: 1px solid #0e31db;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .submitTaskBtn:hover {
+        animation: pulse 1s;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.5);
+        }
+        70% {
+            box-shadow: 0 0 0 1.5em rgba(30, 144, 255, 0.0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.0);
+        }
+    }
+/* cssEnd: related to the adding new task form */
 
 
-.submitTaskBtn:hover {
-    animation: pulse 1s;
-}
+/* cssStart: Styling related to editing a task */
+    .editTaskDescTxtArea {
+        width: 400px;
+    }
+/* cssEnd: Styling related to editing a task */
 
-@keyframes pulse {
-0% {
-    box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.5);
-    /* transform: scale(1); */
-}
-70% {
-    box-shadow: 0 0 0 1.5em rgba(30, 144, 255, 0.0);
-    /* transform: scale(1.1); */
-}
-    100% {
-    box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.0);
-    /* transform: scale(1); */
-}
-}
+
+/* cssStart: calander when editing a task */
+    .editCalendarValue {
+        position: relative;
+        left: 40px;
+        border-radius: 20px;
+        margin: 10px 0;
+    }
+/* cssEnd: calander when editing a task */
+
+
+/* cssStart: outer edit tags container */
+    .editTagsDivContainer {
+        display: flex;
+        position: relative;
+        left: 50px;
+    }
+    /* cssStart: 'Task Tags' lbl during editing */
+        .taskTagsEditLbl {
+            width: 200px;
+        }
+    /* cssEnd: 'Task Tags' lbl during editing */
+/* cssStart: outer edit tags container */
+
+
+/* cssStart: editing task tags */
+    .editTagsContainer {
+        position: relative;
+        left: -25px;
+        display: flex;
+        justify-content: space-between;
+        width: 160px;
+        overflow-x: auto;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+/* cssEnd: editing task tags */
+
+/* cssStart: editing prio lvl container */
+    .editPrioLvlContainer {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 20px;
+    }
+    /* cssStart: 'select priority level' lbl */
+        .editPrioLvlLbl {
+            position: relative;
+            right: 5px;
+        }
+    /* cssEnd: 'select priority level' lbl */
+    /* cssStart: selection tag */
+        #editPrioLvlSelectTag {
+            position: relative;
+            right: 30px;
+        }
+    /* cssEnd: selection tag */
+/* cssEnd: editing prio lvl container */
+
+
+/* cssStart: Related to the save btn when editing a task */
+    .saveTaskEdit {
+        position: relative;
+        left: 165px;
+        background-color: rgb(132, 228, 88);
+        border-width: thin;
+        border-radius: 5px;
+        width: 115px;
+        height: 40px;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+
+    .saveTaskEdit:hover {
+        cursor: pointer;
+        background-color: #151b26;
+        transition: 0.6s;
+        color: rgb(132, 228, 88);
+        box-shadow: 0 0 5px rgb(132, 228, 88), 0 0 15px rgb(132, 228, 88), 0 0 65px rgb(132, 228, 88)
+    }
+/* cssEnd: Related to the save btn when editing a task */
+
