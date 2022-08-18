@@ -132,24 +132,47 @@
     color:#07addb;
 }
 
-.taskEditBtn {
-    background-color: rgb(228, 202, 88);
-    border: none;
-    border-radius: 5px;
-    width: 40px;
-    height: 25px;
-    font-size: 0.8em;
-    margin-left: 20px;
-}
+/* cssStart: default look for 'EDIT' */
+    .taskEditBtn {
+        background-color: rgb(228, 202, 88);
+        border: none;
+        border-radius: 5px;
+        width: 40px;
+        height: 25px;
+        font-size: 0.8em;
+        margin-left: 20px;
+    }
 
 
-.taskEditBtn:hover {
-    cursor: pointer;
-    background-color: #151b26;
-    transition: 0.6s;
-    color: rgb(233, 139, 17);
-    box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
-}
+    .taskEditBtn:hover {
+        cursor: pointer;
+        background-color: #151b26;
+        transition: 0.6s;
+        color: rgb(233, 139, 17);
+        box-shadow: 0 0 5px rgb(233, 139, 17), 0 0 15px rgb(233, 139, 17), 0 0 65px rgb(233, 139, 17)
+    }
+/* cssEnd: default look for 'EDIT' */
+
+/* cssStart: cancel 'EDIT' */
+    .cancelTaskEditBtn {
+        background-color: rgb(186, 88, 228);
+        border: none;
+        border-radius: 5px;
+        width: 70px;
+        height: 25px;
+        font-size: 0.8em;
+        margin-left: 20px;
+    }
+
+
+    .cancelTaskEditBtn:hover {
+        cursor: pointer;
+        background-color: #151b26;
+        transition: 0.6s;
+        color: rgb(186, 88, 228);
+        box-shadow: 0 0 5px rgb(186, 88, 228), 0 0 15px rgb(186, 88, 228), 0 0 65px rgb(186, 88, 228);
+    }
+/* cssEnd: cancel 'EDIT' */
 
 .taskTagsContainer {
     width: 100%;

@@ -76,14 +76,18 @@ const TasksTemplate = (
                                 {   selectedValue !== undefined && <ul className='taskUl'>{ 
                                         tasksState[selectedValue]["proj_tasks"].map(
                                             (task_obj, idx) => {
-                                                return <div id={taskIDXSelected === idx ? 'editTask' : undefined} key={idx} className='taskLiContainer'>
+                                                return <div id={    taskIDXSelected === idx ? 'editTask' : undefined    } 
+                                                            key={idx} 
+                                                            className='taskLiContainer'>
                                                             {/* jsxElStart: task desc */}
                                                                 <li className='task_desc'>➤ {task_obj.task_desc}</li>
                                                             {/* jsxElEnd: task desc */}
 
                                                             {/* jsxElStart: Edit button to edit task fields */}
                                                             {/* WARNING-value can only be str:dt */}
-                                                                <button className='taskEditBtn'
+                                                                <button className={
+                                                                        taskIDXSelected === idx ? 'cancelTaskEditBtn' : 'taskEditBtn'   
+                                                                    }
                                                                     onClick={editTaskHandler}
                                                                     data-selectedvalue={selectedValue}
                                                                     data-taskidx={idx}>{taskIDXSelected === idx ? 'CANCEL' : 'EDIT'}
