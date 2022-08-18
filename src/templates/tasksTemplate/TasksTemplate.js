@@ -51,6 +51,9 @@ const TasksTemplate = (
                 <h1 className='pageTitle_tasks'>Tasks - View Tasks for a Selected Project</h1>
             {/* jsxElEnd: page title */}
 
+            {/* jsxElStart: task comp which includes add task btn, task table, and task form */}
+            <div className="taskCompContainer">
+
             {/* jsxElStart: add task/ cancel task button */}
                 <div className='addCancelTaskBtnContainer'>
                     {   displayForm && selectedValue !== undefined ? 
@@ -273,6 +276,9 @@ const TasksTemplate = (
                 {/* jsxElEnd: form displayed when adding new task / errMsg when user attempts to add task without selecting a project */}
                 </div>
             {/* jsxElEnd: renders table and form */}
+
+            </div>
+            {/* jsxElEnd: task comp which includes add task btn, task table, and task form */}
         </div>
     )
 }
